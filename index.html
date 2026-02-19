@@ -3,155 +3,238 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kamiljö AB | VVS Ludvika</title>
+    <title>Kamiljö AB | Rörmokare Ludvika</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: '#3a7d6e',
-                        secondary: '#005b7f',
-                        destructive: '#cc3333',
-                    }
-                }
-            }
-        }
-    </script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #f0f2f5; } /* Tło jak na FB */
-        .fb-container { max-width: 1050px; margin: 0 auto; }
-        .mpror-border { border: 1px solid #dddfe2; border-radius: 8px; }
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+        .hero-gradient { background: linear-gradient(135deg, #f0fdf4 0%, #ffffff 100%); }
+        .service-card { transition: all 0.3s ease; border: 1px solid #e2e8f0; }
+        .service-card:hover { transform: translateY(-5px); border-color: #22c55e; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1); }
+        #map { height: 400px; border-radius: 1rem; z-index: 1; }
+        .lang-active { background-color: #166534; color: white; }
     </style>
 </head>
-<body class="antialiased text-slate-900">
+<body class="antialiased">
 
-    <header class="bg-white border-b sticky top-0 z-50 shadow-sm">
-        <div class="fb-container px-4 h-16 flex items-center justify-between">
-            <div class="flex items-center gap-4">
-                <img src="logo.jpeg" alt="Logo" class="h-10 w-auto" onerror="this.src='public/logo.jpeg'">
-                <div class="flex border rounded overflow-hidden text-[10px] font-bold">
-                    <button class="bg-primary text-white px-2 py-1 uppercase">SV</button>
-                    <button class="bg-slate-100 px-2 py-1 text-slate-400 uppercase tracking-tighter italic">EN</button>
-                </div>
+    <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-100">
+        <div class="max-w-7xl mx-auto px-4 h-20 flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <img src="logo.jpeg" alt="Kamiljö AB" class="h-10 sm:h-12" onerror="this.src='public/logo.jpeg'">
+                <span class="font-bold text-xl uppercase tracking-tighter">Kamiljö <span class="text-green-600">AB</span></span>
             </div>
+            
+            <div class="hidden lg:flex gap-8 font-semibold text-sm uppercase">
+                <a href="#hem" class="hover:text-green-600 transition" data-sv="Hem" data-en="Home">Hem</a>
+                <a href="#tjanster" class="hover:text-green-600 transition" data-sv="Tjänster" data-en="Services">Tjänster</a>
+                <a href="#om-oss" class="hover:text-green-600 transition" data-sv="Om oss" data-en="About">Om oss</a>
+                <a href="#kontakt" class="hover:text-green-600 transition" data-sv="Kontakt" data-en="Contact">Kontakt</a>
+            </div>
+
             <div class="flex items-center gap-4">
-                <a href="tel:+46762124124" class="bg-destructive text-white px-4 py-2 rounded-lg font-black text-xs uppercase animate-pulse shadow-lg">
+                <div class="flex border rounded-lg overflow-hidden text-[10px] font-bold">
+                    <button id="svBtn" onclick="setLanguage('sv')" class="lang-active px-3 py-1 uppercase">SV</button>
+                    <button id="enBtn" onclick="setLanguage('en')" class="bg-slate-100 px-3 py-1 text-slate-400 uppercase">EN</button>
+                </div>
+                <a href="tel:+46762124124" class="bg-red-600 text-white px-4 py-2 rounded-lg font-black text-sm uppercase animate-pulse shadow-lg">
                     Jour 24/7
                 </a>
-                <span class="text-[10px] font-bold text-slate-400 uppercase cursor-pointer">Admin</span>
+            </div>
+        </div>
+    </nav>
+
+    <header id="hem" class="hero-gradient py-16 md:py-24 px-4 overflow-hidden">
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
+            <div class="space-y-6">
+                <div class="inline-flex items-center gap-2 bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-bold">
+                    ⭐⭐⭐⭐⭐ 5.0 Google Reviews
+                </div>
+                <h1 class="text-4xl md:text-6xl font-extrabold text-slate-900 leading-tight tracking-tighter" data-sv="Din professionella rörmokare i Ludvika – Kamiljö AB" data-en="Your Professional Plumber in Ludvika – Kamiljö AB">
+                    Din professionella rörmokare i Ludvika – Kamiljö AB
+                </h1>
+                <p class="text-2xl font-bold text-green-700" data-sv="Gratis offert inom 24h" data-en="Free quote within 24h">Gratis offert inom 24h</p>
+                <div class="flex flex-col sm:flex-row gap-4 pt-4">
+                    <a href="#kontakt" class="bg-green-700 text-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-green-800 transition shadow-xl text-center" data-sv="Begär offert" data-en="Request quote">Begär offert</a>
+                    <a href="tel:+46762124124" class="bg-white border-2 border-slate-200 text-slate-700 px-8 py-4 rounded-xl font-bold text-lg hover:bg-slate-50 transition text-center shadow-sm">+46 762 124 124</a>
+                </div>
+            </div>
+            <div class="flex justify-center lg:justify-end">
+                <div class="bg-white p-6 rounded-[2.5rem] shadow-2xl border border-slate-50 max-w-[320px] text-center">
+                    <img src="qr-maps.png" alt="QR" class="w-full rounded-2xl mb-4" onerror="this.src='public/qr-maps.png'">
+                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest italic" data-sv="Skanna för kontakt & karta" data-en="Scan for contact & map">Skanna för kontakt & karta</p>
+                </div>
             </div>
         </div>
     </header>
 
-    <main class="fb-container px-4 py-6">
-        <div class="flex flex-col lg:flex-row gap-4">
+    <section id="tjanster" class="py-20 px-4 bg-white">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-extrabold text-center mb-4 uppercase italic tracking-tighter" data-sv="Våra Tjänster" data-en="Our Services">Våra Tjänster</h2>
+            <p class="text-center text-slate-400 font-medium mb-16 italic" data-sv="Professionella VVS-tjänster i Ludvika och hela Dalarna!" data-en="Professional VVS services in Ludvika and all of Dalarna!">Professionella VVS-tjänster i Ludvika och hela Dalarna!</p>
             
-            <div class="w-full lg:w-[70%] space-y-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="service-card p-8 bg-slate-50 rounded-3xl">
+                    <div class="text-3xl mb-4">🔧</div>
+                    <h3 class="text-xl font-bold mb-3 uppercase" data-sv="Installation & Inkoppling" data-en="Installation & Connection">Installation & Inkoppling</h3>
+                    <p class="text-sm text-slate-500 font-medium leading-relaxed" data-sv="Installation av vask, tvättställ, dusch, toalett och blandare." data-en="Installation of sinks, washbasins, showers, toilets and faucets.">Installation av vask, tvättställ, dusch, toalett och blandare.</p>
+                </div>
+                <div class="service-card p-8 bg-slate-50 rounded-3xl">
+                    <div class="text-3xl mb-4">🔥</div>
+                    <h3 class="text-xl font-bold mb-3 uppercase" data-sv="Värme & Pannor" data-en="Heating & Boilers">Värme & Pannor</h3>
+                    <p class="text-sm text-slate-500 font-medium leading-relaxed" data-sv="Installation och byte av pannor, radiatorer (element) och värmesystem." data-en="Installation and replacement of boilers, radiators (elements) and heating systems.">Installation och byte av pannor, radiatorer (element) och värmesystem.</p>
+                </div>
+                <div class="service-card p-8 bg-slate-50 rounded-3xl">
+                    <div class="text-3xl mb-4">♻️</div>
+                    <h3 class="text-xl font-bold mb-3 uppercase" data-sv="Komponentbyte" data-en="Component Replacement">Komponentbyte</h3>
+                    <p class="text-sm text-slate-500 font-medium leading-relaxed" data-sv="Byte av varmvattenberedare, värmeväxlare och hydroforer." data-en="Replacement of water heaters, heat exchangers and hydrophones.">Byte av varmvattenberedare, värmeväxlare och hydroforer.</p>
+                </div>
+                <div class="service-card p-8 bg-slate-50 rounded-3xl">
+                    <div class="text-3xl mb-4">🏠</div>
+                    <h3 class="text-xl font-bold mb-3 uppercase" data-sv="Nyinstallation" data-en="New Installation">Nyinstallation</h3>
+                    <p class="text-sm text-slate-500 font-medium leading-relaxed" data-sv="Kompletta VVS-installationer för nya maskiner i hemmet." data-en="Complete VVS installations for new machines in the home.">Kompletta VVS-installationer för nya maskiner i hemmet.</p>
+                </div>
+                <div class="service-card p-8 bg-slate-100 rounded-3xl border-green-200">
+                    <div class="text-3xl mb-4">💡</div>
+                    <h3 class="text-xl font-bold mb-3 uppercase" data-sv="Innovativa lösningar" data-en="Innovative Solutions">Innovativa lösningar</h3>
+                    <p class="text-sm text-slate-500 font-bold italic leading-relaxed text-green-800" data-sv="Egenutvecklade innovativa lösningar för husuppvärmning baserade på kavitations­teknik." data-en="Self-developed innovative solutions for home heating based on cavitation technology.">Egenutvecklade innovativa lösningar dla husuppvärmning baserade na kavitations­teknik.</p>
+                    <span class="inline-block mt-4 text-[10px] font-black bg-green-200 text-green-800 px-2 py-1 rounded">USP</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 px-4 bg-slate-50">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-3xl font-bold text-center mb-12 uppercase italic" data-sv="Vårt Serviceområde (Ludvika + 30km)" data-en="Our Service Area (Ludvika + 30km)">Vårt Serviceområde (Ludvika + 30km)</h2>
+            <div id="map"></div>
+        </div>
+    </section>
+
+    <section id="kontakt" class="py-20 px-4">
+        <div class="max-w-3xl mx-auto">
+            <div class="bg-white p-8 md:p-12 rounded-[2.5rem] shadow-2xl border border-slate-100">
+                <h2 class="text-4xl font-black text-center mb-8 uppercase italic" data-sv="Kontakta oss" data-en="Contact us">Kontakta oss</h2>
                 
-                <div class="bg-white p-6 mpror-border shadow-sm">
-                    <div class="flex items-center gap-2 mb-1">
-                        <h1 class="text-2xl font-black tracking-tighter">Kamiljö AB</h1>
-                        <span class="text-emerald-600 font-bold text-[10px] uppercase">● Aktiv</span>
+                <form id="vvsForm" class="space-y-5">
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <input type="text" name="name" required class="w-full p-4 bg-slate-50 rounded-xl outline-none focus:ring-2 focus:ring-green-500" data-placeholder-sv="Namn *" data-placeholder-en="Name *" placeholder="Namn *">
+                        <input type="tel" name="phone" required class="w-full p-4 bg-slate-50 rounded-xl outline-none focus:ring-2 focus:ring-green-500" data-placeholder-sv="Telefon *" data-placeholder-en="Phone *" placeholder="Telefon *">
                     </div>
-                    <p class="text-slate-400 text-xs font-bold uppercase tracking-widest">Org.nr: 559572-5366 | Aktiebolag</p>
+                    <input type="email" name="email" required class="w-full p-4 bg-slate-50 rounded-xl outline-none focus:ring-2 focus:ring-green-500" data-placeholder-sv="E-post *" data-placeholder-en="Email *" placeholder="E-post *">
                     
-                    <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4 border-t pt-4">
-                        <div>
-                            <p class="text-[9px] font-black text-slate-400 uppercase mb-1 leading-none">Kontakt</p>
-                            <p class="font-bold text-sm text-primary">+46 762 124 124</p>
-                            <p class="font-bold text-sm text-primary underline">info@kamiljo.se</p>
-                        </div>
-                        <div>
-                            <p class="text-[9px] font-black text-slate-400 uppercase mb-1 leading-none text-right">Adress</p>
-                            <p class="font-bold text-sm text-slate-700 text-right uppercase italic leading-tight">Skogsrundan 8A, Ludvika</p>
-                        </div>
-                    </div>
-                </div>
+                    <select name="service" required class="w-full p-4 bg-slate-50 rounded-xl outline-none focus:ring-2 focus:ring-green-500 font-bold">
+                        <option value="" disabled selected data-sv="Välj tjänst" data-en="Select service">Välj tjänst</option>
+                        <option value="Installation">Installation</option>
+                        <option value="Varme">Värme & Pannor</option>
+                        <option value="Service">Komponentbyte</option>
+                        <option value="Innovation">Innovativa lösningar</option>
+                    </select>
 
-                <div class="bg-white mpror-border shadow-sm overflow-hidden">
-                    <div class="bg-slate-50 px-6 py-3 border-b font-black text-[11px] uppercase tracking-widest text-slate-600 italic">
-                        Skapa Serviceorder
-                    </div>
-                    <form id="order-form" onsubmit="sendOrder(event)" class="p-6 space-y-4">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <input type="text" id="name" placeholder="Full Name *" required class="w-full p-3 bg-slate-50 rounded border-none font-bold text-sm outline-primary">
-                            <input type="text" id="address" placeholder="Address *" required class="w-full p-3 bg-slate-50 rounded border-none font-bold text-sm outline-primary">
-                        </div>
-                        <textarea id="desc" placeholder="Problem Description *" rows="5" required class="w-full p-3 bg-slate-50 rounded border-none font-bold text-sm outline-primary resize-none"></textarea>
-                        <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
-                            <input type="file" multiple class="text-[10px] font-bold text-slate-400 uppercase tracking-widest italic">
-                            <div class="flex gap-4">
-                                <label class="text-[10px] font-black uppercase"><input type="radio" name="prio" checked> Normal</label>
-                                <label class="text-[10px] font-black uppercase text-destructive italic"><input type="radio" name="prio"> Urgent</label>
-                            </div>
-                        </div>
-                        <button type="submit" class="w-full bg-primary text-white py-4 rounded-lg font-black uppercase tracking-[0.2em] shadow-lg hover:brightness-110 transition">
-                            Send to Service
-                        </button>
-                    </form>
+                    <input type="datetime-local" name="date" required class="w-full p-4 bg-slate-50 rounded-xl outline-none focus:ring-2 focus:ring-green-500 font-bold">
 
-                    <div id="success" class="hidden p-10 text-center space-y-6">
-                        <div class="text-primary text-6xl">✓</div>
-                        <h2 class="text-2xl font-black uppercase italic tracking-tighter">Order Skickad</h2>
-                        <div class="bg-slate-50 p-4 rounded text-left border space-y-2">
-                            <p class="text-[9px] font-black text-slate-400 uppercase">Order ID</p>
-                            <code id="oid" class="text-xs font-bold text-secondary break-all"></code>
-                        </div>
-                        <div id="qr" class="flex justify-center border p-2 bg-white inline-block mx-auto rounded"></div>
-                        <p class="text-[10px] font-bold text-slate-400 uppercase underline cursor-pointer" onclick="location.reload()">Back</p>
+                    <textarea name="message" required class="w-full p-4 bg-slate-50 rounded-xl h-32 outline-none focus:ring-2 focus:ring-green-500" data-placeholder-sv="Beskriv ditt ärende..." data-placeholder-en="Describe your case..." placeholder="Beskriv ditt ärende..."></textarea>
+                    
+                    <div class="p-4 border-2 border-dashed border-slate-200 rounded-xl bg-slate-50">
+                        <p class="text-xs font-bold text-slate-400 mb-2 uppercase tracking-widest" data-sv="Bifoga bilder (Max 500MB/fil)" data-en="Attach images (Max 500MB/file)">Bifoga bilder (Max 500MB/fil)</p>
+                        <input type="file" name="files" id="fileInput" multiple class="w-full text-sm font-bold text-slate-500">
                     </div>
-                </div>
-            </div>
 
-            <div class="w-full lg:w-[30%] space-y-4">
-                <div class="bg-white p-6 mpror-border shadow-sm text-center">
-                    <p class="text-yellow-500 font-black italic text-xl mb-1 tracking-tighter italic">5.0 ⭐⭐⭐⭐⭐</p>
-                    <a href="https://maps.app.goo.gl/NA3Dq7cnDUCExVsy9" class="text-[9px] font-black uppercase text-primary underline tracking-widest leading-none">Visa Google Reviews</a>
-                </div>
-
-                <div class="bg-slate-900 p-6 rounded-lg text-white border-b-4 border-primary shadow-xl">
-                    <p class="text-[9px] font-black opacity-30 uppercase tracking-[0.3em] mb-4">Cloudflare</p>
-                    <div class="flex justify-between items-center border-b border-white/10 pb-4">
-                        <div><p class="text-2xl font-black italic tracking-tighter leading-none">100%</p><p class="text-[8px] uppercase font-bold opacity-30 leading-none mt-1">Uptime</p></div>
-                        <div class="text-emerald-400 text-[10px] font-black animate-pulse italic uppercase tracking-widest leading-none text-right">Online</div>
-                    </div>
-                </div>
-                
-                <a href="tel:+46762124124" class="block w-full bg-white border p-4 rounded font-black text-[10px] uppercase flex justify-between items-center hover:border-primary transition leading-none shadow-sm italic">
-                    <span>Ring Support</span>
-                    <span class="text-primary">→</span>
-                </a>
+                    <button type="submit" id="submitBtn" class="w-full bg-green-700 text-white py-5 rounded-xl font-black text-xl uppercase shadow-lg shadow-green-100 hover:scale-[1.02] transition">
+                        <span data-sv="Skicka förfrågan" data-en="Send Request">Skicka förfrågan</span>
+                    </button>
+                </form>
             </div>
         </div>
-    </main>
+    </section>
 
-    <footer class="bg-secondary text-white py-12 px-4 mt-20">
-        <div class="fb-container flex flex-col md:flex-row justify-between items-center gap-8">
-            <div class="text-center md:text-left">
-                <p class="font-black text-2xl uppercase tracking-tighter italic leading-none mb-1">Kamiljö AB</p>
-                <p class="text-[9px] opacity-40 uppercase tracking-widest font-bold italic leading-none">Professional VVS Service Ludvika Area</p>
-            </div>
-            <div class="text-[9px] font-black uppercase tracking-[0.3em] opacity-40 text-center md:text-right">
-                © 2026 Kamiljö AB ● All rights reserved
-            </div>
-        </div>
+    <footer class="py-12 bg-slate-900 text-white text-center px-4">
+        <img src="logo.jpeg" alt="Logo" class="h-10 mx-auto mb-6 bg-white p-1 rounded" onerror="this.src='public/logo.jpeg'">
+        <p class="font-bold text-lg mb-2 uppercase tracking-tighter italic">Kamiljö AB</p>
+        <p class="text-xs opacity-50 uppercase tracking-widest mb-6">Org.nr: 559572-5366 | Skogsrundan 8A, Ludvika</p>
+        <p class="text-[10px] opacity-30 uppercase tracking-[0.4em]">© 2026 Kamiljö AB. Alla rättigheter förbehållna.</p>
     </footer>
 
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
-        function sendOrder(e) {
-            e.preventDefault();
-            const uuid = crypto.randomUUID();
-            document.getElementById('order-form').classList.add('hidden');
-            document.getElementById('success').classList.remove('hidden');
-            document.getElementById('oid').innerText = uuid;
-            new QRCode(document.getElementById("qr"), {
-                text: "https://kamiljo.se/manage/" + uuid,
-                width: 120, height: 120
+        // Language Logic
+        function setLanguage(lang) {
+            document.querySelectorAll('[data-sv]').forEach(el => {
+                el.innerText = lang === 'sv' ? el.getAttribute('data-sv') : el.getAttribute('data-en');
             });
+            document.querySelectorAll('[data-placeholder-sv]').forEach(el => {
+                el.placeholder = lang === 'sv' ? el.getAttribute('data-placeholder-sv') : el.getAttribute('data-placeholder-en');
+            });
+            document.getElementById('svBtn').className = lang === 'sv' ? 'lang-active px-3 py-1 uppercase' : 'bg-slate-100 px-3 py-1 text-slate-400 uppercase';
+            document.getElementById('enBtn').className = lang === 'en' ? 'lang-active px-3 py-1 uppercase' : 'bg-slate-100 px-3 py-1 text-slate-400 uppercase';
         }
+
+        // Map Logic (Ludvika + 30km circle)
+        const map = L.map('map').setView([60.148, 15.187], 9);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+        L.marker([60.148, 15.187]).addTo(map).bindPopup('<b>Kamiljö AB</b><br>Ludvika');
+        L.circle([60.148, 15.187], { color: 'green', fillColor: '#22c55e', fillOpacity: 0.1, radius: 30000 }).addTo(map);
+        // Additional markers
+        [[60.484, 15.434, 'Borlänge'], [60.606, 15.635, 'Falun'], [60.141, 15.414, 'Smedjebacken']].forEach(pos => {
+            L.circleMarker([pos[0], pos[1]], { radius: 5, color: 'darkgreen' }).addTo(map).bindPopup(pos[2]);
+        });
+
+        // Form Submission Logic
+        const form = document.getElementById('vvsForm');
+        const submitBtn = document.getElementById('submitBtn');
+
+        form.onsubmit = async (e) => {
+            e.preventDefault();
+            submitBtn.disabled = true;
+            submitBtn.innerText = "Sänder... / Sending...";
+
+            const formData = new FormData();
+            const files = document.getElementById('fileInput').files;
+
+            // Dane tekstowe
+            formData.append('name', form.name.value);
+            formData.append('phone', form.phone.value);
+            formData.append('email', form.email.value);
+            formData.append('service', form.service.value);
+            formData.append('date', form.date.value);
+            formData.append('message', form.message.value);
+
+            // Pliki zamieniamy na Base64 dla Apps Script (ograniczenie fetch body w GAS)
+            const filePromises = Array.from(files).map(file => {
+                return new Promise((resolve) => {
+                    const reader = new FileReader();
+                    reader.onload = () => resolve({
+                        name: file.name,
+                        type: file.type,
+                        data: reader.result.split(',')[1]
+                    });
+                    reader.readAsDataURL(file);
+                });
+            });
+
+            const encodedFiles = await Promise.all(filePromises);
+            formData.append('fileData', JSON.stringify(encodedFiles));
+
+            try {
+                // TUTAJ WKLEJ URL SWOJEGO SKRYPTU GOOGLE APPS SCRIPT
+                const scriptURL = "TWOJ_GOOGLE_APPS_SCRIPT_URL_TUTAJ";
+                
+                const response = await fetch(scriptURL, {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const result = await response.json();
+                alert(result.message);
+                form.reset();
+            } catch (error) {
+                console.error('Error!', error.message);
+                alert('Ett fel uppstod. Försök igen. / An error occurred. Try again.');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerText = "Skicka förfrågan / Send Request";
+            }
+        };
     </script>
 </body>
 </html>
