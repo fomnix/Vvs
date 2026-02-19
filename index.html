@@ -1,68 +1,201 @@
 <!DOCTYPE html>
-<html lang="sv">
+<html lang="sv" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Rörmokare Ludvika | Kamiljö AB</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <title>Rörmokare Ludvika | Jour 24/7 Kamiljö AB</title>
+    <meta name="description" content="Akut rörmokare Ludvika 24/7. Kamiljö AB - Din lokala VVS-firma w Dalarna.">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700;900&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Roboto:wght@700;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3a7d6e', // Dokładna zieleń Kamiljö
+                        secondary: '#005b7f', // Ciemny niebieski ze stopki
+                        destructive: '#cc3333', // Czerwień przycisku Jour
+                    },
+                    fontFamily: {
+                        sans: ['Open Sans', 'sans-serif'],
+                        heading: ['Roboto', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        body { font-family: 'Open Sans', sans-serif; overflow-x: hidden; }
+        body { font-family: 'Open Sans', sans-serif; }
         h1, h2, h3 { font-family: 'Roboto', sans-serif; }
     </style>
 </head>
-<body class="bg-slate-50">
+<body class="bg-[#F9FBF9] text-slate-900 flex flex-col min-h-screen">
 
     <nav class="sticky top-0 z-50 bg-white border-b border-slate-100 shadow-sm">
-        <div class="max-w-7xl mx-auto px-4 h-16 flex justify-between items-center">
-            <img src="/logo.jpeg" alt="Kamiljö AB" class="h-10 sm:h-12 w-auto object-contain text-xs" onerror="this.alt='Kamiljö AB Logo'">
+        <div class="max-w-7xl mx-auto px-4 h-20 flex justify-between items-center">
+            <img src="/public/logo.jpeg" alt="Kamiljö AB" class="h-10 sm:h-14 object-contain">
             
-            <a href="tel:+46762124124" class="bg-[#cc3333] text-white px-4 py-2 rounded-md font-black text-sm uppercase tracking-tight">
-                Jour 24/7
-            </a>
+            <div class="hidden lg:flex gap-6 font-bold text-sm text-slate-600">
+                <a href="#hem" class="hover:text-primary transition">Hem</a>
+                <a href="#tjanster" class="hover:text-primary transition">Tjänster</a>
+                <a href="#om-oss" class="hover:text-primary transition">Om oss</a>
+                <a href="#kontakt" class="hover:text-primary transition">Kontakt</a>
+            </div>
+
+            <div class="flex items-center gap-2 sm:gap-4">
+                <div class="hidden sm:flex border rounded-lg overflow-hidden text-[10px] font-bold">
+                    <span class="bg-primary text-white px-2 py-1 uppercase tracking-tighter">🇸🇪 SV</span>
+                    <span class="bg-slate-100 px-2 py-1 text-slate-400 uppercase tracking-tighter italic">🇺🇸 EN</span>
+                </div>
+                <a href="tel:+46762124124" class="bg-destructive text-white px-3 py-2 sm:px-4 sm:py-2.5 rounded-lg font-black text-xs sm:text-sm flex items-center gap-2 shadow-lg hover:brightness-110 transition">
+                    <span class="hidden sm:inline italic">📞</span> Jour 24/7
+                </a>
+            </div>
         </div>
     </nav>
 
-    <header class="py-12 px-4 max-w-7xl mx-auto">
-        <div class="text-center lg:text-left grid lg:grid-cols-2 gap-12 items-center">
-            <div class="space-y-6">
-                <p class="text-[#3a7d6e] font-bold uppercase tracking-widest text-sm">⭐⭐⭐⭐⭐ 5.0 Google Maps</p>
-                <h1 class="text-4xl md:text-6xl font-black text-slate-900 leading-tight tracking-tighter">
-                    Din professionella rörmokare i Ludvika
+    <main class="flex-grow">
+        
+        <header id="hem" class="py-12 md:py-20 px-4 max-w-7xl mx-auto grid lg:grid-cols-12 gap-12 items-center">
+            <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                <div class="inline-flex items-center gap-2 bg-white px-3 py-1.5 rounded-full border border-slate-100 shadow-sm mx-auto lg:mx-0 font-bold text-xs sm:text-sm text-slate-500">
+                    <span class="text-yellow-500">⭐⭐⭐⭐⭐</span> 5.0 Verifierade omdömen
+                </div>
+                <h1 class="text-4xl md:text-6xl font-black leading-[1.1] tracking-tighter text-slate-900">
+                    Din professionella rörmokare <br class="hidden md:block"> i Ludvika – <span class="text-primary italic">Kamiljö AB</span>
                 </h1>
-                <p class="text-xl text-slate-600 font-semibold">Gratis offert inom 24 timmar!</p>
+                <p class="text-2xl font-bold text-primary tracking-tight">Gratis offert inom 24h</p>
                 <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4">
-                    <a href="tel:+46762124124" class="bg-[#3a7d6e] text-white px-8 py-4 rounded-md font-black text-lg shadow-lg">RING: 0762 124 124</a>
-                    <a href="#kontakt" class="border-2 border-slate-900 text-slate-900 px-8 py-4 rounded-md font-black text-lg">Begär offert</a>
+                    <a href="#kontakt" class="bg-primary text-white px-8 py-4 rounded-xl font-black text-lg hover:scale-[1.02] transition shadow-xl shadow-primary/20 flex items-center justify-center gap-2">
+                        Begär offert <span class="text-xl">→</span>
+                    </a>
+                    <a href="tel:+46762124124" class="bg-white border-2 border-slate-200 text-slate-700 px-8 py-4 rounded-xl font-black text-lg hover:bg-slate-50 transition text-center shadow-md">
+                        📞 +46 762 124 124
+                    </a>
                 </div>
             </div>
             
-            <div class="flex flex-col items-center bg-white p-6 rounded-xl shadow-xl border border-slate-100 max-w-xs mx-auto">
-                <img src="/qr-maps.png" alt="QR Map" class="w-48 h-48 mb-4 bg-slate-100 rounded-lg">
-                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest text-center leading-relaxed">
-                    Kamiljö AB (Org.nr: 559572-5366)<br>Ludvika + 50km
-                </p>
+            <div class="lg:col-span-5 flex flex-col items-center">
+                <div class="bg-white p-6 rounded-[2.5rem] shadow-2xl border border-slate-50 relative max-w-[320px] w-full">
+                    <img src="/public/qr-maps.png" alt="Google Maps QR" class="w-full aspect-square rounded-2xl mb-4">
+                    <p class="text-center text-slate-400 font-bold text-[11px] uppercase tracking-widest italic">Skanna för kontakt</p>
+                </div>
+            </div>
+        </header>
+
+        <section id="tjanster" class="py-24 bg-white px-4">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-16 space-y-4">
+                    <h2 class="text-4xl font-black text-slate-900 font-heading tracking-tight uppercase">Våra tjänster</h2>
+                    <p class="text-slate-400 font-bold uppercase tracking-widest text-sm italic">Professionella VVS-tjänster i Ludvika och hela Dalarna</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="p-8 bg-[#F9FBF9] rounded-[2rem] border border-slate-100 hover:shadow-2xl transition group hover:-translate-y-1 duration-300">
+                        <div class="w-12 h-12 bg-white rounded-xl flex items-center justify-center text-primary shadow-sm mb-6 group-hover:bg-primary group-hover:text-white transition-all text-2xl">🔧</div>
+                        <h3 class="text-xl font-black mb-4 uppercase tracking-tighter">Installation & Inkoppling</h3>
+                        <p class="text-slate-500 text-sm leading-relaxed font-medium">Installation av vask, tvättställ, dusch, toalett och blandare.</p>
+                    </div>
+                    <div class="p-8 bg-[#F9FBF9] rounded-[2rem] border border-slate-100 hover:shadow-2xl transition group hover:-translate-y-1 duration-300">
+                        <div class="w-12 h-12 bg-white rounded-xl flex items-center justify-center text-primary shadow-sm mb-6 group-hover:bg-primary group-hover:text-white transition-all text-2xl">🔥</div>
+                        <h3 class="text-xl font-black mb-4 uppercase tracking-tighter">Värme & Pannor</h3>
+                        <p class="text-slate-500 text-sm leading-relaxed font-medium">Installation och byte av pannor, radiatorer (element) och värmesystem.</p>
+                    </div>
+                    <div class="p-8 bg-[#F9FBF9] rounded-[2rem] border border-slate-100 hover:shadow-2xl transition group hover:-translate-y-1 duration-300 text-primary">
+                        <div class="w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-sm mb-6 text-2xl">♻️</div>
+                        <h3 class="text-xl font-black mb-4 uppercase tracking-tighter">Komponentbyte</h3>
+                        <p class="text-slate-500 text-sm leading-relaxed font-medium">Byte av varmvattenberedare, värmeväxlare och hydroforer.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="kontakt" class="py-24 bg-[#F9FBF9] px-4">
+            <div class="max-w-3xl mx-auto space-y-12">
+                <div class="text-center space-y-4">
+                    <h2 class="text-4xl font-black text-slate-900 font-heading tracking-tight uppercase">Kontakta oss</h2>
+                    <p class="text-slate-500 font-medium italic">Fyll i formuläret så återkommer vi inom 24 timmar med en gratis offert.</p>
+                </div>
+                
+                <form class="bg-white p-6 sm:p-12 rounded-[2.5rem] border border-slate-100 shadow-2xl space-y-6">
+                    <div>
+                        <span class="text-[10px] font-black uppercase text-slate-400 block mb-2 tracking-[0.2em] ml-1 leading-none">Namn</span>
+                        <input type="text" name="name" placeholder="Ditt namn" class="w-full p-4 bg-slate-50 rounded-xl border-none outline-primary font-bold placeholder:opacity-50 tracking-tight">
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-6 leading-none">
+                        <div>
+                            <span class="text-[10px] font-black uppercase text-slate-400 block mb-2 tracking-[0.2em] ml-1">E-post</span>
+                            <input type="email" name="email" placeholder="din@email.se" class="w-full p-4 bg-slate-50 rounded-xl border-none outline-primary font-bold">
+                        </div>
+                        <div>
+                            <span class="text-[10px] font-black uppercase text-slate-400 block mb-2 tracking-[0.2em] ml-1">Telefon</span>
+                            <input type="tel" name="phone" placeholder="+46 7XX XXX XXX" class="w-full p-4 bg-slate-50 rounded-xl border-none outline-primary font-bold">
+                        </div>
+                    </div>
+                    <div>
+                        <span class="text-[10px] font-black uppercase text-slate-400 block mb-2 tracking-[0.2em] ml-1">Tjänst</span>
+                        <select name="service" class="w-full p-4 bg-slate-50 rounded-xl border-none outline-primary font-bold appearance-none">
+                            <option>Välj tjänst</option>
+                            <option>Rörmokeri</option>
+                            <option>Värme & Pannor</option>
+                            <option>Komponentbyte</option>
+                        </select>
+                    </div>
+                    <div>
+                        <span class="text-[10px] font-black uppercase text-slate-400 block mb-2 tracking-[0.2em] ml-1 leading-none">Meddelande</span>
+                        <textarea name="message" placeholder="Beskriv ditt ärende..." class="w-full p-4 bg-slate-50 rounded-xl border-none outline-primary font-bold h-32 resize-none"></textarea>
+                    </div>
+                    <button type="submit" class="w-full bg-primary text-white py-5 rounded-xl font-black text-xl hover:brightness-110 transition shadow-xl shadow-primary/20 uppercase tracking-widest italic">
+                        Skicka förfrågan
+                    </button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-secondary text-white pt-20 pb-10 px-6 mt-auto">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 text-center md:text-left">
+                <div class="space-y-6">
+                    <img src="/public/logo.jpeg" alt="Kamiljö AB" class="h-10 mx-auto md:mx-0 bg-white p-1 rounded-md">
+                    <p class="text-xs opacity-60 leading-relaxed font-medium uppercase tracking-tighter italic">Auktoriserade VVS-montörer med yrkesbevis.</p>
+                    <div class="text-[10px] opacity-40 font-bold uppercase tracking-[0.1em]">
+                        Org.nr: 559572-5366<br>Godkänd för F-skatt
+                    </div>
+                </div>
+                
+                <div class="space-y-6">
+                    <h4 class="font-black uppercase tracking-widest text-xs border-b border-white/10 pb-2 inline-block md:block">Kontakt</h4>
+                    <ul class="space-y-4 text-xs font-bold opacity-70">
+                        <li><a href="tel:+46762124124" class="hover:text-primary">📞 +46 762 124 124</a></li>
+                        <li><a href="mailto:info@kamiljo.se" class="hover:text-primary tracking-tight">📧 info@kamiljo.se</a></li>
+                        <li class="tracking-tight italic">📍 Ludvika, Dalarna</li>
+                    </ul>
+                </div>
+
+                <div class="space-y-6">
+                    <h4 class="font-black uppercase tracking-widest text-xs border-b border-white/10 pb-2 inline-block md:block tracking-tighter">Tjänster</h4>
+                    <ul class="space-y-4 text-xs font-bold opacity-70 italic tracking-tighter">
+                        <li>Installation & Inkoppling</li>
+                        <li>Värme & Pannor</li>
+                        <li>Nyinstallation</li>
+                        <li>Innovativa lösningar</li>
+                    </ul>
+                </div>
+
+                <div class="space-y-6">
+                    <h4 class="font-black uppercase tracking-widest text-xs border-b border-white/10 pb-2 inline-block md:block tracking-tighter uppercase italic">Områden</h4>
+                    <p class="text-xs font-bold opacity-70 italic uppercase leading-relaxed tracking-tighter">
+                        Ludvika, Smedjebacken, Grängesberg, Borlänge, Falun.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="mt-20 pt-8 border-t border-white/5 text-center text-[9px] font-black uppercase tracking-[0.3em] opacity-30 italic">
+                © 2026 Kamiljö AB. Alla rättigheter förbehållna.
             </div>
         </div>
-    </header>
-
-    <section id="kontakt" class="py-12 px-4 bg-slate-900 text-white">
-        <div class="max-w-xl mx-auto">
-            <h2 class="text-3xl font-black text-center mb-8 uppercase italic">Kontakta oss</h2>
-            <form action="TUTAJ_WKLEJ_TWOJ_LINK_Z_APPS_SCRIPT" method="POST" class="space-y-4">
-                <input type="text" name="name" placeholder="Namn" class="w-full p-4 rounded-md text-slate-900 font-bold" required>
-                <input type="tel" name="phone" placeholder="Telefon" class="w-full p-4 rounded-md text-slate-900 font-bold" required>
-                <select name="service" class="w-full p-4 rounded-md text-slate-900 font-bold">
-                    <option>Välj tjänst</option>
-                    <option>Akut VVS</option>
-                    <option>Badrum</option>
-                    <option>Stambyte</option>
-                </select>
-                <textarea name="message" placeholder="Meddelande" class="w-full p-4 rounded-md text-slate-900 font-bold h-32"></textarea>
-                <button type="submit" class="w-full bg-[#3a7d6e] py-5 rounded-md font-black text-xl uppercase tracking-widest shadow-xl">Skicka</button>
-            </form>
-        </div>
-    </section>
+    </footer>
 
 </body>
 </html>
