@@ -1,174 +1,53 @@
-Oto profesjonalny szkielet strony `index.html` (zapisany jako kod do skopiowania), przygotowany na wzór **Kamiljo.se**. 
-
-Zastosowałem **Tailwind CSS**, ponieważ pozwala on najszybciej uzyskać ten nowoczesny, "czysty" szwedzki wygląd bez pisania tysięcy linii w oddzielnym pliku CSS. W miejscu zdjęcia głównego przygotowałem kontener na Twoją **animowaną historię**.
-
-```html
 <!DOCTYPE html>
-<html lang="sv">
+<html lang="pl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VVS & Bygg Ludvika | Professionell Service</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Inter', sans-serif; }
-        .hero-gradient { background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); }
-        .animate-float { animation: float 6s ease-in-out infinite; }
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-            100% { transform: translateY(0px); }
-        }
-    </style>
+    <title>Hydraulik | Profesjonalne Usługi</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-white text-gray-900">
+<body>
 
-    <!-- NAVIGATION (Wzór: Kamiljo.se) -->
-    <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-20">
-                <div class="flex-shrink-0 flex items-center">
-                    <span class="text-2xl font-bold tracking-tighter uppercase">Firma<span class="text-blue-600">VVS</span></span>
-                </div>
-                <div class="hidden md:flex space-x-8 font-medium text-sm uppercase tracking-widest">
-                    <a href="#tjanster" class="hover:text-blue-600 transition">Tjänster</a>
-                    <a href="#om-oss" class="hover:text-blue-600 transition">Om oss</a>
-                    <a href="#referenser" class="hover:text-blue-600 transition">Referenser</a>
-                </div>
-                <div class="flex items-center">
-                    <a href="tel:+4612345678" class="bg-black text-white px-6 py-3 rounded-full text-sm font-bold hover:bg-gray-800 transition">
-                        RING: 0123-456 78
-                    </a>
-                </div>
-            </div>
+<nav>
+    <div class="container">
+        <div class="logo">HYDRAULIK<span>PRO</span></div>
+        <div class="links">
+            <a href="https://google.com" target="_blank" rel="noopener">Usługi</a>
+            <a href="https://google.com" target="_blank" rel="noopener">O nas</a>
+            <a href="#kontakt">Kontakt</a>
         </div>
-    </nav>
+    </div>
+</nav>
 
-    <!-- HERO SECTION (Miejsce na Twoją animację) -->
-    <section class="relative overflow-hidden hero-gradient py-20 lg:py-32">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-12 items-center">
-            <div>
-                <h1 class="text-5xl lg:text-7xl font-bold leading-tight tracking-tight">
-                    Vi skapar trygghet i <span class="text-blue-600">Ludvika</span>
-                </h1>
-                <p class="mt-6 text-xl text-gray-600 max-w-lg">
-                    Professionella VVS-lösningar och byggtjänster med fokus på kvalitet, certifiering och din trygghet. 
-                </p>
-                <div class="mt-10 flex flex-col sm:flex-row gap-4">
-                    <a href="#kontakt" class="bg-blue-600 text-white px-8 py-4 rounded-lg font-bold text-center hover:bg-blue-700 transition">
-                        Begär kostnadsfri offert
-                    </a>
-                    <div class="flex items-center gap-2 text-sm font-semibold px-4 py-2 border border-gray-200 rounded-lg bg-white shadow-sm">
-                        <span class="text-green-500">●</span> 30% ROT-avdrag direkt på fakturan
-                    </div>
-                </div>
-            </div>
-            
-            <!-- MIEJSCE NA TWOJĄ ANIMACJĘ (Efekt Wow) -->
-            <div class="relative flex justify-center items-center">
-                <div class="w-full h-[400px] bg-white rounded-3xl shadow-2xl flex items-center justify-center border border-gray-100 animate-float">
-                    <!-- Tutaj wkleisz kod Lottie lub Video Loop -->
-                    <div class="text-center">
-                        <div class="text-64 text-blue-500 mb-4 text-6xl">🛠️</div>
-                        <p class="text-gray-400 font-mono">[ TWOJA ANIMOWANA HISTORIA ]</p>
-                    </div>
-                </div>
-                <!-- Elementy ozdobne w tle -->
-                <div class="absolute -top-10 -right-10 w-32 h-32 bg-blue-100 rounded-full blur-3xl opacity-50"></div>
-                <div class="absolute -bottom-10 -left-10 w-32 h-32 bg-gray-200 rounded-full blur-3xl opacity-50"></div>
-            </div>
-        </div>
-    </section>
+<header>
+    <h1>Niezawodny Hydraulik</h1>
+    <p>Czysto. Szybko. Solidnie.</p>
+</header>
 
-    <!-- SERVICES (Tjänster) -->
-    <section id="tjanster" class="py-24 bg-white">
-        <div class="max-w-7xl mx-auto px-4">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl font-bold uppercase tracking-widest">Våra Tjänster</h2>
-                <div class="h-1 w-20 bg-blue-600 mx-auto mt-4"></div>
-            </div>
-            <div class="grid md:grid-cols-3 gap-8">
-                <!-- VVS -->
-                <div class="p-8 border border-gray-100 rounded-2xl hover:shadow-xl transition group">
-                    <div class="w-12 h-12 bg-blue-50 rounded-lg flex items-center justify-center mb-6 group-hover:bg-blue-600 transition">
-                        <span class="text-2xl group-hover:filter group-hover:invert">🚰</span>
-                    </div>
-                    <h3 class="text-xl font-bold mb-4">VVS-Service</h3>
-                    <p class="text-gray-600">Allt från akuta läckor till installation av nya blandare och rörsystem.</p>
-                </div>
-                <!-- Badrum -->
-                <div class="p-8 border border-gray-100 rounded-2xl hover:shadow-xl transition group">
-                    <div class="w-12 h-12 bg-blue-50 rounded-lg flex items-center justify-center mb-6 group-hover:bg-blue-600 transition">
-                        <span class="text-2xl group-hover:filter group-hover:invert">🚿</span>
-                    </div>
-                    <h3 class="text-xl font-bold mb-4">Badrumsrenovering</h3>
-                    <p class="text-gray-600">Totalentreprenad för ditt nya badrum. Självklart enligt Säker Vatten-standard.</p>
-                </div>
-                <!-- Värmepumpar -->
-                <div class="p-8 border border-gray-100 rounded-2xl hover:shadow-xl transition group">
-                    <div class="w-12 h-12 bg-blue-50 rounded-lg flex items-center justify-center mb-6 group-hover:bg-blue-600 transition">
-                        <span class="text-2xl group-hover:filter group-hover:invert">🔥</span>
-                    </div>
-                    <h3 class="text-xl font-bold mb-4">Värmepumpar</h3>
-                    <p class="text-gray-600">Installation och service av luftvärmepumpar och bergvärme i Ludvika.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+<section class="logos">
+    <div class="container">
+        <!-- Twoje ikony/loga - Grayscale na Hover Green -->
+        <img src="https://via.placeholder.com" class="brand-logo" alt="Partner">
+        <img src="https://via.placeholder.com" class="brand-logo" alt="Partner">
+    </div>
+</section>
 
-    <!-- TRUST SIGNALS -->
-    <section class="py-12 bg-gray-50 border-y border-gray-100">
-        <div class="max-w-7xl mx-auto px-4 flex flex-wrap justify-center gap-12 opacity-50 grayscale hover:grayscale-0 transition duration-500">
-            <span class="font-bold text-xl uppercase tracking-tighter italic">Säker Vatten</span>
-            <span class="font-bold text-xl uppercase tracking-tighter italic">BKR Certifierad</span>
-            <span class="font-bold text-xl uppercase tracking-tighter italic">ID06 Partner</span>
-            <span class="font-bold text-xl uppercase tracking-tighter italic">Trygg Hansa</span>
-        </div>
-    </section>
+<section id="kontakt" class="container">
+    <form id="contactForm">
+        <h2>Wyślij zgłoszenie na Google Drive</h2>
+        <input type="text" name="name" placeholder="Imię i Nazwisko" required>
+        <input type="email" name="email" placeholder="Twój E-mail" required>
+        <textarea name="message" placeholder="Opisz usterkę..."></textarea>
+        <button type="submit" id="submitBtn">Wyślij do serwisu</button>
+    </form>
+</section>
 
-    <!-- FOOTER -->
-    <footer class="bg-black text-white py-20">
-        <div class="max-w-7xl mx-auto px-4 grid md:grid-cols-3 gap-12">
-            <div>
-                <span class="text-2xl font-bold tracking-tighter uppercase">Firma<span class="text-blue-500">VVS</span></span>
-                <p class="mt-4 text-gray-400">Din lokala expert i Ludvika. Vi utför alla typer av VVS- och byggarbeten med högsta precision.</p>
-            </div>
-            <div>
-                <h4 class="text-lg font-bold mb-4">Kontakt</h4>
-                <p class="text-gray-400">Ludvika, Sverige</p>
-                <p class="text-gray-400">Tel: 0123-456 78</p>
-                <p class="text-gray-400">E-post: info@vvs-ludvika.se</p>
-            </div>
-            <div>
-                <h4 class="text-lg font-bold mb-4">Områden</h4>
-                <ul class="text-gray-400">
-                    <li>Ludvika Centrum</li>
-                    <li>Grängesberg</li>
-                    <li>Sunnansjö</li>
-                    <li>Saxdalen</li>
-                </ul>
-            </div>
-        </div>
-        <div class="max-w-7xl mx-auto px-4 mt-20 pt-8 border-t border-gray-900 text-center text-gray-500 text-sm">
-            © 2024 VVS & Bygg Ludvika. Org.nr: 55XXXX-XXXX. Skapad med fokus på kvalitet.
-        </div>
-    </footer>
+<footer>
+    <div class="container">
+        <p>&copy; 2024 Usługi Hydrauliczne. Wszystkie linki otwierają się w nowym oknie.</p>
+    </div>
+</footer>
 
+<script src="script.js"></script>
 </body>
 </html>
-```
-
-### Dlaczego ten szkielet zadziała?
-
-1.  **Struktura Kamiljo:** Masz czyste menu (sticky), dużą sekcję Hero i minimalistyczne kafelki usług.
-2.  **Efekt WOW:** W sekcji Hero przygotowałem `div` z klasą `animate-float`. Możesz tam wrzucić animację w formacie **Lottie** (JSON) lub plik wideo `.webm` (przezroczyste tło).
-3.  **Szwedzkie "Must-have":** Wstawiłem sekcję **ROT-avdrag**, logotypy certyfikatów (Säker Vatten) oraz listę miejscowości wokół Ludvika dla SEO.
-4.  **Premium Look:** Użyłem fontu "Inter" i dużej ilości białej przestrzeni (*white space*), co w Szwecji kojarzy się z wysoką jakością i droższymi usługami.
-
-### Jak tego użyć?
-1. Skopiuj powyższy kod do pliku `index.html`.
-2. Otwórz go w dowolnej przeglądarce – od razu zobaczysz efekt.
-3. Jeśli chcesz dodać animację, w miejsce napisu `[ TWOJA ANIMOWANA HISTORIA ]` wklej kod embed z **LottieFiles** lub użyj tagu `<video autoplay loop muted>`.
-
-Czy chcesz, żebym teraz pomógł Ci napisać do tego skrypt w JavaScript, który sprawi, że te elementy będą się płynnie pojawiać podczas przewijania (scroll animations)?
