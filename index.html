@@ -3,240 +3,184 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kamiljö AB | Professionell Rörmokare i Ludvika</title>
-    <link href="https://fonts.googleapis.com" rel="stylesheet">
+    <title>Kamiljö AB - Din professionella rörmokare</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com">
     <style>
-        :root {
-            --brand-green: #2E7D32; /* Zieleń liścia */
-            --emergency-red: #D32F2F; /* Czerwony Jour */
-            --navy-footer: #001a33; /* Granat ze zdjęcia */
-            --light-bg: #F9FBFA;
-            --text-dark: #1A1A1A;
-        }
-
-        body { 
-            font-family: 'Inter', sans-serif; 
-            margin: 0; background: #fff; color: var(--text-dark);
-            -webkit-user-select: none; user-select: none;
-            overflow-x: hidden;
-        }
-
-        /* HEADER - IDENTYCZNY JAK NA ZDJĘCIU */
-        header { 
-            display: flex; justify-content: space-between; align-items: center; 
-            padding: 15px 5%; border-bottom: 3px solid var(--brand-green); 
-            background: #fff; position: sticky; top: 0; z-index: 1000;
-        }
-        .logo-box img { height: 65px; object-fit: contain; }
+        :root { --primary: #008751; --secondary: #1a1a1a; --light: #f4f7f6; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; color: var(--secondary); line-height: 1.6; }
         
-        nav { display: flex; gap: 20px; align-items: center; }
-        nav a { 
-            text-decoration: none; color: var(--text-dark); font-weight: 800; 
-            font-size: 13px; text-transform: uppercase; letter-spacing: 1px;
-            padding: 10px; transition: 0.3s;
-        }
-        nav a:hover { color: var(--brand-green); }
+        /* Header & Nav */
+        header { background: white; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .logo img { height: 50px; }
+        nav a { margin-left: 20px; text-decoration: none; color: var(--secondary); font-weight: 500; }
+        .btn-emergency { background: #d32f2f; color: white; padding: 10px 20px; border-radius: 5px; font-weight: bold; }
 
-        .btn-jour { 
-            background: var(--emergency-red); color: #fff; padding: 12px 25px; 
-            border-radius: 5px; text-decoration: none; font-weight: 900; 
-            font-size: 14px; text-transform: uppercase; box-shadow: 0 4px 15px rgba(211,47,47,0.3);
-        }
+        /* Hero Section */
+        .hero { background: var(--light); padding: 80px 5%; text-align: left; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
+        .hero-text { flex: 1; min-width: 300px; }
+        .hero h1 { font-size: 3rem; margin-bottom: 20px; color: var(--secondary); }
+        .badge { background: #e8f5e9; color: var(--primary); padding: 5px 15px; border-radius: 20px; font-size: 0.9rem; font-weight: bold; margin-bottom: 15px; display: inline-block; }
 
-        /* HERO - KOLORYSTYKA I TWOJE PLIKI */
-        .hero { 
-            padding: 80px 5%; background: linear-gradient(180deg, #fff 0%, var(--light-bg) 100%);
-            display: flex; justify-content: space-between; align-items: center;
-            max-width: 1300px; margin: 0 auto; gap: 50px;
-        }
-        .hero-text h1 { font-size: 52px; font-weight: 900; line-height: 1.1; margin: 0; letter-spacing: -2px; }
-        .hero-text h1 span { color: var(--brand-green); }
-        .hero-text p { font-size: 20px; color: #555; margin: 25px 0; font-weight: 500; }
-        
-        /* TWOJE ZDJĘCIE QR (IMG_2175.png) */
-        .hero-qr { text-align: center; }
-        .hero-qr img { 
-            width: 250px; border: 1px solid #eee; padding: 15px; background: #fff;
-            border-radius: 15px; box-shadow: 0 20px 40px rgba(0,0,0,0.05);
-            cursor: pointer; transition: 0.4s;
-        }
-        .hero-qr img:hover { transform: scale(1.03); border-color: var(--brand-green); }
+        /* Formularz - NAJWAŻNIEJSZA SEKCJA */
+        .order-box { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); width: 100%; max-width: 500px; }
+        .order-box h2 { color: var(--primary); margin-top: 0; }
+        input, textarea, select { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box; font-size: 1rem; }
+        .file-upload { background: #f9f9f9; border: 2px dashed var(--primary); padding: 20px; text-align: center; cursor: pointer; }
+        .btn-submit { background: var(--primary); color: white; border: none; width: 100%; padding: 15px; font-size: 1.1rem; font-weight: bold; cursor: pointer; transition: 0.3s; border-radius: 5px; }
+        .btn-submit:hover { background: #006b40; transform: translateY(-2px); }
 
-        /* INSTAGRAM - REALNA ROBOTA WYŻEJ */
-        .insta-section { padding: 40px 5%; background: #fff; }
-        .insta-grid { display: grid; grid-template-cols: repeat(4, 1fr); gap: 15px; max-width: 1300px; margin: 0 auto; }
-        .insta-item { aspect-ratio: 1; background: #eee; border-radius: 10px; overflow: hidden; }
-        .insta-item img { width: 100%; height: 100%; object-fit: cover; cursor: pointer; transition: 0.5s; }
-        .insta-item:hover img { filter: brightness(0.7) grayscale(0.5); transform: scale(1.1); }
+        /* Grid Sekcje */
+        .section-title { text-align: center; padding: 50px 0 20px; font-size: 2rem; }
+        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; padding: 0 5%; }
+        .card { background: white; border: 1px solid #eee; padding: 25px; border-radius: 10px; transition: 0.3s; }
+        .card:hover { border-color: var(--primary); box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
 
-        /* CYRKULACJA USŁUG - PROFESJONALNY OBIEG */
-        .service-orbit-wrap { 
-            padding: 100px 0; background: var(--light-bg); position: relative; 
-            display: flex; align-items: center; justify-content: center; height: 700px;
-        }
-        .orbit-center { position: absolute; text-align: center; z-index: 10; }
-        .orbit-center h2 { font-size: 28px; font-weight: 900; color: var(--brand-green); text-transform: uppercase; margin: 0; }
-        
-        .orbit-circle { 
-            width: 550px; height: 550px; position: relative; 
-            animation: rotateOrbit 80s linear infinite; 
-        }
-        .orbit-circle:hover { animation-play-state: paused; }
+        /* Listy (30 usług, 54 miejscowości) */
+        .list-columns { column-count: 3; column-gap: 40px; padding: 0 5% 50px; }
+        .list-columns li { margin-bottom: 8px; list-style: none; position: relative; padding-left: 20px; }
+        .list-columns li::before { content: "✓"; position: absolute; left: 0; color: var(--primary); font-weight: bold; }
 
-        .service-icon { 
-            position: absolute; width: 50px; height: 50px; background: #fff; 
-            border: 2px solid var(--brand-green); border-radius: 50%;
-            display: flex; align-items: center; justify-content: center; font-size: 24px;
-            cursor: pointer; transition: 0.3s;
-        }
-        .service-icon:hover { background: var(--brand-green); transform: scale(1.3); color: #fff; }
-        
-        /* UKRYTE SEO W USŁUGACH */
-        .service-icon span { position: absolute; font-size: 0; color: transparent; }
-
-        /* PARTNERZY - POZIOMA ROTACJA (MARQUEE 2.0) */
-        .partners-bar { 
-            padding: 80px 0; background: #fff; border-top: 1px solid #eee; overflow: hidden;
-        }
-        .partners-scroll { display: flex; width: max-content; animation: scrollLeft 50s linear infinite; gap: 80px; align-items: center; }
-        .partner-logo { 
-            filter: grayscale(100%); opacity: 0.3; transition: 0.5s; 
-            height: 70px; max-width: 180px; object-fit: contain; cursor: pointer;
-        }
-        .partner-logo:hover { filter: grayscale(0%); opacity: 1; transform: scale(1.1); }
-
-        /* FOOTER - GRANATOWY ZE ZDJĘCIA */
-        footer { background: var(--navy-footer); color: #fff; padding: 100px 5% 40px; }
-        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 60px; max-width: 1300px; margin: 0 auto; }
-        .footer-col h4 { border-left: 4px solid var(--brand-green); padding-left: 15px; margin-bottom: 25px; text-transform: uppercase; letter-spacing: 1px; }
-        .footer-col p, .footer-col a { color: #a5b1c2; text-decoration: none; font-size: 14px; margin-bottom: 12px; display: block; }
-        .footer-col a:hover { color: #fff; }
-
-        /* SEO MIASTA - UKRYTE */
-        .seo-cities { margin-top: 80px; font-size: 10px; color: #00264d; text-align: justify; line-height: 2; border-top: 1px solid #002b4d; padding-top: 30px; }
-        .seo-cities span:hover { color: #fff; cursor: pointer; }
-
-        @keyframes rotateOrbit { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-        @keyframes scrollLeft { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-        
-        @media (max-width: 900px) {
-            .hero { flex-direction: column; text-align: center; }
-            .orbit-circle { width: 300px; height: 300px; }
-        }
+        @media (max-width: 768px) { .list-columns { column-count: 1; } .hero h1 { font-size: 2rem; } }
     </style>
 </head>
-<body oncontextmenu="return false;">
+<body>
 
-    <header>
-        <div class="logo-box">
-            <img src="public/logo.jpeg" alt="Kamiljö AB Logo">
-        </div>
-        <nav>
-            <a href="#">Hem</a>
-            <a href="#services">Tjänster</a>
-            <a href="#partners">Partner</a>
-            <a href="#">Om oss</a>
-            <a href="#">Kontakt</a>
-        </nav>
-        <a href="tel:+46762124124" class="btn-jour">Jour 24/7</a>
-    </header>
+<header>
+    <div class="logo"><strong>KAMILJÖ AB</strong></div>
+    <nav>
+        <a href="#tjanster">Tjänster</a>
+        <a href="#om-oss">Om oss</a>
+        <a href="#kontakt" class="btn-emergency">Jour 24/7</a>
+    </nav>
+</header>
 
-    <section class="hero">
-        <div class="hero-text">
-            <span style="font-weight: 900; color: var(--brand-green); letter-spacing: 2px;">VVS-EXPERT I DALARNA</span>
-            <h1>Professionell rörservice<br><span>i Ludvika</span></h1>
-            <p>Vi säkrar din fastighet med auktoriserad expertis. Alltid med F-skattsedel och 30% ROT-avdrag direkt på fakturan.</p>
-            <button style="background:var(--brand-green); color:#fff; border:none; padding:20px 45px; border-radius:5px; font-weight:900; cursor:pointer; font-size:16px;">FÅ GRATIS OFFERT →</button>
-        </div>
-        
-        <div class="hero-qr">
-            <!-- TWOJE ZDJĘCIE QR (IMG_2175.png) -->
-            <img src="IMG_2175.png" alt="Google Recensioner QR" onclick="window.open('https://maps.google.com','_blank')">
-            <p style="font-weight:900; font-size:12px; margin-top:15px; letter-spacing: 1px;">⭐⭐⭐⭐⭐ RECENSIONER</p>
-        </div>
-    </section>
-
-    <!-- 1. INSTAGRAM FEED -->
-    <section class="insta-section">
-        <h2 style="text-align:center; font-size:24px; font-weight:900; margin-bottom:30px;">VÅRT ARBETE PÅ INSTAGRAM</h2>
-        <div class="insta-grid">
-            <div class="insta-item"><img src="img/insta1.jpg" alt="VVS" onclick="window.open('https://instagram.com')"></div>
-            <div class="insta-item"><img src="img/insta2.jpg" alt="Röris" onclick="window.open('https://instagram.com')"></div>
-            <div class="insta-item"><img src="img/insta3.jpg" alt="Badrum" onclick="window.open('https://instagram.com')"></div>
-            <div class="insta-item"><img src="img/insta4.jpg" alt="Värme" onclick="window.open('https://instagram.com')"></div>
-        </div>
-    </section>
-
-    <!-- 2. CYRKULACJA USŁUG (33 IKONY + SEO) -->
-    <section class="service-orbit-wrap" id="services">
-        <div class="orbit-center">
-            <h2>VÅRA TJÄNSTER</h2>
-            <p style="font-size:10px; font-weight:900; color:#999; margin-top:10px;">KLICKA PÅ EN SYMBOL</p>
-        </div>
-        <div class="orbit-circle" id="orbitContainer">
-            <!-- Ikony generowane przez skrypt poniżej -->
-        </div>
-    </section>
-
-    <!-- 3. PARTNERZY - POZIOMA ROTACJA (36 FIRM) -->
-    <div class="partners-bar" id="partners">
-        <div class="partners-scroll">
-            <img src="img/dahl.png" class="partner-logo" alt="Dahl" onclick="window.open('https://dahl.se','_blank')">
-            <img src="img/nibe.png" class="partner-logo" alt="Nibe" onclick="window.open('https://nibe.se','_blank')">
-            <img src="img/uponor.png" class="partner-logo" alt="Uponor" onclick="window.open('https://uponor.se','_blank')">
-            <img src="img/ahlsell.png" class="partner-logo" alt="Ahlsell" onclick="window.open('https://ahlsell.se','_blank')">
-            <img src="img/geberit.png" class="partner-logo" alt="Geberit" onclick="window.open('https://geberit.se','_blank')">
-            <img src="img/fmm.png" class="partner-logo" alt="FM Mattsson" onclick="window.open('https://fmmattsson.com','_blank')">
-            <!-- Powtórz loga, by wypełnić slider i zapewnić pętlę -->
-        </div>
+<section class="hero">
+    <div class="hero-text">
+        <span class="badge">★★★★★ 5.0 Verifierade omdömen</span>
+        <h1>Din professionella rörmokare i Ludvika</h1>
+        <p>Gratis offert inom 24h. Vi hjälper dig med allt inom VVS.</p>
+        <div style="font-size: 1.5rem; font-weight: bold;">+46 762 124 124</div>
     </div>
 
-    <footer>
-        <div class="footer-grid">
-            <div class="footer-col">
-                <h4>KAMILJÖ AB</h4>
-                <p>Org.nr: 559572-5366</p>
-                <p><b>ADRESS:</b> Ludvika, Dalarna, Sverige</p>
-                <p>Certifierade montörer med yrkesbevis.</p>
+    <!-- FORMULARZ DO GOOGLE DRIVE -->
+    <div class="order-box" id="kontakt">
+        <h2>Boka Hydraulika</h2>
+        <form id="vvsForm">
+            <input type="text" name="clientName" placeholder="Imię i Nazwisko" required>
+            <input type="tel" name="phone" placeholder="Telefon" required>
+            <div style="display:flex; gap:10px;">
+                <input type="date" name="date" required>
+                <input type="time" name="time" required>
             </div>
-            <div class="footer-col">
-                <h4>KONTAKT</h4>
-                <a href="tel:+46762124124">RING: 0762 124 124</a>
-                <a href="mailto:info@kamiljo.se">E-POST: info@kamiljo.se</a>
-                <a href="#">INSTAGRAM: @kamiljo_ab</a>
+            <select name="serviceType">
+                <option value="Awarja">Akut Awaria (Jour)</option>
+                <option value="Instalacja">Nowa Instalacja</option>
+                <option value="Konserwacja">Konserwacja</option>
+            </select>
+            <textarea name="desc" placeholder="Opisz zlecenie..." rows="3"></textarea>
+            
+            <div class="file-upload">
+                <input type="file" id="fileInput" name="files" multiple style="display:none">
+                <label for="fileInput"><i class="fa fa-cloud-upload"></i> Załącz zdjęcia awarii (dowolne pliki)</label>
             </div>
-        </div>
+            <div id="fileList" style="font-size: 0.8rem; margin: 5px 0;"></div>
+            
+            <button type="submit" class="btn-submit" id="submitBtn">WYŚLIJ ZGŁOSZENIE</button>
+        </form>
+    </div>
+</section>
 
-        <div class="seo-cities">
-            <b>OMRÅDEN VI TÄCKER:</b> 
-            <span>Alvik</span>, <span>Bjursås</span>, <span>Ludvika</span>, <span>Mora</span>, <span>Falun</span>, <span>Borlänge</span>, <span>Säter</span>, <span>Rättvik</span>, <span>Leksand</span>, <span>Avesta</span>... (Tu wklej pełną listę 54 miast)
-        </div>
-    </footer>
+<h2 class="section-title">Nasze Usługi</h2>
+<div class="list-columns" id="uslugi">
+    <!-- Tu JavaScript wstrzyknie 30 usług -->
+</div>
 
-    <script>
-        const services = [
-            "Rörmokare", "Diskmaskin", "Tvättmaskin", "Tvättställ", "Diskho", "Ismaskin", 
-            "Radiator", "Toalett", "Duschkabin", "Demontering", "Pannrum", "Rördragning", 
-            "Nyinstallation", "Vattenutkastare", "Värmepump", "Vattenrening", "Läckage", 
-            "Golvvärme", "Vattenmätare", "Blandare", "Luftning", "Veredare", "Ballofix", 
-            "Besiktning", "Jour", "Cirkulationspump", "Expansionskärl", "Säkerhetsventil", 
-            "Termostat", "Shuntventil", "ROT", "F-skatt", "VVS Expert"
-        ];
+<h2 class="section-title">Gdzie dojeżdżamy (54 miejscowości)</h2>
+<div class="list-columns" id="miejsca">
+    <!-- Tu JavaScript wstrzyknie 54 miejscowości -->
+</div>
 
-        const container = document.getElementById('orbitContainer');
-        const icons = ["🔧", "🍽️", "🧼", "💧", "🍲", "🧊", "🔥", "🚽", "🚿", "⚙️", "🏭", "🔗", "🏠", "🌿", "🌀", "🛡️", "💧", "♨️", "📊", "🚰", "💨", "🛢️", "🛑", "🔍", "⚡", "🔄", "🎈", "⚠️", "🌡️", "🔀", "💰", "📜", "✅"];
+<h2 class="section-title">Realizacje (Instagram)</h2>
+<div id="instagram-feed" style="padding: 0 5%; text-align: center;">
+    <p>Zdjęcia ładowane bezpośrednio z Instagrama...</p>
+    <!-- Tu wstaw kod widgetu np. Behold.so lub LightWidget -->
+</div>
 
-        services.forEach((s, i) => {
-            const div = document.createElement('div');
-            div.className = 'service-icon';
-            div.innerHTML = `<span>${s}</span>${icons[i]}`;
-            const angle = (i / services.length) * 2 * Math.PI;
-            const x = 275 + 230 * Math.cos(angle) - 25;
-            const y = 275 + 230 * Math.sin(angle) - 25;
-            div.style.left = `${x}px`;
-            div.style.top = `${y}px`;
-            container.appendChild(div);
+<script>
+    // LISTY DANYCH (Czysty JS - brak zamulania strony)
+    const uslugiData = ["Installation av vask", "Byte av toalett", "Värmepumpservice", "Stambyte", "Golvvärme", "Rördragning", "Blandarbyte", "Akut läcka", "Radiatorservice", "Pannbyte", "Hydroforbyte", "Varmvattenberedare", "Avloppsrensning", "Badrumsrenovering", "Kökstjänster", "Vattenrening", "Cirkulationspumpar", "Ventilbyte", "Expansionskärl", "Brunnspumpar", "Läckagesökning", "Rörisolering", "Vattenmätarbyte", "Utekranar", "Diskmaskinsmontage", "Tvättmaskinsmontage", "Golvbrunnar", "Spolning av rör", "Backventiler", "Termostatbyte"];
+    const miejscaData = ["Ludvika", "Borlänge", "Falun", "Smedjebacken", "Grängesberg", "Sunnansjö", "Fredriksberg", "Nyhammar", "Saxdalen", "Gonäs", "Blötberget", "Håksberg", "Sörvik", "Persbo", "Marnäs", "Björbo", "Dala-Floda", "Gagnef", "Mockfjärd", "Säter", "Hedemora", "Avesta", "Krylbo", "Horndal", "Fors", "Långshyttan", "Vikmanshyttan", "Garpenberg", "Söderbärke", "Mora", "Orsa", "Rättvik", "Leksand", "Insjön", "Tällberg", "Siljansnäs", "Vansbro", "Malung", "Sälen", "Idre", "Älvdalen", "Särna", "Djurås", "Dala-Järna", "Enviken", "Svärdsjö", "Linghed", "Boda", "Furudal", "Fryksås", "Grangärde", "Björsjö", "Hagge", "Morgårdshammar"];
+
+    // Renderowanie list
+    const fillList = (id, data) => {
+        const el = document.getElementById(id);
+        data.forEach(item => {
+            const li = document.createElement('li');
+            li.innerText = item;
+            el.appendChild(li);
         });
-    </script>
+    }
+    fillList('uslugi', uslugiData);
+    fillList('miejsca', miejscaData);
+
+    // OBSŁUGA FORMULARZA + GOOGLE DRIVE
+    document.getElementById('vvsForm').onsubmit = async (e) => {
+        e.preventDefault();
+        const btn = document.getElementById('submitBtn');
+        btn.innerText = "WYSYŁANIE DO TWOJEGO DYSKU...";
+        btn.disabled = true;
+
+        const files = document.getElementById('fileInput').files;
+        let fileData = [];
+
+        // Konwersja plików
+        for (let file of files) {
+            const reader = new FileReader();
+            const promise = new Promise(res => {
+                reader.onload = (e) => res({
+                    base64: e.target.result.split(',')[1],
+                    type: file.type,
+                    name: file.name
+                });
+            });
+            reader.readAsDataURL(file);
+            fileData.push(await promise);
+        }
+
+        const payload = {
+            name: e.target.clientName.value,
+            phone: e.target.phone.value,
+            date: e.target.date.value,
+            time: e.target.time.value,
+            service: e.target.serviceType.value,
+            desc: e.target.desc.value,
+            files: fileData
+        };
+
+        // Tu wklej swój Web App URL z Google Apps Script
+        const SCRIPT_URL = 'TU_WKLEJ_URL_Z_GOOGLE_APPS_SCRIPT';
+
+        try {
+            await fetch(SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors', // Ważne przy Google Apps Script
+                body: JSON.stringify(payload)
+            });
+            alert("SUKCES! Zgłoszenie i pliki zapisane na Twoim Google Drive.");
+            e.target.reset();
+        } catch (err) {
+            alert("Błąd wysyłki. Sprawdź połączenie z Google API.");
+        } finally {
+            btn.innerText = "WYŚLIJ ZGŁOSZENIE";
+            btn.disabled = false;
+        }
+    };
+
+    // Podgląd wybranych plików
+    document.getElementById('fileInput').onchange = (e) => {
+        document.getElementById('fileList').innerText = `Wybrano plików: ${e.target.files.length}`;
+    };
+</script>
+
 </body>
 </html>
