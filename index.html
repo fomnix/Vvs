@@ -3,156 +3,240 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kamiljö AB | Professionell VVS i Ludvika & Dalarna</title>
+    <title>Kamiljö AB | Professionell Rörmokare i Ludvika</title>
     <link href="https://fonts.googleapis.com" rel="stylesheet">
     <style>
         :root {
-            --brand-green: #2E7D32; /* Soczysta zieleń z Twojego logo */
-            --navy: #001a33;
-            --text-dark: #1a1a1a;
+            --brand-green: #2E7D32; /* Zieleń liścia */
+            --emergency-red: #D32F2F; /* Czerwony Jour */
+            --navy-footer: #001a33; /* Granat ze zdjęcia */
+            --light-bg: #F9FBFA;
+            --text-dark: #1A1A1A;
         }
 
         body { 
             font-family: 'Inter', sans-serif; 
             margin: 0; background: #fff; color: var(--text-dark);
-            -webkit-user-select: none;
+            -webkit-user-select: none; user-select: none;
+            overflow-x: hidden;
         }
 
-        /* HEADER - ZIELONE AKCENTY I TWOJE LOGO */
+        /* HEADER - IDENTYCZNY JAK NA ZDJĘCIU */
         header { 
             display: flex; justify-content: space-between; align-items: center; 
-            padding: 20px 5%; border-bottom: 3px solid var(--brand-green); 
+            padding: 15px 5%; border-bottom: 3px solid var(--brand-green); 
             background: #fff; position: sticky; top: 0; z-index: 1000;
         }
-        .logo-box img { height: 70px; display: block; }
-        nav { display: flex; align-items: center; }
+        .logo-box img { height: 65px; object-fit: contain; }
+        
+        nav { display: flex; gap: 20px; align-items: center; }
         nav a { 
             text-decoration: none; color: var(--text-dark); font-weight: 800; 
-            font-size: 13px; text-transform: uppercase; margin-left: 30px;
-            transition: 0.3s;
+            font-size: 13px; text-transform: uppercase; letter-spacing: 1px;
+            padding: 10px; transition: 0.3s;
         }
-        nav a:hover { color: var(--brand-green); transform: translateY(-2px); }
+        nav a:hover { color: var(--brand-green); }
 
-        /* HERO - ZIELONA DOMINACJA I TWOJE ZDJĘCIE */
-        .hero { 
-            padding: 80px 5%; background: linear-gradient(135deg, #fff 60%, #e8f5e9 100%);
-            display: flex; justify-content: space-between; align-items: center;
-            border-bottom: 1px solid #eee;
+        .btn-jour { 
+            background: var(--emergency-red); color: #fff; padding: 12px 25px; 
+            border-radius: 5px; text-decoration: none; font-weight: 900; 
+            font-size: 14px; text-transform: uppercase; box-shadow: 0 4px 15px rgba(211,47,47,0.3);
         }
-        .hero-content { max-width: 600px; }
-        .hero h1 { font-size: 56px; font-weight: 900; line-height: 1; margin: 0; color: var(--navy); }
-        .hero h1 span { color: var(--brand-green); }
+
+        /* HERO - KOLORYSTYKA I TWOJE PLIKI */
+        .hero { 
+            padding: 80px 5%; background: linear-gradient(180deg, #fff 0%, var(--light-bg) 100%);
+            display: flex; justify-content: space-between; align-items: center;
+            max-width: 1300px; margin: 0 auto; gap: 50px;
+        }
+        .hero-text h1 { font-size: 52px; font-weight: 900; line-height: 1.1; margin: 0; letter-spacing: -2px; }
+        .hero-text h1 span { color: var(--brand-green); }
+        .hero-text p { font-size: 20px; color: #555; margin: 25px 0; font-weight: 500; }
         
-        /* TWOJE ZDJĘCIE Z QR (IMG_2175.png) */
-        .hero-qr { text-align: center; position: relative; }
+        /* TWOJE ZDJĘCIE QR (IMG_2175.png) */
+        .hero-qr { text-align: center; }
         .hero-qr img { 
-            width: 220px; border: 5px solid var(--brand-green); 
-            border-radius: 20px; box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            width: 250px; border: 1px solid #eee; padding: 15px; background: #fff;
+            border-radius: 15px; box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+            cursor: pointer; transition: 0.4s;
+        }
+        .hero-qr img:hover { transform: scale(1.03); border-color: var(--brand-green); }
+
+        /* INSTAGRAM - REALNA ROBOTA WYŻEJ */
+        .insta-section { padding: 40px 5%; background: #fff; }
+        .insta-grid { display: grid; grid-template-cols: repeat(4, 1fr); gap: 15px; max-width: 1300px; margin: 0 auto; }
+        .insta-item { aspect-ratio: 1; background: #eee; border-radius: 10px; overflow: hidden; }
+        .insta-item img { width: 100%; height: 100%; object-fit: cover; cursor: pointer; transition: 0.5s; }
+        .insta-item:hover img { filter: brightness(0.7) grayscale(0.5); transform: scale(1.1); }
+
+        /* CYRKULACJA USŁUG - PROFESJONALNY OBIEG */
+        .service-orbit-wrap { 
+            padding: 100px 0; background: var(--light-bg); position: relative; 
+            display: flex; align-items: center; justify-content: center; height: 700px;
+        }
+        .orbit-center { position: absolute; text-align: center; z-index: 10; }
+        .orbit-center h2 { font-size: 28px; font-weight: 900; color: var(--brand-green); text-transform: uppercase; margin: 0; }
+        
+        .orbit-circle { 
+            width: 550px; height: 550px; position: relative; 
+            animation: rotateOrbit 80s linear infinite; 
+        }
+        .orbit-circle:hover { animation-play-state: paused; }
+
+        .service-icon { 
+            position: absolute; width: 50px; height: 50px; background: #fff; 
+            border: 2px solid var(--brand-green); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; font-size: 24px;
             cursor: pointer; transition: 0.3s;
         }
-        .hero-qr img:hover { transform: scale(1.05); }
-        .hero-qr p { font-weight: 900; font-size: 14px; margin-top: 15px; color: var(--navy); letter-spacing: 1px; }
-
-        /* SLIDER PARTNERÓW - PŁYNNA ROTACJA */
-        .partners-wrap { 
-            background: #fff; padding: 50px 0; overflow: hidden; position: relative;
-        }
-        .partners-header { text-align: center; margin-bottom: 30px; font-size: 12px; font-weight: 900; color: #999; letter-spacing: 2px; }
+        .service-icon:hover { background: var(--brand-green); transform: scale(1.3); color: #fff; }
         
-        .partners-slider { 
-            display: flex; 
-            width: calc(250px * 72); /* Dla 36 partnerów powtórzonych 2 razy */
-            animation: scrollLogos 45s linear infinite; 
+        /* UKRYTE SEO W USŁUGACH */
+        .service-icon span { position: absolute; font-size: 0; color: transparent; }
+
+        /* PARTNERZY - POZIOMA ROTACJA (MARQUEE 2.0) */
+        .partners-bar { 
+            padding: 80px 0; background: #fff; border-top: 1px solid #eee; overflow: hidden;
         }
+        .partners-scroll { display: flex; width: max-content; animation: scrollLeft 50s linear infinite; gap: 80px; align-items: center; }
+        .partner-logo { 
+            filter: grayscale(100%); opacity: 0.3; transition: 0.5s; 
+            height: 70px; max-width: 180px; object-fit: contain; cursor: pointer;
+        }
+        .partner-logo:hover { filter: grayscale(0%); opacity: 1; transform: scale(1.1); }
+
+        /* FOOTER - GRANATOWY ZE ZDJĘCIA */
+        footer { background: var(--navy-footer); color: #fff; padding: 100px 5% 40px; }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 60px; max-width: 1300px; margin: 0 auto; }
+        .footer-col h4 { border-left: 4px solid var(--brand-green); padding-left: 15px; margin-bottom: 25px; text-transform: uppercase; letter-spacing: 1px; }
+        .footer-col p, .footer-col a { color: #a5b1c2; text-decoration: none; font-size: 14px; margin-bottom: 12px; display: block; }
+        .footer-col a:hover { color: #fff; }
+
+        /* SEO MIASTA - UKRYTE */
+        .seo-cities { margin-top: 80px; font-size: 10px; color: #00264d; text-align: justify; line-height: 2; border-top: 1px solid #002b4d; padding-top: 30px; }
+        .seo-cities span:hover { color: #fff; cursor: pointer; }
+
+        @keyframes rotateOrbit { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        @keyframes scrollLeft { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
         
-        .partner-link { 
-            width: 250px; display: flex; flex-direction: column; align-items: center; 
-            text-decoration: none; filter: grayscale(100%); opacity: 0.3; transition: 0.5s;
+        @media (max-width: 900px) {
+            .hero { flex-direction: column; text-align: center; }
+            .orbit-circle { width: 300px; height: 300px; }
         }
-        .partner-link:hover { filter: grayscale(0%); opacity: 1; transform: scale(1.1); }
-        .partner-link img { max-width: 160px; height: 65px; object-fit: contain; }
-        .partner-link span { 
-            margin-top: 12px; font-size: 11px; font-weight: 900; color: var(--brand-green); 
-            text-transform: uppercase; letter-spacing: 1px;
-        }
-
-        @keyframes scrollLogos {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(calc(-250px * 36)); }
-        }
-
-        /* SEO DLA PARTNERÓW (UKRYTE DLA OKA, WIDOCZNE DLA GOOGLE) */
-        .hidden-seo { position: absolute; font-size: 0; color: transparent; height: 0; width: 0; }
     </style>
 </head>
-<body>
+<body oncontextmenu="return false;">
 
     <header>
         <div class="logo-box">
-            <!-- TWOJE LOGO (public/logo.jpeg) -->
-            <img src="public/logo.jpeg" alt="Kamiljö AB VVS Ludvika">
+            <img src="public/logo.jpeg" alt="Kamiljö AB Logo">
         </div>
         <nav>
-            <a href="#hem">Hem</a>
-            <a href="#tjanster">Tjänster</a>
-            <a href="#partner">Partner</a>
-            <a href="#om-oss">Om oss</a>
-            <a href="#kontakt">Kontakt</a>
+            <a href="#">Hem</a>
+            <a href="#services">Tjänster</a>
+            <a href="#partners">Partner</a>
+            <a href="#">Om oss</a>
+            <a href="#">Kontakt</a>
         </nav>
+        <a href="tel:+46762124124" class="btn-jour">Jour 24/7</a>
     </header>
 
-    <section class="hero" id="hem">
-        <div class="hero-content">
-            <span style="font-weight: 900; color: var(--brand-green); font-size: 14px;">DIN LOKALA VVS-EXPERT</span>
-            <h1>Proffs på VVS<br><span>i Ludvika & Dalarna</span></h1>
-            <p style="font-size: 20px; font-weight: 600; margin-top: 25px; color: #555;">
-                Auktoriserad rörservice med 30% ROT-avdrag.<br>Vi säkrar dina installationer med teknisk expertis.
-            </p>
-            <a href="#kontakt" style="background:var(--brand-green); color:#fff; text-decoration:none; padding:20px 40px; border-radius:6px; font-weight:900; display:inline-block; margin-top:30px;">FÅ GRATIS OFFERT →</a>
+    <section class="hero">
+        <div class="hero-text">
+            <span style="font-weight: 900; color: var(--brand-green); letter-spacing: 2px;">VVS-EXPERT I DALARNA</span>
+            <h1>Professionell rörservice<br><span>i Ludvika</span></h1>
+            <p>Vi säkrar din fastighet med auktoriserad expertis. Alltid med F-skattsedel och 30% ROT-avdrag direkt på fakturan.</p>
+            <button style="background:var(--brand-green); color:#fff; border:none; padding:20px 45px; border-radius:5px; font-weight:900; cursor:pointer; font-size:16px;">FÅ GRATIS OFFERT →</button>
         </div>
         
         <div class="hero-qr">
-            <!-- TWOJE ZDJĘCIE Z QR (IMG_2175.png) -->
-            <img src="IMG_2175.png" alt="Skanna för Google Recensioner" onclick="window.open('https://maps.google.com','_blank')">
-            <p>RECENSIONER ⭐ 5.0</p>
+            <!-- TWOJE ZDJĘCIE QR (IMG_2175.png) -->
+            <img src="IMG_2175.png" alt="Google Recensioner QR" onclick="window.open('https://maps.google.com','_blank')">
+            <p style="font-weight:900; font-size:12px; margin-top:15px; letter-spacing: 1px;">⭐⭐⭐⭐⭐ RECENSIONER</p>
         </div>
     </section>
 
-    <!-- SEKACJA PARTNERZY - DYNAMIKA I SEO -->
-    <div class="partners-wrap" id="partner">
-        <div class="partners-header">OFFICIELLA VARUMÄRKEN & PARTNERS</div>
-        <div class="partners-slider">
-            <!-- PRZYKŁADOWY BLOK PARTNERA (Powiel to dla wszystkich 36 firm) -->
-            <a href="https://www.dahl.se" target="_blank" class="partner-link">
-                <img src="img/dahl.png" alt="Dahl VVS Partner">
-                <span>Dahl Sverige AB</span>
-            </a>
-            <a href="https://www.nibe.se" target="_blank" class="partner-link">
-                <img src="img/nibe.png" alt="Nibe Värmepumpar">
-                <span>Nibe Energy Systems</span>
-            </a>
-            <a href="https://www.uponor.se" target="_blank" class="partner-link">
-                <img src="img/uponor.png" alt="Uponor VVS">
-                <span>Uponor International</span>
-            </a>
-            <a href="https://www.ahlsell.se" target="_blank" class="partner-link">
-                <img src="img/ahlsell.png" alt="Ahlsell">
-                <span>Ahlsell AB</span>
-            </a>
-            <!-- ... TUTAJ DODAJESZ KOLEJNE 32 FIRMY ... -->
-            
-            <!-- KOPIA LISTY (Dla efektu nieskończonej pętli - MUSI BYĆ IDENTYCZNA) -->
-            <a href="https://www.dahl.se" target="_blank" class="partner-link"><img src="img/dahl.png" alt="Dahl"><span>Dahl</span></a>
-            <a href="https://www.nibe.se" target="_blank" class="partner-link"><img src="img/nibe.png" alt="Nibe"><span>Nibe</span></a>
-            <a href="https://www.uponor.se" target="_blank" class="partner-link"><img src="img/uponor.png" alt="Uponor"><span>Uponor</span></a>
-            <a href="https://www.ahlsell.se" target="_blank" class="partner-link"><img src="img/ahlsell.png" alt="Ahlsell"><span>Ahlsell</span></a>
+    <!-- 1. INSTAGRAM FEED -->
+    <section class="insta-section">
+        <h2 style="text-align:center; font-size:24px; font-weight:900; margin-bottom:30px;">VÅRT ARBETE PÅ INSTAGRAM</h2>
+        <div class="insta-grid">
+            <div class="insta-item"><img src="img/insta1.jpg" alt="VVS" onclick="window.open('https://instagram.com')"></div>
+            <div class="insta-item"><img src="img/insta2.jpg" alt="Röris" onclick="window.open('https://instagram.com')"></div>
+            <div class="insta-item"><img src="img/insta3.jpg" alt="Badrum" onclick="window.open('https://instagram.com')"></div>
+            <div class="insta-item"><img src="img/insta4.jpg" alt="Värme" onclick="window.open('https://instagram.com')"></div>
+        </div>
+    </section>
+
+    <!-- 2. CYRKULACJA USŁUG (33 IKONY + SEO) -->
+    <section class="service-orbit-wrap" id="services">
+        <div class="orbit-center">
+            <h2>VÅRA TJÄNSTER</h2>
+            <p style="font-size:10px; font-weight:900; color:#999; margin-top:10px;">KLICKA PÅ EN SYMBOL</p>
+        </div>
+        <div class="orbit-circle" id="orbitContainer">
+            <!-- Ikony generowane przez skrypt poniżej -->
+        </div>
+    </section>
+
+    <!-- 3. PARTNERZY - POZIOMA ROTACJA (36 FIRM) -->
+    <div class="partners-bar" id="partners">
+        <div class="partners-scroll">
+            <img src="img/dahl.png" class="partner-logo" alt="Dahl" onclick="window.open('https://dahl.se','_blank')">
+            <img src="img/nibe.png" class="partner-logo" alt="Nibe" onclick="window.open('https://nibe.se','_blank')">
+            <img src="img/uponor.png" class="partner-logo" alt="Uponor" onclick="window.open('https://uponor.se','_blank')">
+            <img src="img/ahlsell.png" class="partner-logo" alt="Ahlsell" onclick="window.open('https://ahlsell.se','_blank')">
+            <img src="img/geberit.png" class="partner-logo" alt="Geberit" onclick="window.open('https://geberit.se','_blank')">
+            <img src="img/fmm.png" class="partner-logo" alt="FM Mattsson" onclick="window.open('https://fmmattsson.com','_blank')">
+            <!-- Powtórz loga, by wypełnić slider i zapewnić pętlę -->
         </div>
     </div>
 
-    <!-- UKRYTE SEO DLA GOOGLE (Wymień wszystkich 36 partnerów) -->
-    <div class="hidden-seo">
-        Våra auktoriserade partners i Dalarna: Dahl, Ahlsell, Nibe, Uponor, Geberit, FM Mattsson, Mora Armatur, Grohe, Grundfos, Wilo, Danfoss, Bosch, LK Systems, Onninen, Wavin, Gustavsberg, Ifö, Ido, Villeroy & Boch, CTC, IVT, Mitsubishi Electric, Panasonic, ESBE, Thermotech, Roth, Purus, Jafo, Trio Perfekta, Flamco, Reflex, Viega, Rehau, Vatette, Hansgrohe, Tapwell.
-    </div>
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>KAMILJÖ AB</h4>
+                <p>Org.nr: 559572-5366</p>
+                <p><b>ADRESS:</b> Ludvika, Dalarna, Sverige</p>
+                <p>Certifierade montörer med yrkesbevis.</p>
+            </div>
+            <div class="footer-col">
+                <h4>KONTAKT</h4>
+                <a href="tel:+46762124124">RING: 0762 124 124</a>
+                <a href="mailto:info@kamiljo.se">E-POST: info@kamiljo.se</a>
+                <a href="#">INSTAGRAM: @kamiljo_ab</a>
+            </div>
+        </div>
 
+        <div class="seo-cities">
+            <b>OMRÅDEN VI TÄCKER:</b> 
+            <span>Alvik</span>, <span>Bjursås</span>, <span>Ludvika</span>, <span>Mora</span>, <span>Falun</span>, <span>Borlänge</span>, <span>Säter</span>, <span>Rättvik</span>, <span>Leksand</span>, <span>Avesta</span>... (Tu wklej pełną listę 54 miast)
+        </div>
+    </footer>
+
+    <script>
+        const services = [
+            "Rörmokare", "Diskmaskin", "Tvättmaskin", "Tvättställ", "Diskho", "Ismaskin", 
+            "Radiator", "Toalett", "Duschkabin", "Demontering", "Pannrum", "Rördragning", 
+            "Nyinstallation", "Vattenutkastare", "Värmepump", "Vattenrening", "Läckage", 
+            "Golvvärme", "Vattenmätare", "Blandare", "Luftning", "Veredare", "Ballofix", 
+            "Besiktning", "Jour", "Cirkulationspump", "Expansionskärl", "Säkerhetsventil", 
+            "Termostat", "Shuntventil", "ROT", "F-skatt", "VVS Expert"
+        ];
+
+        const container = document.getElementById('orbitContainer');
+        const icons = ["🔧", "🍽️", "🧼", "💧", "🍲", "🧊", "🔥", "🚽", "🚿", "⚙️", "🏭", "🔗", "🏠", "🌿", "🌀", "🛡️", "💧", "♨️", "📊", "🚰", "💨", "🛢️", "🛑", "🔍", "⚡", "🔄", "🎈", "⚠️", "🌡️", "🔀", "💰", "📜", "✅"];
+
+        services.forEach((s, i) => {
+            const div = document.createElement('div');
+            div.className = 'service-icon';
+            div.innerHTML = `<span>${s}</span>${icons[i]}`;
+            const angle = (i / services.length) * 2 * Math.PI;
+            const x = 275 + 230 * Math.cos(angle) - 25;
+            const y = 275 + 230 * Math.sin(angle) - 25;
+            div.style.left = `${x}px`;
+            div.style.top = `${y}px`;
+            container.appendChild(div);
+        });
+    </script>
 </body>
 </html>
