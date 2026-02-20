@@ -1,948 +1,124 @@
 <!DOCTYPE html>
 <html lang="sv">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kamiljö AB – VVS Ludvika | Rörmokare Dalarna | Rörjour 24/7</title>
-  <meta name="description" content="Kamiljö AB – Auktoriserade VVS-montörer i Ludvika. Jour 24/7, gratis offert inom 24h. Rörinstallation, stambyte, värmepump, avloppsrensning i hela Dalarna." />
-  <meta name="keywords" content="VVS Ludvika, rörmokare Ludvika, rörjour Ludvika, stambyte Ludvika, VVS Dalarna, rörinstallation Dalarna, avloppsrensning Ludvika, värmepump Ludvika, golvvärme Ludvika, VVS jour 24/7 Ludvika, Kamiljö AB, rörmokare Borlänge, VVS Falun, rörjour Dalarna, vattenläcka Ludvika, badrumsrenovering VVS Ludvika, rörinstallation Smedjebacken, VVS Avesta, rörmokare Hedemora, VVS Säter, rörjour Fagersta, stambyte Borlänge, VVS Norberg, rörmokare Grängesberg, rörinstallation Mora, VVS Leksand, rörmokare Rättvik, rörjour Malung, VVS Vansbro, rörmokare Filipstad" />
-
-  <!-- Inline SEO keywords block (hidden) -->
-  <div style="display:none" aria-hidden="true">
-    VVS Ludvika rörmokare Ludvika rörjour Ludvika stambyte Ludvika rörinstallation Ludvika avloppsrensning Ludvika
-    golvvärme Ludvika värmepump Ludvika vattenläcka Ludvika badrumsrenovering Ludvika akut VVS Ludvika jour 24/7 Ludvika
-    VVS Borlänge rörmokare Borlänge rörjour Borlänge stambyte Borlänge rörinstallation Borlänge
-    VVS Falun rörmokare Falun rörjour Falun stambyte Falun rörinstallation Falun
-    VVS Avesta rörmokare Avesta rörjour Avesta stambyte Avesta
-    VVS Hedemora rörmokare Hedemora rörjour Hedemora
-    VVS Säter rörmokare Säter rörjour Säter
-    VVS Smedjebacken rörmokare Smedjebacken rörjour Smedjebacken
-    VVS Fagersta rörmokare Fagersta rörjour Fagersta
-    VVS Norberg rörmokare Norberg rörjour Norberg
-    VVS Skinnskatteberg rörmokare Skinnskatteberg
-    VVS Lindesberg rörmokare Lindesberg rörjour Lindesberg
-    VVS Nora rörmokare Nora rörjour Nora
-    VVS Hällefors rörmokare Hällefors
-    VVS Filipstad rörmokare Filipstad rörjour Filipstad
-    VVS Kristinehamn rörmokare Kristinehamn
-    VVS Karlskoga rörmokare Karlskoga
-    VVS Grängesberg rörmokare Grängesberg
-    VVS Sunnansjö rörmokare Sunnansjö
-    VVS Fredriksberg rörmokare Fredriksberg
-    VVS Björbo rörmokare Björbo
-    VVS Mockfjärd rörmokare Mockfjärd
-    VVS Gagnef rörmokare Gagnef
-    VVS Leksand rörmokare Leksand rörjour Leksand
-    VVS Rättvik rörmokare Rättvik rörjour Rättvik
-    VVS Mora rörmokare Mora rörjour Mora
-    VVS Malung rörmokare Malung rörjour Malung
-    VVS Vansbro rörmokare Vansbro
-    VVS Sälen rörmokare Sälen
-    VVS Idre rörmokare Idre
-    plumber Ludvika plumbing Ludvika emergency plumber Ludvika
-    plumber Borlänge plumbing Borlänge plumber Falun plumbing Falun
-    plumber Dalarna plumbing Dalarna VVS contractor Ludvika
-    heating installation Ludvika heat pump Ludvika underfloor heating Ludvika
-    pipe replacement Ludvika drain cleaning Ludvika bathroom renovation Ludvika
-    water heater Ludvika boiler installation Ludvika
-    plumber Avesta plumber Hedemora plumber Säter plumber Fagersta
-    plumber Norberg plumber Mora plumber Leksand plumber Rättvik
-    VVS-montör Ludvika auktoriserad VVS Ludvika yrkesbevis VVS Ludvika
-    ROT-avdrag VVS Ludvika F-skatt VVS Ludvika
-    rörjour Borlänge rörjour Falun rörjour Avesta rörjour jour dygnet runt
-    stambyte Falun stambyte Borlänge stambyte Avesta stambyte Dalarna
-    avlopp stopp Ludvika avlopp rensning Ludvika avlopp jour Ludvika
-    varmvattenberedare Ludvika byte varmvattenberedare Ludvika
-    kavitationsteknik värmesystem Ludvika innovativ uppvärmning Dalarna
-  </div>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.2/babel.min.js"></script>
-  <script src="https://cdn.tailwindcss.com"></script>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:ital,wght@0,700;0,900;1,700&display=swap" rel="stylesheet">
-
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            brand: {
-              green: '#2d7a2d',
-              'green-light': '#3d9e3d',
-              'green-dark': '#1a5c1a',
-              teal: '#0f3d4a',
-              'teal-light': '#1a5568',
-              accent: '#e8f5e9',
-              red: '#d32f2f',
-            }
-          },
-          fontFamily: {
-            display: ['Fraunces', 'Georgia', 'serif'],
-            body: ['DM Sans', 'system-ui', 'sans-serif'],
-          },
-          animation: {
-            'pulse-slow': 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-            'float': 'float 6s ease-in-out infinite',
-            'fade-in': 'fadeIn 0.6s ease-out forwards',
-          },
-          keyframes: {
-            float: { '0%, 100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-8px)' } },
-            fadeIn: { '0%': { opacity: '0', transform: 'translateY(20px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } }
-          }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VVS Ludvika | Moderna Installationer</title>
+    <!-- Import czcionek: Playfair Display (nagłówki - eleganckie) & Inter (tekst - nowoczesne) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- PODSTAWOWE USTAWIENIA --- */
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #111111;
+            --accent-color: #d4af37; /* Złoty akcent */
+            --padding-section: 10vh 5vw;
         }
-      }
-    }
-  </script>
 
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'DM Sans', system-ui, sans-serif; color: #1a1a1a; scroll-behavior: smooth; }
-    h1, h2, h3 { font-family: 'Fraunces', Georgia, serif; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    .hero-bg {
-      background: linear-gradient(135deg, #0f3d4a 0%, #1a5568 40%, #2d7a2d 100%);
-      position: relative;
-      overflow: hidden;
-    }
-    .hero-bg::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-    }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
 
-    .pulse-ring {
-      position: relative;
-    }
-    .pulse-ring::before {
-      content: '';
-      position: absolute;
-      inset: -4px;
-      border-radius: 9999px;
-      background: rgba(211, 47, 47, 0.4);
-      animation: ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
-    }
-    @keyframes ping {
-      75%, 100% { transform: scale(1.3); opacity: 0; }
-    }
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
 
-    .nav-link {
-      position: relative;
-      transition: color 0.2s;
-    }
-    .nav-link::after {
-      content: '';
-      position: absolute;
-      bottom: -2px;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background: #2d7a2d;
-      transition: width 0.3s;
-    }
-    .nav-link:hover::after { width: 100%; }
+        /* --- MENU (Minimalistyczne jak u Kamiljo) --- */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 2rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            mix-blend-mode: difference; /* Sprawia, że tekst biały na białym i czarny na białym */
+            color: white;
+        }
 
-    .service-card {
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-    .service-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 30px rgba(45, 122, 45, 0.15);
-    }
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
 
-    .map-dot {
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    .map-dot:hover { filter: brightness(1.3); }
+        .menu-btn {
+            font-size: 1rem;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: none;
+            background: none;
+            color: inherit;
+        }
 
-    .review-card {
-      transition: transform 0.2s;
-    }
-    .review-card:hover { transform: translateY(-2px); }
+        /* --- HERO SECTION (Tu wstawisz animację) --- */
+        .hero {
+            height: 100vh;
+            width: 100%;
+            position: relative;
+            background-color: #0a0a0a; /* Kolor pod animację w trakcie ładowania */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
 
-    ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-track { background: #f0f0f0; }
-    ::-webkit-scrollbar-thumb { background: #2d7a2d; border-radius: 3px; }
+        #animation-container {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
 
-    .section-fade { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
-    .section-fade.visible { opacity: 1; transform: translateY(0); }
-  </style>
-</head>
-<body>
-<div id="root"></div>
+        .hero-text-overlay {
+            position: absolute;
+            z-index: 2;
+            text-align: center;
+            color: white;
+            pointer-events: none; /* Pozwala klikać w animację pod spodem */
+        }
 
-<script type="text/babel">
-const { useState, useEffect, useRef } = React;
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 5rem;
+            line-height: 1.1;
+            margin-bottom: 2rem;
+        }
 
-// ─── DATA ───────────────────────────────────────────────────────────────────
-const TRANSLATIONS = {
-  sv: {
-    nav: { home: "Hem", services: "Tjänster", partners: "Partner", about: "Om oss", contact: "Kontakt" },
-    hero: {
-      badge: "⭐ 5.0 Verifierade omdömen · 200+ nöjda kunder",
-      headline: "Din professionella rörmokare i Ludvika",
-      subheadline: "Kamiljö AB – Auktoriserade VVS-montörer med yrkesbevis. Vi löser dina rörproblem snabbt, säkert och till rätt pris.",
-      cta_primary: "Begär gratis offert",
-      cta_secondary: "Ring oss",
-      offer: "Gratis offert inom 24h",
-      emergency: "Jour 24/7 – Vi finns alltid här"
-    },
-    services: { title: "Våra tjänster", subtitle: "30 professionella VVS-tjänster i Ludvika och hela Dalarna" },
-    map: { title: "Vi verkar i hela regionen", subtitle: "Kamiljö AB utför VVS-arbeten i Ludvika och 52 kringliggande orter", label: "km från Ludvika" },
-    partners: { title: "Våra samarbetspartners", subtitle: "Vi arbetar med ledande leverantörer inom VVS-branschen" },
-    reviews: { title: "Vad våra kunder säger", subtitle: "Baserat på Google Reviews · 5.0 ⭐" },
-    instagram: { title: "Följ oss på Instagram", subtitle: "Se våra senaste projekt", follow: "Följ @kamiljo.ab" },
-    about: {
-      title: "Om Kamiljö AB",
-      body: "Vi är auktoriserade VVS-montörer med yrkesbevis, baserade i Ludvika, Dalarna. Med mångårig erfarenhet erbjuder vi allt från akuta jourtjänster till kompletta VVS-installationer för privatpersoner och företag. Vår specialitet är innovativa värmesystem baserade på kavitationsteknik.",
-      facts: ["Auktoriserade VVS-montörer", "Yrkesbevis", "Org.nr: 559572-5366", "Godkänd för F-skatt", "ROT-avdrag"]
-    },
-    contact: {
-      title: "Kontakta oss",
-      subtitle: "Fyll i formuläret så återkommer vi inom 24 timmar med en gratis offert.",
-      name: "Namn", email: "E-post", phone: "Telefon", service: "Tjänst", message: "Meddelande",
-      submit: "Skicka förfrågan", success: "Tack! Vi återkommer inom 24 timmar."
-    },
-    footer: {
-      tagline: "Auktoriserade VVS-montörer med yrkesbevis",
-      hours_title: "Öppettider",
-      hours: [["Måndag – Fredag", "07:00 – 17:00"], ["Lördag", "08:00 – 14:00"], ["Söndag", "Jour tillgänglig 24/7"]],
-      rights: "Alla rättigheter förbehållna."
-    },
-    call: "RING NU"
-  },
-  en: {
-    nav: { home: "Home", services: "Services", partners: "Partners", about: "About", contact: "Contact" },
-    hero: {
-      badge: "⭐ 5.0 Verified Reviews · 200+ happy customers",
-      headline: "Your professional plumber in Ludvika",
-      subheadline: "Kamiljö AB – Certified plumbing technicians. We solve your plumbing issues fast, safely, and at the right price.",
-      cta_primary: "Get Free Quote",
-      cta_secondary: "Call Us",
-      offer: "Free quote within 24h",
-      emergency: "Emergency 24/7 – Always available"
-    },
-    services: { title: "Our Services", subtitle: "30 professional plumbing services in Ludvika and all of Dalarna" },
-    map: { title: "We Serve the Entire Region", subtitle: "Kamiljö AB works in Ludvika and 52 surrounding areas", label: "km from Ludvika" },
-    partners: { title: "Our Partners", subtitle: "We work with leading suppliers in the plumbing industry" },
-    reviews: { title: "What Our Customers Say", subtitle: "Based on Google Reviews · 5.0 ⭐" },
-    instagram: { title: "Follow Us on Instagram", subtitle: "See our latest projects", follow: "Follow @kamiljo.ab" },
-    about: {
-      title: "About Kamiljö AB",
-      body: "We are certified plumbing technicians based in Ludvika, Dalarna. With years of experience, we offer everything from emergency plumbing to complete VVS installations for homeowners and businesses. Our specialty is innovative heating systems based on cavitation technology.",
-      facts: ["Certified Plumbing Technicians", "Trade Certificate", "Org. no: 559572-5366", "VAT Registered", "ROT Tax Deduction"]
-    },
-    contact: {
-      title: "Contact Us",
-      subtitle: "Fill in the form and we'll get back to you within 24 hours with a free quote.",
-      name: "Name", email: "Email", phone: "Phone", service: "Service", message: "Message",
-      submit: "Send Request", success: "Thank you! We'll get back to you within 24 hours."
-    },
-    footer: {
-      tagline: "Certified plumbing technicians",
-      hours_title: "Opening Hours",
-      hours: [["Monday – Friday", "07:00 – 17:00"], ["Saturday", "08:00 – 14:00"], ["Sunday", "Emergency 24/7"]],
-      rights: "All rights reserved."
-    },
-    call: "CALL NOW"
-  }
-};
+        .hero-subtitle {
+            font-size: 1rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            opacity: 0.8;
+        }
 
-const SERVICES = [
-  { id:1, icon:"🔧", sv:{ title:"Installation & Inkoppling", desc:"Professionell installation av vask, tvättställ, dusch, toalett och blandare i Ludvika och Dalarna." }, en:{ title:"Installation & Connection", desc:"Professional installation of sinks, showers, toilets and taps in Ludvika and Dalarna." } },
-  { id:2, icon:"🔥", sv:{ title:"Värme & Pannor", desc:"Installation och byte av pannor, radiatorer, element och värmesystem för hus och lägenheter." }, en:{ title:"Heating & Boilers", desc:"Installation and replacement of boilers, radiators and heating systems for homes." } },
-  { id:3, icon:"🔄", sv:{ title:"Komponentbyte", desc:"Byte av varmvattenberedare, värmeväxlare och hydroforer – snabbt och prisvärt." }, en:{ title:"Component Replacement", desc:"Replacement of water heaters, heat exchangers and hydrophores – fast and affordable." } },
-  { id:4, icon:"🏠", sv:{ title:"Nyinstallation", desc:"Kompletta VVS-installationer för nybyggnation och nya maskiner i hemmet." }, en:{ title:"New Installation", desc:"Complete plumbing for new builds and new home appliances." } },
-  { id:5, icon:"💡", sv:{ title:"Innovativa Lösningar", desc:"Egenutvecklade innovativa lösningar för husuppvärmning baserade på kavitationsteknik." }, en:{ title:"Innovative Solutions", desc:"Custom innovative heating solutions based on cavitation technology." } },
-  { id:6, icon:"🚨", sv:{ title:"Rörjour 24/7", desc:"Akut rörjour dygnet runt – vi rycker ut snabbt vid vattenläcka, stopp eller haveri." }, en:{ title:"Emergency Plumbing 24/7", desc:"Round-the-clock emergency response to leaks, blockages or pipe failures." } },
-  { id:7, icon:"🚿", sv:{ title:"Stambyte", desc:"Professionellt stambyte med minimal störning – moderna rör för framtiden." }, en:{ title:"Pipe Replacement", desc:"Professional main pipe replacement with minimal disruption." } },
-  { id:8, icon:"🪣", sv:{ title:"Avloppsrensning", desc:"Rensning av igensatta avlopp, brunnar och ledningar med modern teknik." }, en:{ title:"Drain Cleaning", desc:"Clearing blocked drains and pipes with modern equipment." } },
-  { id:9, icon:"🛁", sv:{ title:"Badrumsrenovering VVS", desc:"Komplett VVS-del vid badrumsrenovering – från dusch till golvvärme." }, en:{ title:"Bathroom Renovation", desc:"Complete plumbing for bathroom renovations – from shower to underfloor heating." } },
-  { id:10, icon:"🌡️", sv:{ title:"Golvvärme", desc:"Installation av vattenburen golvvärme – effektivt, jämnt och energismart." }, en:{ title:"Underfloor Heating", desc:"Installation of water-based underfloor heating – efficient and energy-smart." } },
-  { id:11, icon:"💧", sv:{ title:"Vattenläcka & Fuktskada", desc:"Snabb utryckning vid vattenläcka – vi hittar och åtgärdar källan." }, en:{ title:"Water Leak Response", desc:"Fast response to water leaks and moisture damage." } },
-  { id:12, icon:"♨️", sv:{ title:"Värmepump", desc:"Installation av luft/vatten- och bergvärmepumpar för energieffektivt boende." }, en:{ title:"Heat Pump Installation", desc:"Air-to-water and geothermal heat pump installation." } },
-  { id:13, icon:"🔩", sv:{ title:"Rörinstallation", desc:"Professionell rörinstallation för kall- och varmvatten i bostäder och lokaler." }, en:{ title:"Pipe Installation", desc:"Professional pipe installation for cold and hot water." } },
-  { id:14, icon:"🪤", sv:{ title:"Tryckreglering", desc:"Kontroll och reglering av vattentryck – förhindra skador och öka komforten." }, en:{ title:"Pressure Regulation", desc:"Water pressure check and regulation – prevent damage." } },
-  { id:15, icon:"🏗️", sv:{ title:"VVS för Företag", desc:"Industriella VVS-lösningar för företag och kommersiella fastigheter i Dalarna." }, en:{ title:"Commercial Plumbing", desc:"Industrial plumbing solutions for businesses and commercial properties." } },
-  { id:16, icon:"🌱", sv:{ title:"Solvärmesystem", desc:"Installation av solvärme för varmvattenproduktion och husuppvärmning." }, en:{ title:"Solar Thermal Systems", desc:"Solar thermal installation for hot water and home heating." } },
-  { id:17, icon:"🧰", sv:{ title:"Underhåll & Service", desc:"Regelbundet underhåll av VVS-system – förlänger livslängden och förebygger haverier." }, en:{ title:"Maintenance & Service", desc:"Regular plumbing system maintenance – extends lifespan." } },
-  { id:18, icon:"🏊", sv:{ title:"Pool & Spabad", desc:"VVS-installation och service för privata pooler och spabad i Dalarna." }, en:{ title:"Pool & Spa", desc:"Plumbing installation for private pools and hot tubs." } },
-  { id:19, icon:"🔊", sv:{ title:"Rörljud & Vibrationer", desc:"Diagnos och åtgärd av rörljud, knackningar och vibrationer." }, en:{ title:"Pipe Noise & Vibration", desc:"Diagnosis and fixing of pipe noise, knocking and vibrations." } },
-  { id:20, icon:"🧊", sv:{ title:"Frostskydd & Isolering", desc:"Installation av frostskydd och isolering för rör i kalla utrymmen." }, en:{ title:"Frost Protection", desc:"Frost protection and pipe insulation for cold spaces." } },
-  { id:21, icon:"🚽", sv:{ title:"Toalett & Avlopp", desc:"Installation, byte och reparation av toaletter, cisterner och avlopp." }, en:{ title:"Toilet & Drainage", desc:"Installation, replacement and repair of toilets and drainage." } },
-  { id:22, icon:"🌊", sv:{ title:"Dränering & Dagvatten", desc:"Dränering kring hus – skyddar grunden mot fukt och vatteninträngning." }, en:{ title:"Drainage & Stormwater", desc:"Drainage around houses – protecting foundations from moisture." } },
-  { id:23, icon:"🏡", sv:{ title:"ROT-arbeten VVS", desc:"Alla VVS-arbeten berättigade till ROT-avdrag. Vi hanterar ansökan." }, en:{ title:"ROT Tax Deduction", desc:"All plumbing work eligible for Swedish ROT tax deduction." } },
-  { id:24, icon:"💼", sv:{ title:"Besiktning & Rådgivning", desc:"VVS-besiktning och rådgivning inför köp, renovering eller nybygge." }, en:{ title:"Inspection & Consulting", desc:"Plumbing inspection and advice before purchase or renovation." } },
-  { id:25, icon:"⚡", sv:{ title:"Akut Reparation", desc:"Snabb akutreparation av trasiga rör, blandare och anslutningar." }, en:{ title:"Emergency Repair", desc:"Fast emergency repair of broken pipes, fittings and connections." } },
-  { id:26, icon:"🔬", sv:{ title:"Rörinspektionskamera", desc:"Kamerainspektionskontroll av rör och avlopp – hittar problem utan grävning." }, en:{ title:"CCTV Pipe Inspection", desc:"Camera inspection of pipes – finds problems without excavation." } },
-  { id:27, icon:"🏢", sv:{ title:"Fastighetsservice VVS", desc:"Löpande VVS-service och underhållsavtal för bostadsrättsföreningar." }, en:{ title:"Property Management", desc:"Ongoing plumbing service for housing associations and landlords." } },
-  { id:28, icon:"🔑", sv:{ title:"Ventiler & Avstängning", desc:"Installation och byte av tillträdesventiler, säkerhetsventiler." }, en:{ title:"Valve Installation", desc:"Installation of access valves, shutoff valves and safety valves." } },
-  { id:29, icon:"🧼", sv:{ title:"Tvättstuga & Vitvaror", desc:"Installation och inkoppling av tvättmaskiner, torktumlare och diskmaskin." }, en:{ title:"Appliance Connection", desc:"Installation of washing machines, dryers and dishwashers." } },
-  { id:30, icon:"📋", sv:{ title:"Relining – Rörförnyelse", desc:"Relining av gamla avloppsrör utan att riva upp golv och väggar." }, en:{ title:"Pipe Relining", desc:"Relining of old drain pipes without breaking up floors and walls." } }
-];
+        /* --- SEKCJE (Styl Kamiljo: Dużo miejsca) --- */
+        section {
+            padding: var(--padding-section);
+            min-height: 80vh;
+        }
 
-const LOCATIONS = [
-  { name:"Ludvika", distance:0, x:50, y:50, isMain:true },
-  { name:"Borlänge", distance:38, x:68, y:25 }, { name:"Falun", distance:55, x:78, y:18 },
-  { name:"Avesta", distance:40, x:82, y:38 }, { name:"Hedemora", distance:42, x:80, y:30 },
-  { name:"Säter", distance:36, x:74, y:28 }, { name:"Smedjebacken", distance:18, x:57, y:46 },
-  { name:"Fagersta", distance:30, x:66, y:58 }, { name:"Norberg", distance:35, x:70, y:53 },
-  { name:"Skinnskatteberg", distance:55, x:62, y:68 }, { name:"Lindesberg", distance:55, x:55, y:75 },
-  { name:"Nora", distance:65, x:48, y:78 }, { name:"Hällefors", distance:60, x:38, y:70 },
-  { name:"Filipstad", distance:58, x:30, y:65 }, { name:"Kristinehamn", distance:85, x:25, y:78 },
-  { name:"Karlskoga", distance:90, x:30, y:80 }, { name:"Grängesberg", distance:12, x:45, y:52 },
-  { name:"Sunnansjö", distance:8, x:48, y:47 }, { name:"Fredriksberg", distance:20, x:42, y:45 },
-  { name:"Gonäs", distance:22, x:52, y:38 }, { name:"Björbo", distance:35, x:36, y:28 },
-  { name:"Mockfjärd", distance:40, x:40, y:26 }, { name:"Gagnef", distance:52, x:56, y:22 },
-  { name:"Leksand", distance:65, x:62, y:14 }, { name:"Insjön", distance:60, x:66, y:16 },
-  { name:"Rättvik", distance:80, x:72, y:10 }, { name:"Mora", distance:100, x:62, y:5 },
-  { name:"Orsa", distance:115, x:65, y:2 }, { name:"Malung", distance:85, x:22, y:18 },
-  { name:"Vansbro", distance:60, x:30, y:22 }, { name:"Äppelbo", distance:30, x:36, y:36 },
-  { name:"Nås", distance:45, x:30, y:32 }, { name:"Dala-Järna", distance:72, x:22, y:30 },
-  { name:"Sälen", distance:120, x:10, y:12 }, { name:"Vikmanshyttan", distance:25, x:60, y:36 },
-  { name:"Saxdalen", distance:14, x:47, y:55 }, { name:"Djurås", distance:50, x:58, y:20 },
-  { name:"Vikarbyn", distance:70, x:67, y:11 }, { name:"Enviken", distance:62, x:74, y:20 },
-  { name:"Bjursås", distance:68, x:76, y:22 }, { name:"Torsång", distance:48, x:70, y:26 },
-  { name:"Vika", distance:42, x:68, y:30 }, { name:"Korsnäs", distance:45, x:72, y:28 },
-  { name:"Aspeboda", distance:56, x:76, y:24 }, { name:"Sundborn", distance:62, x:80, y:20 },
-  { name:"Svartnäs", distance:58, x:82, y:28 }, { name:"Ornäs", distance:44, x:72, y:32 },
-  { name:"Hosjö", distance:50, x:74, y:36 }, { name:"Boda", distance:75, x:70, y:8 },
-  { name:"Furudal", distance:90, x:74, y:4 }, { name:"Idre", distance:175, x:45, y:0 }
-];
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            margin-bottom: 4rem;
+        }
 
-const REVIEWS = [
-  { name:"Anders Eriksson", rating:5, date:"2025-11-10", sv:"Extremt professionellt och snabbt. Kom ut samma dag vid vattenläcka. Rekommenderar varmt!", en:"Extremely professional and fast. Came out the same day for a water leak. Highly recommend!" },
-  { name:"Maria Lindström", rating:5, date:"2025-10-22", sv:"Bästa VVS-firma i Ludvika! Bytte varmvattenberedare på ett kick och till rätt pris.", en:"Best plumber in Ludvika! Replaced my water heater quickly and at a fair price." },
-  { name:"Johan Persson", rating:5, date:"2025-09-15", sv:"Jouren kom inom 30 minuter vid stopp i avloppet. Suverän service och trevlig personal!", en:"Emergency team arrived within 30 minutes for a blocked drain. Excellent service!" },
-  { name:"Karin Svensson", rating:5, date:"2025-08-30", sv:"Fantastiskt arbete med badrumsrenoveringen. Allt fungerar perfekt och de städade efter sig.", en:"Fantastic work on the bathroom renovation. Everything works perfectly and they cleaned up." },
-  { name:"Erik Johansson", rating:5, date:"2025-07-18", sv:"Mycket nöjd med golvvärmeinstallationen. Proffsiga och kunniga montörer!", en:"Very happy with the underfloor heating installation. Professional and knowledgeable!" },
-  { name:"Lisa Bergström", rating:5, date:"2025-06-05", sv:"Snabb respons, schysst pris och utmärkt utfört arbete. Kan inte önska mer!", en:"Fast response, fair price and excellent work. Couldn't ask for more!" }
-];
-
-const PARTNERS = [
-  { name:"Grundfos", desc_sv:"Pumpspecialist", desc_en:"Pump specialist", url:"https://grundfos.com", color:"#002060" },
-  { name:"Uponor", desc_sv:"Rörsystem & golvvärme", desc_en:"Piping & underfloor", url:"https://uponor.com", color:"#e31837" },
-  { name:"Geberit", desc_sv:"Sanitärteknik", desc_en:"Sanitary technology", url:"https://geberit.se", color:"#004b87" },
-  { name:"NIBE", desc_sv:"Värmepumpar", desc_en:"Heat pumps", url:"https://nibe.se", color:"#003366" },
-  { name:"IVT", desc_sv:"Energilösningar", desc_en:"Energy solutions", url:"https://ivt.se", color:"#e4002b" },
-  { name:"Pipelife", desc_sv:"Rörsystem", desc_en:"Pipe systems", url:"https://pipelife.se", color:"#005bac" }
-];
-
-// ─── COMPONENTS ──────────────────────────────────────────────────────────────
-
-function Logo() {
-  return (
-    <div className="flex items-center gap-2">
-      <div className="relative w-12 h-12 flex-shrink-0">
-        <svg viewBox="0 0 100 100" className="w-full h-full">
-          <ellipse cx="50" cy="55" rx="42" ry="30" fill="#2d7a2d" transform="rotate(-20 50 55)"/>
-          <ellipse cx="50" cy="55" rx="42" ry="30" fill="#3d9e3d" transform="rotate(-20 50 55)" opacity="0.5"/>
-          <path d="M15,55 Q50,20 85,55" stroke="#1a5568" strokeWidth="3" fill="none"/>
-          <circle cx="40" cy="52" r="5" fill="rgba(255,255,255,0.7)"/>
-          <circle cx="55" cy="60" r="3.5" fill="rgba(255,255,255,0.6)"/>
-          <circle cx="65" cy="50" r="2.5" fill="rgba(255,255,255,0.5)"/>
-        </svg>
-      </div>
-      <div>
-        <div className="font-display text-xl font-bold leading-tight text-brand-teal">KAMILJÖ</div>
-        <div className="text-xs font-body font-semibold text-brand-green tracking-widest">AB · VVS</div>
-      </div>
-    </div>
-  );
-}
-
-function Header({ lang, setLang, t }) {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
-    window.addEventListener('scroll', onScroll);
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
-
-  const links = ['home','services','partners','about','contact'];
-
-  return (
-    <header className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled ? 'bg-white shadow-md py-2' : 'bg-white/95 backdrop-blur py-3'}`}>
-      <div className="max-w-7xl mx-auto px-4 flex items-center justify-between gap-4">
-        <Logo />
-
-        {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center gap-6">
-          {links.map(l => (
-            <a key={l} href={`#${l}`} className="nav-link text-sm font-semibold text-gray-700 hover:text-brand-green transition-colors">
-              {t.nav[l]}
-            </a>
-          ))}
-        </nav>
-
-        {/* Right Controls */}
-        <div className="flex items-center gap-3">
-          {/* Language Switcher */}
-          <div className="flex items-center bg-gray-100 rounded-full p-1 gap-1">
-            {['sv','en'].map(l => (
-              <button key={l} onClick={() => setLang(l)}
-                className={`px-3 py-1 rounded-full text-xs font-bold uppercase transition-all ${lang===l ? 'bg-brand-teal text-white shadow' : 'text-gray-500 hover:text-gray-800'}`}>
-                {l}
-              </button>
-            ))}
-          </div>
-
-          {/* Pulse Call Button */}
-          <div className="pulse-ring">
-            <a href="tel:+46762124124"
-              className="flex items-center gap-2 bg-brand-red text-white text-sm font-bold px-4 py-2 rounded-full shadow-lg hover:bg-red-700 transition-colors">
-              <span>📞</span> {t.call}
-            </a>
-          </div>
-
-          {/* Mobile Menu Toggle */}
-          <button className="md:hidden p-2" onClick={() => setMenuOpen(!menuOpen)}>
-            <span className="block w-5 h-0.5 bg-gray-700 mb-1"></span>
-            <span className="block w-5 h-0.5 bg-gray-700 mb-1"></span>
-            <span className="block w-5 h-0.5 bg-gray-700"></span>
-          </button>
-        </div>
-      </div>
-
-      {/* Mobile Menu */}
-      {menuOpen && (
-        <div className="md:hidden bg-white border-t px-4 py-4 flex flex-col gap-3">
-          {links.map(l => (
-            <a key={l} href={`#${l}`} onClick={() => setMenuOpen(false)}
-              className="text-sm font-semibold text-gray-700 hover:text-brand-green py-2 border-b border-gray-100">
-              {t.nav[l]}
-            </a>
-          ))}
-        </div>
-      )}
-    </header>
-  );
-}
-
-function Hero({ lang, t }) {
-  return (
-    <section id="home" className="hero-bg min-h-screen flex items-center pt-20">
-      <div className="max-w-7xl mx-auto px-4 py-20 w-full">
-        <div className="grid md:grid-cols-2 gap-12 items-center">
-          <div className="text-white">
-            <div className="inline-flex items-center bg-white/10 border border-white/20 text-white text-sm font-semibold px-4 py-2 rounded-full mb-6 backdrop-blur">
-              {t.hero.badge}
-            </div>
-            <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-black leading-tight mb-6 text-white">
-              {t.hero.headline}
-            </h1>
-            <p className="text-lg text-white/80 mb-8 leading-relaxed max-w-lg">
-              {t.hero.subheadline}
-            </p>
-            <div className="flex flex-wrap gap-4 mb-8">
-              <a href="#contact"
-                className="bg-brand-green hover:bg-brand-green-dark text-white font-bold px-8 py-4 rounded-full shadow-xl transition-all hover:scale-105 flex items-center gap-2">
-                <span>📋</span> {t.hero.cta_primary}
-              </a>
-              <a href="tel:+46762124124"
-                className="bg-white/10 border border-white/30 hover:bg-white/20 text-white font-bold px-8 py-4 rounded-full backdrop-blur transition-all flex items-center gap-2">
-                <span>📞</span> {t.hero.cta_secondary}
-              </a>
-            </div>
-            <div className="flex flex-wrap gap-6">
-              <div className="flex items-center gap-2 text-white/80 text-sm">
-                <span className="text-green-300">✓</span> {t.hero.offer}
-              </div>
-              <div className="flex items-center gap-2 text-white/80 text-sm">
-                <span className="text-green-300">✓</span> {t.hero.emergency}
-              </div>
-            </div>
-          </div>
-
-          {/* Stats Panel */}
-          <div className="grid grid-cols-2 gap-4">
-            {[
-              { n:"5.0", label: lang==='sv' ? "Google Betyg" : "Google Rating", icon:"⭐" },
-              { n:"200+", label: lang==='sv' ? "Nöjda kunder" : "Happy Clients", icon:"🏠" },
-              { n:"24/7", label: lang==='sv' ? "Jour tillgänglig" : "Emergency Available", icon:"🚨" },
-              { n:"10+", label: lang==='sv' ? "Års erfarenhet" : "Years Experience", icon:"🔧" }
-            ].map((s,i) => (
-              <div key={i} className="bg-white/10 backdrop-blur border border-white/20 rounded-2xl p-6 text-center hover:bg-white/15 transition-all">
-                <div className="text-3xl mb-2">{s.icon}</div>
-                <div className="font-display text-3xl font-black text-white">{s.n}</div>
-                <div className="text-white/60 text-sm mt-1">{s.label}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Trust Badges */}
-        <div className="mt-16 pt-8 border-t border-white/10 flex flex-wrap gap-6 justify-center">
-          {(lang==='sv' ? ["✅ Auktoriserade VVS-montörer", "🏅 Yrkesbevis", "💳 ROT-avdrag", "🏛️ F-skatt godkänd", "📍 Ludvika, Dalarna"] :
-                         ["✅ Certified Technicians", "🏅 Trade Certificate", "💳 ROT Tax Deduction", "🏛️ VAT Registered", "📍 Ludvika, Dalarna"]).map((b,i) => (
-            <span key={i} className="text-white/70 text-sm">{b}</span>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function Services({ lang, t }) {
-  const [filter, setFilter] = useState('');
-  const filtered = SERVICES.filter(s => {
-    const term = filter.toLowerCase();
-    return s[lang].title.toLowerCase().includes(term) || s[lang].desc.toLowerCase().includes(term);
-  });
-
-  return (
-    <section id="services" className="py-20 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4">
-        <div className="text-center mb-12">
-          <h2 className="font-display text-4xl font-black text-brand-teal mb-4">{t.services.title}</h2>
-          <p className="text-gray-600 text-lg max-w-2xl mx-auto">{t.services.subtitle}</p>
-          <input
-            type="text"
-            placeholder={lang==='sv' ? "Sök tjänst..." : "Search service..."}
-            value={filter}
-            onChange={e => setFilter(e.target.value)}
-            className="mt-6 border border-gray-200 rounded-full px-6 py-3 w-full max-w-sm text-sm focus:outline-none focus:ring-2 focus:ring-brand-green"
-          />
-        </div>
-
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filtered.map(s => (
-            <div key={s.id} className="service-card bg-white rounded-2xl p-6 border border-gray-100 shadow-sm cursor-default">
-              <div className="text-4xl mb-4">{s.icon}</div>
-              <h3 className="font-display text-lg font-bold text-brand-teal mb-2">{s[lang].title}</h3>
-              <p className="text-gray-600 text-sm leading-relaxed">{s[lang].desc}</p>
-              <a href="#contact"
-                className="inline-block mt-4 text-brand-green font-semibold text-sm hover:text-brand-green-dark transition-colors">
-                {lang==='sv' ? "Begär offert →" : "Get Quote →"}
-              </a>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function MapSection({ lang, t }) {
-  const [active, setActive] = useState(null);
-
-  return (
-    <section id="map" className="py-20 bg-brand-teal">
-      <div className="max-w-7xl mx-auto px-4">
-        <div className="text-center mb-12">
-          <h2 className="font-display text-4xl font-black text-white mb-4">{t.map.title}</h2>
-          <p className="text-white/70 text-lg">{t.map.subtitle}</p>
-        </div>
-
-        <div className="relative bg-brand-teal-light rounded-3xl overflow-hidden border border-white/10"
-          style={{ paddingBottom: '60%' }}>
-          <svg viewBox="0 0 100 60" className="absolute inset-0 w-full h-full" preserveAspectRatio="xMidYMid meet">
-            {/* Background */}
-            <rect width="100" height="60" fill="#1a5568" rx="12"/>
-            {/* Grid */}
-            {[10,20,30,40,50,60,70,80,90].map(x => (
-              <line key={`vx${x}`} x1={x} y1="0" x2={x} y2="60" stroke="rgba(255,255,255,0.05)" strokeWidth="0.3"/>
-            ))}
-            {[10,20,30,40,50].map(y => (
-              <line key={`hy${y}`} x1="0" y1={y} x2="100" y2={y} stroke="rgba(255,255,255,0.05)" strokeWidth="0.3"/>
-            ))}
-
-            {/* Connection lines from Ludvika */}
-            {LOCATIONS.filter(l => !l.isMain && l.distance <= 80).map((l,i) => (
-              <line key={i} x1="50" y1="50" x2={l.x} y2={l.y}
-                stroke="rgba(45,122,45,0.2)" strokeWidth="0.3"/>
-            ))}
-
-            {/* City Dots */}
-            {LOCATIONS.map((loc, i) => (
-              <g key={i} className="map-dot" onClick={() => setActive(active?.name === loc.name ? null : loc)}>
-                {loc.isMain ? (
-                  <>
-                    <circle cx={loc.x} cy={loc.y} r="3.5" fill="rgba(45,122,45,0.3)"/>
-                    <circle cx={loc.x} cy={loc.y} r="2.2" fill="#2d7a2d"/>
-                    <circle cx={loc.x} cy={loc.y} r="1.2" fill="white"/>
-                  </>
-                ) : (
-                  <>
-                    <circle cx={loc.x} cy={loc.y} r={active?.name === loc.name ? 2.5 : 1.8}
-                      fill={active?.name === loc.name ? "#3d9e3d" : "rgba(255,255,255,0.6)"}
-                      className="transition-all"/>
-                  </>
-                )}
-                {loc.isMain && (
-                  <text x={loc.x + 3} y={loc.y - 2.5} fontSize="3" fill="white" fontWeight="bold">Ludvika</text>
-                )}
-              </g>
-            ))}
-          </svg>
-
-          {/* Active City Label */}
-          {active && (
-            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-brand-teal text-white px-6 py-3 rounded-full shadow-xl border border-white/20 text-center animate-fade-in">
-              <span className="font-bold text-lg">{active.name}</span>
-              <span className="text-white/70 text-sm ml-3">— {active.distance} {t.map.label}</span>
-            </div>
-          )}
-
-          {!active && (
-            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-white/10 text-white/60 px-4 py-2 rounded-full text-xs border border-white/10">
-              {lang==='sv' ? "Klicka på en ort" : "Click a city"}
-            </div>
-          )}
-        </div>
-
-        {/* City Grid */}
-        <div className="mt-8 grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-2">
-          {LOCATIONS.filter(l => !l.isMain).map((loc, i) => (
-            <div key={i} className="bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg px-3 py-2 text-center cursor-pointer transition-all"
-              onClick={() => setActive(loc)}>
-              <div className="text-white text-xs font-semibold">{loc.name}</div>
-              <div className="text-white/40 text-xs">{loc.distance} km</div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function Partners({ lang, t }) {
-  return (
-    <section id="partners" className="py-20 bg-white">
-      <div className="max-w-7xl mx-auto px-4">
-        <div className="text-center mb-12">
-          <h2 className="font-display text-4xl font-black text-brand-teal mb-4">{t.partners.title}</h2>
-          <p className="text-gray-600 text-lg">{t.partners.subtitle}</p>
-        </div>
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
-          {PARTNERS.map((p,i) => (
-            <a key={i} href={p.url} target="_blank" rel="noopener noreferrer"
-              className="group bg-gray-50 hover:bg-brand-accent border border-gray-100 hover:border-brand-green rounded-2xl p-6 flex flex-col items-center justify-center gap-2 transition-all hover:shadow-md">
-              <div className="w-12 h-12 rounded-xl flex items-center justify-center text-white font-black text-lg"
-                style={{ backgroundColor: p.color }}>
-                {p.name[0]}
-              </div>
-              <div className="font-bold text-sm text-gray-700 group-hover:text-brand-green transition-colors">{p.name}</div>
-              <div className="text-xs text-gray-400 text-center">{lang==='sv' ? p.desc_sv : p.desc_en}</div>
-            </a>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function Reviews({ lang, t }) {
-  return (
-    <section id="reviews" className="py-20 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4">
-        <div className="text-center mb-12">
-          <h2 className="font-display text-4xl font-black text-brand-teal mb-4">{t.reviews.title}</h2>
-          <div className="flex items-center justify-center gap-2 mb-2">
-            {"★★★★★".split("").map((s,i)=> <span key={i} className="text-yellow-400 text-2xl">{s}</span>)}
-          </div>
-          <p className="text-gray-500">{t.reviews.subtitle}</p>
-        </div>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {REVIEWS.map((r,i) => (
-            <div key={i} className="review-card bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
-              <div className="flex items-center gap-1 mb-3">
-                {"★★★★★".split("").map((s,j)=> <span key={j} className="text-yellow-400 text-sm">{s}</span>)}
-              </div>
-              <p className="text-gray-700 text-sm leading-relaxed mb-4 italic">"{r[lang==='sv' ? 'sv' : 'en']}"</p>
-              <div className="flex items-center gap-3 pt-4 border-t border-gray-50">
-                <div className="w-9 h-9 rounded-full bg-brand-teal flex items-center justify-center text-white font-bold text-sm">
-                  {r.name[0]}
-                </div>
-                <div>
-                  <div className="font-semibold text-sm text-gray-800">{r.name}</div>
-                  <div className="text-xs text-gray-400 flex items-center gap-1">
-                    <span className="text-blue-500">G</span> Google · {r.date}
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function Instagram({ lang, t }) {
-  const placeholders = [
-    { bg:"#1a5568", label: lang==='sv' ? "Golvvärme installation" : "Underfloor heating" },
-    { bg:"#2d7a2d", label: lang==='sv' ? "Badrumsrenovering" : "Bathroom renovation" },
-    { bg:"#0f3d4a", label: lang==='sv' ? "VVS-arbete Ludvika" : "Plumbing Ludvika" }
-  ];
-  return (
-    <section className="py-20 bg-white">
-      <div className="max-w-7xl mx-auto px-4">
-        <div className="text-center mb-12">
-          <h2 className="font-display text-4xl font-black text-brand-teal mb-4">{t.instagram.title}</h2>
-          <p className="text-gray-600">{t.instagram.subtitle}</p>
-        </div>
-        <div className="grid grid-cols-3 gap-4 mb-8">
-          {placeholders.map((p,i) => (
-            <div key={i} className="relative rounded-2xl overflow-hidden aspect-square hover:scale-105 transition-transform cursor-pointer shadow-md"
-              style={{ backgroundColor: p.bg }}>
-              <div className="absolute inset-0 flex flex-col items-center justify-center text-white">
-                <div className="text-4xl mb-2">📸</div>
-                <div className="text-xs font-semibold px-4 text-center opacity-80">{p.label}</div>
-              </div>
-              <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 hover:opacity-100 transition-opacity flex items-end p-3">
-                <span className="text-white text-xs">@kamiljo.ab</span>
-              </div>
-            </div>
-          ))}
-        </div>
-        <div className="text-center">
-          <a href="https://instagram.com/kamiljo.ab" target="_blank" rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold px-8 py-3 rounded-full hover:scale-105 transition-transform shadow-lg">
-            <span>📷</span> {t.instagram.follow}
-          </a>
-          <p className="text-xs text-gray-400 mt-3">{t.instagram.placeholder || (lang==='sv' ? "Anslut via Meta API för liveflöde" : "Connect via Meta API for live feed")}</p>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function About({ lang, t }) {
-  return (
-    <section id="about" className="py-20 bg-brand-accent">
-      <div className="max-w-7xl mx-auto px-4">
-        <div className="grid md:grid-cols-2 gap-16 items-center">
-          <div>
-            <h2 className="font-display text-4xl font-black text-brand-teal mb-6">{t.about.title}</h2>
-            <p className="text-gray-700 text-lg leading-relaxed mb-8">{t.about.body}</p>
-            <div className="flex flex-wrap gap-3">
-              {t.about.facts.map((f,i) => (
-                <span key={i} className="bg-white border border-brand-green/20 text-brand-green font-semibold text-sm px-4 py-2 rounded-full">
-                  ✓ {f}
-                </span>
-              ))}
-            </div>
-          </div>
-          <div className="space-y-4">
-            {[
-              { icon:"📞", label:lang==='sv'?"Telefon":"Phone", value:"+46 762 124 124", href:"tel:+46762124124" },
-              { icon:"✉️", label:"Email", value:"info@kamiljo.se", href:"mailto:info@kamiljo.se" },
-              { icon:"📍", label:lang==='sv'?"Adress":"Address", value:"Ludvika, Dalarna" },
-              { icon:"🌐", label:"Website", value:"kamiljo.se", href:"https://kamiljo.se" }
-            ].map((c,i) => (
-              <div key={i} className="bg-white rounded-2xl px-6 py-4 flex items-center gap-4 border border-gray-100 shadow-sm">
-                <span className="text-2xl">{c.icon}</span>
-                <div>
-                  <div className="text-xs text-gray-400 uppercase font-semibold tracking-wide">{c.label}</div>
-                  {c.href ? (
-                    <a href={c.href} className="font-bold text-brand-teal hover:text-brand-green transition-colors">{c.value}</a>
-                  ) : (
-                    <div className="font-bold text-brand-teal">{c.value}</div>
-                  )}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function Contact({ lang, t }) {
-  const [form, setForm] = useState({ name:'', email:'', phone:'', service:'', message:'' });
-  const [sent, setSent] = useState(false);
-
-  const serviceOptions = SERVICES.map(s => ({ value: s[lang].title, label: s[lang].title }));
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setSent(true);
-    setTimeout(() => setSent(false), 5000);
-    setForm({ name:'', email:'', phone:'', service:'', message:'' });
-  };
-
-  return (
-    <section id="contact" className="py-20 bg-white">
-      <div className="max-w-3xl mx-auto px-4">
-        <div className="text-center mb-12">
-          <h2 className="font-display text-4xl font-black text-brand-teal mb-4">{t.contact.title}</h2>
-          <p className="text-gray-600 text-lg">{t.contact.subtitle}</p>
-        </div>
-        <div className="bg-white border border-gray-100 rounded-3xl shadow-xl p-8 md:p-10">
-          {sent ? (
-            <div className="text-center py-12">
-              <div className="text-6xl mb-4">✅</div>
-              <p className="text-2xl font-display font-bold text-brand-green">{t.contact.success}</p>
-            </div>
-          ) : (
-            <form onSubmit={handleSubmit} className="space-y-5">
-              <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-1.5">{t.contact.name}</label>
-                <input type="text" required value={form.name} onChange={e => setForm({...form, name: e.target.value})}
-                  placeholder={lang==='sv' ? "Ditt namn" : "Your name"}
-                  className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand-green"/>
-              </div>
-              <div className="grid sm:grid-cols-2 gap-5">
-                <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-1.5">{t.contact.email}</label>
-                  <input type="email" required value={form.email} onChange={e => setForm({...form, email: e.target.value})}
-                    placeholder={lang==='sv' ? "din@email.se" : "your@email.com"}
-                    className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand-green"/>
-                </div>
-                <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-1.5">{t.contact.phone}</label>
-                  <input type="tel" value={form.phone} onChange={e => setForm({...form, phone: e.target.value})}
-                    placeholder="+46 7XX XXX XXX"
-                    className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand-green"/>
-                </div>
-              </div>
-              <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-1.5">{t.contact.service}</label>
-                <select value={form.service} onChange={e => setForm({...form, service: e.target.value})}
-                  className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand-green bg-white">
-                  <option value="">{lang==='sv' ? "Välj tjänst" : "Select service"}</option>
-                  {serviceOptions.map((o,i) => <option key={i} value={o.value}>{o.label}</option>)}
-                </select>
-              </div>
-              <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-1.5">{t.contact.message}</label>
-                <textarea rows="4" value={form.message} onChange={e => setForm({...form, message: e.target.value})}
-                  placeholder={lang==='sv' ? "Beskriv ditt ärende..." : "Describe your issue..."}
-                  className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand-green resize-none"/>
-              </div>
-              <button type="submit"
-                className="w-full bg-brand-green hover:bg-brand-green-dark text-white font-bold py-4 rounded-xl transition-all hover:scale-[1.02] shadow-lg flex items-center justify-center gap-2 text-base">
-                <span>📤</span> {t.contact.submit}
-              </button>
-            </form>
-          )}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function Footer({ lang, t }) {
-  return (
-    <footer className="bg-brand-teal text-white">
-      <div className="max-w-7xl mx-auto px-4 py-16">
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
-          {/* Brand */}
-          <div>
-            <Logo />
-            <p className="text-white/60 text-sm mt-4 leading-relaxed">{t.footer.tagline}</p>
-            <div className="flex gap-4 mt-6">
-              {["📘","📷","▶️"].map((icon,i) => (
-                <div key={i} className="w-9 h-9 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center cursor-pointer transition-colors text-sm">
-                  {icon}
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Hours */}
-          <div>
-            <h4 className="font-bold mb-4 text-white/90">{t.footer.hours_title}</h4>
-            <div className="space-y-2">
-              {t.footer.hours.map(([day, time], i) => (
-                <div key={i} className="flex justify-between gap-4 text-sm">
-                  <span className="text-white/60">{day}</span>
-                  <span className="text-white font-semibold">{time}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Contact */}
-          <div>
-            <h4 className="font-bold mb-4 text-white/90">{lang==='sv' ? "Kontakt" : "Contact"}</h4>
-            <div className="space-y-3 text-sm">
-              <a href="tel:+46762124124" className="flex items-center gap-2 text-white/70 hover:text-white transition-colors">
-                <span>📞</span> +46 762 124 124
-              </a>
-              <a href="mailto:info@kamiljo.se" className="flex items-center gap-2 text-white/70 hover:text-white transition-colors">
-                <span>✉️</span> info@kamiljo.se
-              </a>
-              <div className="flex items-center gap-2 text-white/70">
-                <span>📍</span> Ludvika, Dalarna
-              </div>
-            </div>
-          </div>
-
-          {/* Services Quick Links */}
-          <div>
-            <h4 className="font-bold mb-4 text-white/90">{lang==='sv' ? "Tjänster" : "Services"}</h4>
-            <div className="space-y-2 text-sm">
-              {SERVICES.slice(0,6).map(s => (
-                <a key={s.id} href="#services" className="block text-white/60 hover:text-white transition-colors">
-                  {s[lang].title}
-                </a>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        <div className="border-t border-white/10 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-sm text-white/40">
-          <span>© 2026 Kamiljö AB. {t.footer.rights}</span>
-          <div className="flex gap-6">
-            <span>Org.nr: 559572-5366</span>
-            <span>F-skatt</span>
-            <span>ROT-avdrag</span>
-          </div>
-        </div>
-      </div>
-    </footer>
-  );
-}
-
-// ─── APP ─────────────────────────────────────────────────────────────────────
-function App() {
-  const [lang, setLang] = useState('sv');
-  const t = TRANSLATIONS[lang];
-
-  // Scroll reveal
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      entries => entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); }),
-      { threshold: 0.1 }
-    );
-    document.querySelectorAll('.section-fade').forEach(el => observer.observe(el));
-    return () => observer.disconnect();
-  }, []);
-
-  return (
-    <div>
-      <Header lang={lang} setLang={setLang} t={t} />
-      <Hero lang={lang} t={t} />
-      <div className="section-fade"><Services lang={lang} t={t} /></div>
-      <div className="section-fade"><MapSection lang={lang} t={t} /></div>
-      <div className="section-fade"><Partners lang={lang} t={t} /></div>
-      <div className="section-fade"><Reviews lang={lang} t={t} /></div>
-      <div className="section-fade"><Instagram lang={lang} t={t} /></div>
-      <div className="section-fade"><About lang={lang} t={t} /></div>
-      <div className="section-fade"><Contact lang={lang} t={t} /></div>
-      <Footer lang={lang} t={t} />
-
-      {/* Floating CTA */}
-      <a href="tel:+46762124124"
-        className="fixed bottom-6 right-6 z-50 bg-brand-red text-white font-bold px-5 py-3 rounded-full shadow-2xl flex items-center gap-2 hover:scale-105 transition-transform">
-        <span className="animate-bounce">📞</span>
-        <span className="hidden sm:inline">{t.call}</span>
-      </a>
-    </div>
-  );
-}
-
-ReactDOM.render(<App />, document.getElementById('root'));
-</script>
-</body>
-</html>
+        /* --- O NAS (Tekst
