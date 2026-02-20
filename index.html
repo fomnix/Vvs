@@ -1,1125 +1,629 @@
 <!DOCTYPE html>
 <html lang="sv">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ladda upp filer - Kamiljö AB VVS</title>
-  <meta name="description" content="Ladda upp bilder och videor på VVS-problem till Kamiljö AB i Ludvika." />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:wght@700;900&display=swap" rel="stylesheet">
-
-  <style>
-    /* ── VARIABLER (Kamiljo AB fargpalett) ── */
-    :root {
-      --green:        #2d7a2d;
-      --green-light:  #3d9e3d;
-      --green-dark:   #1a5c1a;
-      --teal:         #0f3d4a;
-      --teal-light:   #1a5568;
-      --accent:       #e8f5e9;
-      --red:          #d32f2f;
-      --white:        #ffffff;
-      --gray-50:      #f9fafb;
-      --gray-100:     #f3f4f6;
-      --gray-200:     #e5e7eb;
-      --gray-400:     #9ca3af;
-      --gray-600:     #4b5563;
-      --gray-900:     #111827;
-      --shadow-sm:    0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
-      --shadow-md:    0 4px 16px rgba(0,0,0,.10);
-      --shadow-lg:    0 12px 40px rgba(0,0,0,.14);
-      --radius:       16px;
-      --chunk-size:   5242880; /* 5 MB w bajtach */
-    }
-
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: 'DM Sans', system-ui, sans-serif;
-      background: var(--gray-50);
-      color: var(--gray-900);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-
-    /* ── HEADER ── */
-    header {
-      background: var(--teal);
-      padding: 18px 24px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      box-shadow: var(--shadow-md);
-    }
-
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      text-decoration: none;
-    }
-
-    .logo-badge {
-      background: var(--green);
-      border-radius: 10px;
-      padding: 8px 14px;
-      display: flex;
-      flex-direction: column;
-      line-height: 1.1;
-    }
-
-    .logo-badge span:first-child {
-      color: white;
-      font-family: 'Fraunces', serif;
-      font-weight: 900;
-      font-size: 18px;
-      letter-spacing: 1px;
-    }
-
-    .logo-badge span:last-child {
-      color: rgba(255,255,255,.6);
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: 2px;
-    }
-
-    .header-phone {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--red);
-      color: white;
-      font-weight: 700;
-      font-size: 14px;
-      padding: 10px 20px;
-      border-radius: 40px;
-      text-decoration: none;
-      transition: background .2s, transform .2s;
-      white-space: nowrap;
-    }
-
-    .header-phone:hover { background: #b71c1c; transform: scale(1.04); }
-
-    /* ── HERO ── */
-    .hero {
-      background: linear-gradient(135deg, var(--teal) 0%, var(--teal-light) 50%, var(--green-dark) 100%);
-      padding: 48px 24px 56px;
-      text-align: center;
-      color: white;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='20' cy='20' r='2' fill='rgba(255,255,255,0.04)'/%3E%3C/svg%3E");
-    }
-
-    .hero h1 {
-      font-family: 'Fraunces', serif;
-      font-size: clamp(26px, 5vw, 42px);
-      font-weight: 900;
-      line-height: 1.15;
-      margin-bottom: 12px;
-      position: relative;
-    }
-
-    .hero p {
-      font-size: 16px;
-      color: rgba(255,255,255,.75);
-      max-width: 520px;
-      margin: 0 auto;
-      line-height: 1.6;
-      position: relative;
-    }
-
-    .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(255,255,255,.12);
-      border: 1px solid rgba(255,255,255,.2);
-      border-radius: 40px;
-      padding: 6px 16px;
-      font-size: 13px;
-      font-weight: 600;
-      margin-bottom: 16px;
-      backdrop-filter: blur(8px);
-      position: relative;
-    }
-
-    /* ── MAIN CONTAINER ── */
-    main {
-      flex: 1;
-      max-width: 720px;
-      width: 100%;
-      margin: -28px auto 48px;
-      padding: 0 16px;
-      position: relative;
-      z-index: 1;
-    }
-
-    /* ── CARD ── */
-    .card {
-      background: white;
-      border-radius: var(--radius);
-      box-shadow: var(--shadow-lg);
-      overflow: hidden;
-    }
-
-    .card-section {
-      padding: 28px 32px;
-      border-bottom: 1px solid var(--gray-100);
-    }
-
-    .card-section:last-child { border-bottom: none; }
-
-    .section-title {
-      font-family: 'Fraunces', serif;
-      font-size: 18px;
-      font-weight: 700;
-      color: var(--teal);
-      margin-bottom: 18px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    /* ── FORMULÄRFÄLT ── */
-    .form-grid {
-      display: grid;
-      gap: 14px;
-    }
-
-    .form-grid-2 { grid-template-columns: 1fr 1fr; }
-
-    @media (max-width: 540px) {
-      .form-grid-2 { grid-template-columns: 1fr; }
-      .card-section { padding: 20px 20px; }
-    }
-
-    label {
-      display: block;
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--gray-600);
-      margin-bottom: 6px;
-    }
-
-    input[type="text"],
-    input[type="email"],
-    input[type="tel"],
-    textarea,
-    select {
-      width: 100%;
-      border: 1.5px solid var(--gray-200);
-      border-radius: 10px;
-      padding: 11px 14px;
-      font-size: 14px;
-      font-family: inherit;
-      color: var(--gray-900);
-      background: white;
-      transition: border-color .2s, box-shadow .2s;
-      outline: none;
-    }
-
-    input:focus, textarea:focus, select:focus {
-      border-color: var(--green);
-      box-shadow: 0 0 0 3px rgba(45,122,45,.12);
-    }
-
-    textarea { resize: vertical; min-height: 90px; }
-
-    /* ── DROPZONE ── */
-    .dropzone {
-      border: 2.5px dashed var(--gray-200);
-      border-radius: var(--radius);
-      padding: 40px 24px;
-      text-align: center;
-      cursor: pointer;
-      transition: all .25s;
-      background: var(--gray-50);
-      position: relative;
-    }
-
-    .dropzone:hover,
-    .dropzone.dragover {
-      border-color: var(--green);
-      background: var(--accent);
-      transform: scale(1.01);
-    }
-
-    .dropzone.dragover { box-shadow: 0 0 0 4px rgba(45,122,45,.15); }
-
-    .dropzone-icon {
-      font-size: 48px;
-      margin-bottom: 12px;
-      display: block;
-      filter: drop-shadow(0 2px 4px rgba(0,0,0,.08));
-    }
-
-    .dropzone h3 {
-      font-family: 'Fraunces', serif;
-      font-size: 20px;
-      font-weight: 700;
-      color: var(--teal);
-      margin-bottom: 6px;
-    }
-
-    .dropzone p {
-      font-size: 13px;
-      color: var(--gray-400);
-      line-height: 1.5;
-    }
-
-    .dropzone p strong { color: var(--green); }
-
-    .dropzone input[type="file"] {
-      position: absolute;
-      inset: 0;
-      opacity: 0;
-      cursor: pointer;
-      width: 100%;
-      height: 100%;
-    }
-
-    /* ── FIL-LISTA ── */
-    #file-list {
-      margin-top: 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .file-item {
-      background: var(--gray-50);
-      border: 1.5px solid var(--gray-200);
-      border-radius: 12px;
-      padding: 14px 16px;
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      transition: border-color .2s;
-    }
-
-    .file-item.uploading { border-color: var(--green); background: var(--accent); }
-    .file-item.done      { border-color: #4caf50; background: #f1fff1; }
-    .file-item.error     { border-color: var(--red); background: #fff5f5; }
-
-    .file-icon {
-      font-size: 28px;
-      flex-shrink: 0;
-    }
-
-    .file-info { flex: 1; min-width: 0; }
-
-    .file-name {
-      font-weight: 600;
-      font-size: 14px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      color: var(--gray-900);
-    }
-
-    .file-meta {
-      font-size: 12px;
-      color: var(--gray-400);
-      margin-top: 2px;
-    }
-
-    .file-status {
-      font-size: 12px;
-      font-weight: 600;
-      margin-top: 4px;
-    }
-
-    .file-status.uploading { color: var(--green); }
-    .file-status.done      { color: #2e7d32; }
-    .file-status.error     { color: var(--red); }
-
-    /* Progress bar */
-    .progress-track {
-      height: 6px;
-      background: var(--gray-200);
-      border-radius: 99px;
-      margin-top: 8px;
-      overflow: hidden;
-    }
-
-    .progress-fill {
-      height: 100%;
-      background: linear-gradient(90deg, var(--green), var(--green-light));
-      border-radius: 99px;
-      transition: width .3s ease;
-      width: 0%;
-    }
-
-    .file-remove {
-      background: none;
-      border: none;
-      cursor: pointer;
-      font-size: 18px;
-      color: var(--gray-400);
-      flex-shrink: 0;
-      padding: 4px;
-      border-radius: 6px;
-      transition: background .2s, color .2s;
-      line-height: 1;
-    }
-
-    .file-remove:hover { background: #fee2e2; color: var(--red); }
-
-    /* ── GLOBALL PROGRESS ── */
-    #global-progress {
-      display: none;
-      margin-top: 20px;
-    }
-
-    .global-progress-label {
-      display: flex;
-      justify-content: space-between;
-      font-size: 13px;
-      font-weight: 600;
-      margin-bottom: 8px;
-      color: var(--teal);
-    }
-
-    .global-progress-track {
-      height: 10px;
-      background: var(--gray-200);
-      border-radius: 99px;
-      overflow: hidden;
-    }
-
-    .global-progress-fill {
-      height: 100%;
-      background: linear-gradient(90deg, var(--green-dark), var(--green), var(--green-light));
-      background-size: 200% 100%;
-      border-radius: 99px;
-      transition: width .4s ease;
-      animation: shimmer 2s infinite linear;
-      width: 0%;
-    }
-
-    @keyframes shimmer {
-      0%   { background-position: 200% center; }
-      100% { background-position: -200% center; }
-    }
-
-    /* ── INFO-RUTOR ── */
-    .info-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      margin-bottom: 20px;
-    }
-
-    @media (max-width: 480px) { .info-grid { grid-template-columns: 1fr; } }
-
-    .info-box {
-      background: var(--gray-50);
-      border: 1.5px solid var(--gray-200);
-      border-radius: 12px;
-      padding: 14px 16px;
-      text-align: center;
-    }
-
-    .info-box .icon { font-size: 22px; margin-bottom: 6px; }
-    .info-box .val  { font-family: 'Fraunces', serif; font-size: 20px; font-weight: 900; color: var(--teal); }
-    .info-box .lbl  { font-size: 11px; color: var(--gray-400); margin-top: 2px; }
-
-    /* ── KNAPP ── */
-    #submit-btn {
-      width: 100%;
-      padding: 16px;
-      background: var(--green);
-      color: white;
-      border: none;
-      border-radius: 12px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 16px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: background .2s, transform .15s, box-shadow .2s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      box-shadow: 0 4px 14px rgba(45,122,45,.35);
-      margin-top: 4px;
-    }
-
-    #submit-btn:hover:not(:disabled) {
-      background: var(--green-dark);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(45,122,45,.4);
-    }
-
-    #submit-btn:disabled {
-      background: var(--gray-400);
-      cursor: not-allowed;
-      transform: none;
-      box-shadow: none;
-    }
-
-    #submit-btn .spinner {
-      width: 20px; height: 20px;
-      border: 3px solid rgba(255,255,255,.3);
-      border-top-color: white;
-      border-radius: 50%;
-      animation: spin .8s linear infinite;
-      display: none;
-    }
-
-    @keyframes spin { to { transform: rotate(360deg); } }
-
-    /* ── SUCCESS / ERROR SCREENS ── */
-    #success-screen, #error-screen { display: none; }
-
-    .result-screen {
-      text-align: center;
-      padding: 48px 32px;
-    }
-
-    .result-icon { font-size: 72px; margin-bottom: 20px; }
-
-    .result-screen h2 {
-      font-family: 'Fraunces', serif;
-      font-size: 28px;
-      font-weight: 900;
-      margin-bottom: 10px;
-    }
-
-    .result-screen p {
-      font-size: 15px;
-      color: var(--gray-600);
-      line-height: 1.6;
-      max-width: 400px;
-      margin: 0 auto 24px;
-    }
-
-    .result-screen.success h2 { color: var(--green-dark); }
-    .result-screen.error   h2 { color: var(--red); }
-
-    .btn-secondary {
-      display: inline-block;
-      padding: 12px 28px;
-      background: var(--teal);
-      color: white;
-      border: none;
-      border-radius: 40px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 14px;
-      font-weight: 700;
-      cursor: pointer;
-      text-decoration: none;
-      transition: background .2s;
-    }
-
-    .btn-secondary:hover { background: var(--teal-light); }
-
-    /* ── GDPR ── */
-    .gdpr-box {
-      background: var(--gray-50);
-      border: 1.5px solid var(--gray-200);
-      border-radius: 12px;
-      padding: 16px 18px;
-      font-size: 12px;
-      color: var(--gray-600);
-      line-height: 1.6;
-    }
-
-    .gdpr-box strong { color: var(--teal); }
-
-    .gdpr-check {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      margin-top: 12px;
-    }
-
-    .gdpr-check input[type="checkbox"] {
-      width: 18px;
-      height: 18px;
-      flex-shrink: 0;
-      margin-top: 1px;
-      accent-color: var(--green);
-      cursor: pointer;
-    }
-
-    .gdpr-check label {
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--gray-900);
-      cursor: pointer;
-      margin: 0;
-    }
-
-    /* ── TOAST ── */
-    #toast {
-      position: fixed;
-      bottom: 24px;
-      left: 50%;
-      transform: translateX(-50%) translateY(80px);
-      background: var(--teal);
-      color: white;
-      padding: 12px 24px;
-      border-radius: 40px;
-      font-size: 14px;
-      font-weight: 600;
-      box-shadow: var(--shadow-lg);
-      transition: transform .35s cubic-bezier(.34,1.56,.64,1);
-      z-index: 1000;
-      white-space: nowrap;
-    }
-
-    #toast.show { transform: translateX(-50%) translateY(0); }
-    #toast.error-toast { background: var(--red); }
-
-    /* ── FOOTER ── */
-    footer {
-      background: var(--teal);
-      color: rgba(255,255,255,.6);
-      text-align: center;
-      padding: 20px 24px;
-      font-size: 12px;
-      line-height: 1.8;
-    }
-
-    footer strong { color: white; }
-    footer a { color: rgba(255,255,255,.7); text-decoration: none; }
-    footer a:hover { color: white; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kamiljö AB | VVS & Rörmokare i Ludvika</title>
+<meta name="description" content="Auktoriserade VVS-montörer i Ludvika och hela Dalarna. Jour 24/7. Gratis offert inom 24h.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:           #f8fafb;
+    --white:        #ffffff;
+    --text:         #0a0a0a;
+    --text-mid:     #374151;
+    --text-dim:     #6b7280;
+    --green:        #1a6b2e;
+    --green-hover:  #145a26;
+    --green-bg:     #f0fdf4;
+    --green-border: #bbf7d0;
+    --border:       #e5e7eb;
+    --footer-bg:    #0f3d4a;
+    --red:          #dc2626;
+    --radius:       12px;
+    --radius-sm:    8px;
+    --max:          1140px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── NAV ──────────────────────────────────────── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    height: 68px;
+    background: rgba(255,255,255,0.96);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; padding: 0 40px;
+  }
+  .nav-inner {
+    display: flex; align-items: center; justify-content: space-between;
+    width: 100%; max-width: var(--max); margin: 0 auto;
+  }
+  .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .logo-img  { width: 38px; height: 38px; border-radius: 7px; object-fit: cover; }
+  .logo-fallback {
+    display: none; width: 38px; height: 38px; background: var(--green);
+    border-radius: 7px; align-items: center; justify-content: center;
+    color: white; font-weight: 800; font-size: 15px;
+  }
+  .logo-name { font-size: 16px; font-weight: 700; color: var(--text); letter-spacing: -0.3px; }
+
+  .nav-links { display: flex; align-items: center; gap: 30px; list-style: none; }
+  .nav-links a { color: var(--text-mid); text-decoration: none; font-size: 14px; font-weight: 500; transition: color .2s; }
+  .nav-links a:hover { color: var(--green); }
+
+  .nav-right { display: flex; align-items: center; gap: 10px; }
+
+  /* Language switcher */
+  .lang-sw { display: flex; border: 1px solid var(--border); border-radius: 6px; overflow: hidden; }
+  .lang-btn {
+    padding: 5px 11px; cursor: pointer; border: none; font-family: inherit;
+    font-size: 12px; font-weight: 600; letter-spacing: .4px; transition: all .15s;
+  }
+  .lang-btn.active   { background: var(--green); color: white; }
+  .lang-btn:not(.active) { background: white; color: var(--text-dim); }
+  .lang-btn:not(.active):hover { background: #f3f4f6; }
+
+  /* Jour pill */
+  .jour-pill {
+    display: flex; align-items: center; gap: 7px;
+    background: var(--red); color: white; text-decoration: none;
+    font-size: 13px; font-weight: 700; padding: 8px 14px; border-radius: 6px;
+    transition: background .2s, transform .15s;
+  }
+  .jour-pill:hover { background: #b91c1c; transform: translateY(-1px); }
+  .rdot {
+    width: 8px; height: 8px; background: white; border-radius: 50%; flex-shrink: 0;
+    animation: rdotAnim 1.5s ease-in-out infinite;
+  }
+  @keyframes rdotAnim {
+    0%,100% { box-shadow: 0 0 0 0 rgba(255,255,255,.6); }
+    60%     { box-shadow: 0 0 0 5px rgba(255,255,255,0); }
+  }
+
+  /* ── HERO ──────────────────────────────────────── */
+  #hem { padding: 140px 40px 88px; background: var(--bg); text-align: center; }
+  .hero-inner { max-width: 740px; margin: 0 auto; }
+
+  .hero-pill {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--green-bg); border: 1px solid var(--green-border);
+    color: var(--green); font-size: 13px; font-weight: 600;
+    padding: 6px 14px; border-radius: 100px; margin-bottom: 28px;
+    animation: fadeUp .5s ease both;
+  }
+
+  h1 {
+    font-size: clamp(30px, 5vw, 54px); font-weight: 800;
+    color: var(--text); line-height: 1.12; letter-spacing: -1.5px;
+    margin-bottom: 20px; animation: fadeUp .6s .1s ease both;
+  }
+  h1 em { font-style: normal; color: var(--green); }
+
+  .hero-sub {
+    font-size: 17px; color: var(--text-dim); line-height: 1.7;
+    margin-bottom: 28px; animation: fadeUp .6s .2s ease both;
+  }
+
+  .hero-stars {
+    display: flex; align-items: center; justify-content: center; gap: 7px;
+    font-size: 13px; color: var(--text-dim); font-weight: 500;
+    margin-bottom: 32px; animation: fadeUp .6s .25s ease both;
+  }
+  .stars { color: #f59e0b; font-size: 15px; letter-spacing: 1px; }
+
+  .hero-btns {
+    display: flex; align-items: center; justify-content: center;
+    gap: 12px; flex-wrap: wrap; animation: fadeUp .6s .3s ease both;
+  }
+
+  .btn-green {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--green); color: white; text-decoration: none;
+    font-weight: 700; font-size: 15px; padding: 14px 28px;
+    border-radius: var(--radius-sm); transition: all .2s;
+    box-shadow: 0 2px 10px rgba(26,107,46,.22);
+  }
+  .btn-green:hover { background: var(--green-hover); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(26,107,46,.3); }
+
+  .btn-outline {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: white; color: var(--text); text-decoration: none;
+    font-weight: 700; font-size: 15px; padding: 13px 28px;
+    border-radius: var(--radius-sm); border: 1.5px solid var(--border);
+    transition: all .2s;
+  }
+  .btn-outline:hover { border-color: #9ca3af; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,.06); }
+
+  .hero-qr {
+    display: flex; align-items: center; justify-content: center; gap: 16px;
+    background: white; border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 18px 24px; max-width: 320px; margin: 36px auto 0;
+    animation: fadeUp .6s .4s ease both;
+  }
+  .hero-qr img { width: 68px; height: 68px; border-radius: 6px; }
+  .qr-label strong { font-size: 13px; font-weight: 700; display: block; margin-bottom: 3px; }
+  .qr-label span   { font-size: 12px; color: var(--text-dim); }
+
+  /* ── SERVICES ──────────────────────────────────── */
+  #tjanster { padding: 96px 40px; background: white; }
+  .wrap { max-width: var(--max); margin: 0 auto; }
+
+  .sec-head { text-align: center; margin-bottom: 52px; }
+  .eyebrow {
+    font-size: 11px; font-weight: 700; letter-spacing: 2.5px;
+    color: var(--green); text-transform: uppercase; margin-bottom: 10px;
+  }
+  h2 {
+    font-size: clamp(24px, 3vw, 38px); font-weight: 800;
+    color: var(--text); letter-spacing: -1px; margin-bottom: 10px; line-height: 1.15;
+  }
+  .sec-desc { font-size: 15px; color: var(--text-dim); max-width: 440px; margin: 0 auto; line-height: 1.6; }
+
+  .services-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
+
+  .scard {
+    background: white; border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 26px 22px;
+    transition: all .22s; position: relative;
+  }
+  .scard:hover { border-color: #d1d5db; box-shadow: 0 8px 28px rgba(0,0,0,.07); transform: translateY(-2px); }
+  .scard.green { background: var(--green-bg); border-color: var(--green-border); }
+  .scard.green:hover { border-color: #86efac; box-shadow: 0 8px 28px rgba(26,107,46,.1); }
+  .scard.urgency { background: #fff5f5; border-color: #fecaca; }
+  .scard.urgency:hover { border-color: #fca5a5; box-shadow: 0 8px 28px rgba(220,38,38,.08); }
+
+  .scard-icon {
+    width: 44px; height: 44px; border-radius: 10px; display: flex;
+    align-items: center; justify-content: center; font-size: 20px;
+    margin-bottom: 14px; background: var(--bg); border: 1px solid var(--border);
+  }
+  .green   .scard-icon { background: #dcfce7; border-color: var(--green-border); }
+  .urgency .scard-icon { background: #fee2e2; border-color: #fecaca; }
+
+  .scard h3 { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 7px; letter-spacing: -.2px; }
+  .scard p  { font-size: 13px; color: var(--text-dim); line-height: 1.6; }
+  .green   h3 { color: var(--green); }
+  .green   p  { color: #166534; }
+  .urgency h3 { color: var(--red); }
+  .urgency p  { color: #991b1b; }
+
+  .urgency-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    margin-top: 12px; color: var(--red); font-weight: 700;
+    font-size: 14px; text-decoration: none;
+  }
+  .rdot-sm {
+    width: 7px; height: 7px; background: var(--red); border-radius: 50; flex-shrink: 0;
+    animation: rdotAnim 1.5s ease-in-out infinite;
+  }
+
+  /* ── ABOUT ──────────────────────────────────────── */
+  #om-oss { padding: 96px 40px; background: var(--bg); }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; }
+
+  .about-text { font-size: 15px; color: var(--text-mid); line-height: 1.7; margin-bottom: 24px; }
+
+  .badge-row { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 28px; }
+  .badge {
+    display: inline-flex; align-items: center; gap: 5px;
+    background: white; border: 1px solid var(--border); border-radius: 100px;
+    font-size: 12px; font-weight: 600; color: var(--text-mid); padding: 5px 11px;
+  }
+  .badge.g { background: var(--green-bg); border-color: var(--green-border); color: var(--green); }
+
+  .feat-list { display: flex; flex-direction: column; gap: 12px; }
+  .feat-row  { display: flex; align-items: flex-start; gap: 12px; }
+  .feat-check {
+    width: 22px; height: 22px; background: var(--green-bg);
+    border: 1px solid var(--green-border); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; color: var(--green); flex-shrink: 0; margin-top: 1px;
+  }
+  .feat-row strong { font-size: 14px; font-weight: 600; color: var(--text); display: block; margin-bottom: 2px; }
+  .feat-row span   { font-size: 13px; color: var(--text-dim); }
+
+  .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .stat-card {
+    background: white; border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 24px 20px; text-align: center;
+  }
+  .stat-card.wide  { grid-column: 1/-1; background: var(--green-bg); border-color: var(--green-border); }
+  .stat-num  { font-size: 34px; font-weight: 800; color: var(--text); letter-spacing: -1px; line-height: 1; margin-bottom: 6px; }
+  .wide .stat-num  { font-size: 16px; color: var(--green); letter-spacing: 0; }
+  .stat-lbl  { font-size: 11px; font-weight: 600; color: var(--text-dim); letter-spacing: .5px; text-transform: uppercase; }
+
+  /* ── CONTACT ────────────────────────────────────── */
+  #kontakt { padding: 96px 40px; background: white; }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+
+  .cc-methods { display: flex; flex-direction: column; gap: 10px; margin-top: 28px; }
+  .cc-card {
+    display: flex; align-items: center; gap: 14px;
+    background: var(--bg); border: 1px solid var(--border);
+    border-radius: var(--radius-sm); padding: 14px 18px;
+    text-decoration: none; color: inherit; transition: all .2s;
+  }
+  .cc-card:hover { border-color: var(--green); background: var(--green-bg); transform: translateX(3px); }
+  .cc-icon {
+    width: 40px; height: 40px; background: white; border: 1px solid var(--border);
+    border-radius: 8px; display: flex; align-items: center; justify-content: center;
+    font-size: 17px; flex-shrink: 0;
+  }
+  .cc-lbl   { font-size: 10px; font-weight: 600; color: var(--text-dim); letter-spacing: 1px; text-transform: uppercase; }
+  .cc-value { font-size: 15px; font-weight: 700; color: var(--text); margin-top: 1px; }
+
+  .contact-right-box {
+    background: var(--bg); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 32px;
+  }
+  .contact-right-box h3 { font-size: 20px; font-weight: 800; letter-spacing: -.4px; margin-bottom: 8px; }
+  .contact-right-box p  { font-size: 14px; color: var(--text-dim); line-height: 1.6; margin-bottom: 22px; }
+
+  .qr-block {
+    display: flex; align-items: center; gap: 14px;
+    background: white; border: 1px solid var(--border);
+    border-radius: 10px; padding: 14px 18px; margin-bottom: 18px;
+  }
+  .qr-block img    { width: 76px; height: 76px; border-radius: 6px; }
+  .qr-block strong { font-size: 13px; font-weight: 700; display: block; margin-bottom: 3px; }
+  .qr-block span   { font-size: 12px; color: var(--text-dim); line-height: 1.5; }
+
+  /* ── FOOTER ─────────────────────────────────────── */
+  footer { background: var(--footer-bg); color: rgba(255,255,255,.55); padding: 56px 40px 30px; }
+  .footer-grid {
+    display: grid; grid-template-columns: 2fr 1fr 1fr;
+    gap: 56px; max-width: var(--max); margin: 0 auto;
+    padding-bottom: 36px; border-bottom: 1px solid rgba(255,255,255,.1); margin-bottom: 24px;
+  }
+
+  .footer-logo-row { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+  .footer-logo {
+    width: 40px; height: 40px; border-radius: 8px; object-fit: cover;
+    background: white; border: 2px solid white;
+  }
+  .footer-logo-name { font-size: 15px; font-weight: 700; color: white; }
+  .footer-brand p   { font-size: 13px; line-height: 1.65; font-weight: 300; margin-bottom: 12px; }
+  .footer-org { font-size: 11px; color: rgba(255,255,255,.28); letter-spacing: .4px; }
+
+  .footer-col h4 { font-size: 13px; font-weight: 700; color: white; margin-bottom: 14px; }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+  .footer-col a  { color: rgba(255,255,255,.45); text-decoration: none; font-size: 13px; transition: color .2s; }
+  .footer-col a:hover { color: white; }
+
+  .footer-bottom {
+    max-width: var(--max); margin: 0 auto;
+    display: flex; justify-content: space-between; align-items: center; font-size: 12px;
+  }
+  .footer-jour-link {
+    display: flex; align-items: center; gap: 7px;
+    color: white; text-decoration: none; font-size: 13px; font-weight: 700;
+  }
+  .footer-jour-link:hover { opacity: .85; }
+  .rdot-footer {
+    width: 8px; height: 8px; background: var(--red); border-radius: 50%; flex-shrink: 0;
+    animation: rdotAnim 1.5s ease-in-out infinite;
+  }
+
+  /* ── ANIMATIONS ─────────────────────────────────── */
+  @keyframes fadeUp { from { opacity:0; transform: translateY(18px); } to { opacity:1; transform: none; } }
+
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity .55s ease, transform .55s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  /* ── RESPONSIVE ─────────────────────────────────── */
+  @media (max-width: 900px) {
+    nav, #hem, #tjanster, #om-oss, #kontakt, footer { padding-left: 20px; padding-right: 20px; }
+    .nav-links { display: none; }
+    .services-grid, .about-grid, .contact-grid, .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+    .stats-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>
 </head>
 <body>
 
-<!-- HEADER -->
-<header>
-  <a href="https://www.kamiljo.se" class="logo" title="Kamiljö AB - tillbaka till startsidan">
-    <img src="IMG_2174.jpeg"
-         alt="Kamiljö AB logotyp"
-         style="height:52px;width:auto;object-fit:contain;border-radius:6px;" />
-  </a>
-  <a href="tel:+46762124124" class="header-phone">
-    📞 Ring oss — akut jour 24/7
-  </a>
-</header>
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#hem" class="nav-logo">
+      <img src="images/logo.jpeg" alt="Kamiljö AB" class="logo-img"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="logo-fallback">K</div>
+      <span class="logo-name">Kamiljö AB</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#hem">Hem</a></li>
+      <li><a href="#tjanster">Tjänster</a></li>
+      <li><a href="#om-oss">Om oss</a></li>
+      <li><a href="#kontakt">Kontakt</a></li>
+    </ul>
+    <div class="nav-right">
+      <div class="lang-sw">
+        <button class="lang-btn active" onclick="setLang('sv',this)">SV</button>
+        <button class="lang-btn"        onclick="setLang('en',this)">EN</button>
+      </div>
+      <a href="tel:+46762124124" class="jour-pill">
+        <div class="rdot"></div>
+        <span data-sv="Jour 24/7" data-en="Emergency 24/7">Jour 24/7</span>
+      </a>
+    </div>
+  </div>
+</nav>
 
 <!-- HERO -->
-<div class="hero">
-  <div class="hero-badge">📎 Säker uppladdning via Google Drive</div>
-  <h1>Ladda upp bilder & videor<br>på ditt VVS-problem</h1>
-  <p>Skicka oss foton eller film på enskadan — vi kan ge en bättre offert och komma förberedda med rätt verktyg.</p>
-</div>
-
-<!-- MAIN -->
-<main>
-  <div class="card">
-
-    <!-- STEG 1: Kontaktuppgifter -->
-    <div class="card-section" id="section-contact">
-      <div class="section-title">
-        <span>👤</span> Dina uppgifter
-        <small style="font-family:'DM Sans',sans-serif;font-size:12px;color:var(--gray-400);font-weight:400;margin-left:4px;">(valfritt — men hjälper oss att koppla filen till din bokning)</small>
-      </div>
-      <div class="form-grid form-grid-2">
-        <div>
-          <label for="sender-name">Ditt namn</label>
-          <input type="text" id="sender-name" placeholder="Anna Svensson" autocomplete="name" />
-        </div>
-        <div>
-          <label for="sender-phone">Telefon</label>
-          <input type="tel" id="sender-phone" placeholder="+46 70 123 45 67" autocomplete="tel" />
-        </div>
-        <div>
-          <label for="sender-email">E-post</label>
-          <input type="email" id="sender-email" placeholder="din@email.se" autocomplete="email" />
-        </div>
-        <div>
-          <label for="form-ref">Referens / Boknings-ID</label>
-          <input type="text" id="form-ref" placeholder="T.ex. formulärnummer eller datum" />
-        </div>
-      </div>
-      <div class="form-grid" style="margin-top:14px;">
-        <div>
-          <label for="description">Beskrivning av problemet (valfritt)</label>
-          <textarea id="description" placeholder="T.ex. 'Vattenläcka under diskbänken, synlig sedan igår kväll. Läcker ca 1 dl/timme.'"></textarea>
-        </div>
-      </div>
+<section id="hem">
+  <div class="hero-inner">
+    <div class="hero-pill">
+      <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+      <span data-sv="Gratis offert inom 24h" data-en="Free quote within 24h">Gratis offert inom 24h</span>
     </div>
 
-    <!-- STEG 2: Filuppladdning -->
-    <div class="card-section">
-      <div class="section-title"><span>📁</span> Välj filer att ladda upp</div>
+    <h1><span data-sv="Din professionella rörmokare i <em>Ludvika</em> – Kamiljö AB" data-en="Your professional plumber in <em>Ludvika</em> – Kamiljö AB">Din professionella rörmokare i <em>Ludvika</em> – Kamiljö AB</span></h1>
 
-      <!-- Info-boxes -->
-      <div class="info-grid">
-        <div class="info-box">
-          <div class="icon">📦</div>
-          <div class="val">10 GB</div>
-          <div class="lbl">Max per fil</div>
-        </div>
-        <div class="info-box">
-          <div class="icon">⚡</div>
-          <div class="val">5 MB</div>
-          <div class="lbl">Chunk-storlek</div>
-        </div>
-        <div class="info-box">
-          <div class="icon">🔒</div>
-          <div class="val">Drive</div>
-          <div class="lbl">Sparas säkert</div>
-        </div>
-      </div>
+    <p class="hero-sub" data-sv="Auktoriserade VVS-montörer med yrkesbevis verksamma i Ludvika och hela Dalarna. ROT-avdrag gäller på alla tjänster." data-en="Authorized plumbers with professional certification serving Ludvika and all of Dalarna. ROT deduction applies to all services.">Auktoriserade VVS-montörer med yrkesbevis verksamma i Ludvika och hela Dalarna. ROT-avdrag gäller på alla tjänster.</p>
 
-      <!-- Dropzone -->
-      <div class="dropzone" id="dropzone">
-        <input type="file" id="file-input" multiple
-          accept="image/*,video/*,.pdf,.mp4,.mov,.avi,.mkv,.jpg,.jpeg,.png,.webp,.heic" />
-        <span class="dropzone-icon">📸</span>
-        <h3>Dra & släpp filer här</h3>
-        <p>eller <strong>klicka för att välja</strong><br>
-        Bilder, videor, PDF — upp till <strong>10 GB per fil</strong><br>
-        Flera filer kan laddas upp samtidigt</p>
-      </div>
-
-      <!-- Fil-lista -->
-      <div id="file-list"></div>
-
-      <!-- Global progress -->
-      <div id="global-progress">
-        <div class="global-progress-label">
-          <span id="progress-text">Laddar upp...</span>
-          <span id="progress-pct">0%</span>
-        </div>
-        <div class="global-progress-track">
-          <div class="global-progress-fill" id="global-fill"></div>
-        </div>
-      </div>
+    <div class="hero-stars">
+      <span class="stars">★★★★★</span>
+      <span data-sv="5.0 Verifierade omdömen" data-en="5.0 Verified reviews">5.0 Verifierade omdömen</span>
     </div>
 
-    <!-- GDPR -->
-    <div class="card-section">
-      <div class="section-title"><span>🔒</span> Integritetspolicy</div>
-      <div class="gdpr-box">
-        <strong>Kamiljö AB</strong>, org.nr 559572-5366, är personuppgiftsansvarig.
-        De filer och kontaktuppgifter du laddar upp lagras i Kamiljö ABs Google Drive och används
-        <em>enbart</em> för att bedöma och utföra det begärda VVS-arbetet.<br><br>
-        Filerna raderas senast 90 dagar efter avslutat uppdrag om inget avtal tecknats, eller efter
-        7 år om de utgör bokföringsunderlag (bokföringslagen). Du har rätt att när som helst begära
-        radering, tillgång eller rättelse av dina uppgifter via
-        <a href="/cdn-cgi/l/email-protection#670e090108270c060a0e0b0d08491402"><span class="__cf_email__" data-cfemail="573e393138173c363a3e3b3d38792432">[email&#160;protected]</span></a>.
-        Klagomål kan lämnas till Integritetsskyddsmyndigheten (IMY) på
-        <a href="https://imy.se" target="_blank">imy.se</a>.
-      </div>
-      <div class="gdpr-check">
-        <input type="checkbox" id="gdpr-consent" />
-        <label for="gdpr-consent">
-          Jag godkänner att Kamiljö AB lagrar och behandlar mina uppladdade filer och
-          kontaktuppgifter i enlighet med integritetspolicyn ovan (GDPR).
-        </label>
-      </div>
+    <div class="hero-btns">
+      <a href="#kontakt" class="btn-green">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>
+        <span data-sv="Begär offert" data-en="Request quote">Begär offert</span>
+      </a>
+      <a href="tel:+46762124124" class="btn-outline">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11.5a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .82h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+        +46 762 124 124
+      </a>
     </div>
 
-    <!-- SKICKA-KNAPP -->
-    <div class="card-section" style="border-bottom:none;">
-      <button id="submit-btn" disabled>
-        <div class="spinner" id="btn-spinner"></div>
-        <span id="btn-text">📤 Ladda upp filer till Kamiljö AB</span>
-      </button>
-      <p style="text-align:center;font-size:12px;color:var(--gray-400);margin-top:10px;">
-        Filerna laddas upp krypterat direkt till Kamiljö ABs Google Drive-mapp.
-      </p>
-    </div>
-
-  </div><!-- /.card -->
-
-  <!-- SUCCESS -->
-  <div id="success-screen" class="card" style="margin-top:0;">
-    <div class="result-screen success">
-      <div class="result-icon">✅</div>
-      <h2>Filen är uppladdad!</h2>
-      <p id="success-msg">Din fil har laddats upp till Kamiljö AB. Vi granskar den och återkommer inom 24 timmar med offert.</p>
-      <a href="https://www.kamiljo.se/kontakt" class="btn-secondary">Gå till bokningsformuläret</a>
-      <button class="btn-secondary" onclick="resetApp()" style="margin-left:12px;background:var(--green);">
-        Ladda upp fler filer
-      </button>
+    <div class="hero-qr">
+      <img src="images/qr-code.png" alt="QR-kod" onerror="this.style.display='none'">
+      <div class="qr-label">
+        <strong data-sv="Skanna för kontakt" data-en="Scan to contact">Skanna för kontakt</strong>
+        <span data-sv="Rikta kameran mot QR-koden" data-en="Point your camera at the QR code">Rikta kameran mot QR-koden</span>
+      </div>
     </div>
   </div>
+</section>
 
-  <!-- ERROR -->
-  <div id="error-screen" class="card" style="margin-top:0;">
-    <div class="result-screen error">
-      <div class="result-icon">⚠️</div>
-      <h2>Något gick fel</h2>
-      <p id="error-msg">Uppladdningen misslyckades. Försök igen eller kontakta oss direkt.</p>
-      <a href="tel:+46762124124" class="btn-secondary" style="background:var(--red);">📞 Ring oss direkt</a>
-      <button class="btn-secondary" onclick="resetApp()" style="margin-left:12px;">Försök igen</button>
+<!-- SERVICES -->
+<section id="tjanster">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow reveal" data-sv="Vad vi erbjuder" data-en="What we offer">Vad vi erbjuder</div>
+      <h2 class="reveal" data-sv="Våra tjänster" data-en="Our services">Våra tjänster</h2>
+      <p class="sec-desc reveal" data-sv="Professionella VVS-tjänster i Ludvika och hela Dalarna" data-en="Professional plumbing services in Ludvika and all of Dalarna">Professionella VVS-tjänster i Ludvika och hela Dalarna</p>
+    </div>
+    <div class="services-grid">
+      <div class="scard reveal">
+        <div class="scard-icon">🚿</div>
+        <h3 data-sv="Installation & Inkoppling" data-en="Installation & Connection">Installation & Inkoppling</h3>
+        <p data-sv="Installation av vask, tvättställ, dusch, toalett och blandare." data-en="Installation of sinks, wash basins, showers, toilets and faucets.">Installation av vask, tvättställ, dusch, toalett och blandare.</p>
+      </div>
+      <div class="scard reveal">
+        <div class="scard-icon">🔥</div>
+        <h3 data-sv="Värme & Pannor" data-en="Heating & Boilers">Värme & Pannor</h3>
+        <p data-sv="Installation och byte av pannor, radiatorer (element) och värmesystem." data-en="Installation and replacement of boilers, radiators and heating systems.">Installation och byte av pannor, radiatorer (element) och värmesystem.</p>
+      </div>
+      <div class="scard reveal">
+        <div class="scard-icon">🔧</div>
+        <h3 data-sv="Komponentbyte" data-en="Component Replacement">Komponentbyte</h3>
+        <p data-sv="Byte av varmvattenberedare, värmeväxlare och hydroforer." data-en="Replacement of water heaters, heat exchangers and hydrophores.">Byte av varmvattenberedare, värmeväxlare och hydroforer.</p>
+      </div>
+      <div class="scard reveal">
+        <div class="scard-icon">🏗️</div>
+        <h3 data-sv="Nyinstallation" data-en="New Installation">Nyinstallation</h3>
+        <p data-sv="Kompletta VVS-installationer för nya maskiner i hemmet." data-en="Complete plumbing installations for new appliances in the home.">Kompletta VVS-installationer för nya maskiner i hemmet.</p>
+      </div>
+      <div class="scard green reveal">
+        <div class="scard-icon">💡</div>
+        <h3 data-sv="Innovativa lösningar" data-en="Innovative Solutions">Innovativa lösningar</h3>
+        <p data-sv="Egenutvecklade innovativa lösningar för husuppvärmning baserade på kavitationsteknik." data-en="Proprietary innovative solutions for home heating based on cavitation technology.">Egenutvecklade innovativa lösningar för husuppvärmning baserade på kavitationsteknik.</p>
+      </div>
+      <div class="scard urgency reveal">
+        <div class="scard-icon">🚨</div>
+        <h3 data-sv="Jour / Akut" data-en="Emergency / Urgent">Jour / Akut</h3>
+        <p data-sv="Dygnet runt, alla dagar. Ring oss direkt vid akuta problem." data-en="Around the clock, every day. Call us directly for urgent issues.">Dygnet runt, alla dagar. Ring oss direkt vid akuta problem.</p>
+        <a href="tel:+46762124124" class="urgency-link">
+          <div class="rdot-sm"></div>
+          +46 762 124 124
+        </a>
+      </div>
     </div>
   </div>
+</section>
 
-</main>
+<!-- ABOUT -->
+<section id="om-oss">
+  <div class="wrap">
+    <div class="about-grid">
+      <div>
+        <div class="eyebrow reveal" data-sv="Om oss" data-en="About us">Om oss</div>
+        <h2 class="reveal" style="text-align:left" data-sv="Kamiljö AB" data-en="Kamiljö AB">Kamiljö AB</h2>
+        <p class="about-text reveal" data-sv="Vi är auktoriserade VVS-montörer med yrkesbevis verksamma i Ludvika, Smedjebacken, Borlänge, Falun och hela Dalarna. Med fokus på kvalitet, energieffektiv uppvärmning och innovativa lösningar erbjuder vi allt från akut rörjour till stambyte och badrumsrenovering." data-en="We are authorized plumbers with professional certification operating in Ludvika, Smedjebacken, Borlänge, Falun and all of Dalarna. With a focus on quality, energy-efficient heating and innovative solutions we offer everything from emergency plumbing to pipe replacement and bathroom renovation.">Vi är auktoriserade VVS-montörer med yrkesbevis verksamma i Ludvika, Smedjebacken, Borlänge, Falun och hela Dalarna. Med fokus på kvalitet, energieffektiv uppvärmning och innovativa lösningar erbjuder vi allt från akut rörjour till stambyte och badrumsrenovering.</p>
+        <div class="badge-row reveal">
+          <span class="badge g">✓ <span data-sv="Auktoriserade montörer" data-en="Authorized plumbers">Auktoriserade montörer</span></span>
+          <span class="badge g">✓ <span data-sv="Yrkesbevis" data-en="Certified">Yrkesbevis</span></span>
+          <span class="badge g">✓ ROT-avdrag</span>
+          <span class="badge g">✓ F-skatt</span>
+        </div>
+        <div class="feat-list">
+          <div class="feat-row reveal">
+            <div class="feat-check">✓</div>
+            <div>
+              <strong data-sv="Professionell erfarenhet" data-en="Professional experience">Professionell erfarenhet</strong>
+              <span data-sv="Certifierade montörer med bred kompetens" data-en="Certified plumbers with broad expertise">Certifierade montörer med bred kompetens</span>
+            </div>
+          </div>
+          <div class="feat-row reveal">
+            <div class="feat-check">✓</div>
+            <div>
+              <strong data-sv="Kvalitetsgaranti" data-en="Quality guarantee">Kvalitetsgaranti</strong>
+              <span data-sv="Noggrant och prydligt utfört arbete" data-en="Careful and neat work">Noggrant och prydligt utfört arbete</span>
+            </div>
+          </div>
+          <div class="feat-row reveal">
+            <div class="feat-check">✓</div>
+            <div>
+              <strong data-sv="Jour dygnet runt" data-en="24/7 emergency">Jour dygnet runt</strong>
+              <span data-sv="Alltid tillgängliga för akuta situationer" data-en="Always available for urgent situations">Alltid tillgängliga för akuta situationer</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="stats-grid reveal">
+        <div class="stat-card wide">
+          <div class="stat-num" data-sv="✓ ROT-avdrag gäller på alla tjänster" data-en="✓ ROT deduction applies to all services">✓ ROT-avdrag gäller på alla tjänster</div>
+          <div class="stat-lbl" data-sv="Godkänd för F-skatt · Org.nr: 559572-5366" data-en="Approved for F-tax · Org.nr: 559572-5366">Godkänd för F-skatt · Org.nr: 559572-5366</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">5.0★</div>
+          <div class="stat-lbl" data-sv="Verifierade omdömen" data-en="Verified reviews">Verifierade omdömen</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">24/7</div>
+          <div class="stat-lbl" data-sv="Jourservice" data-en="Emergency service">Jourservice</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">24h</div>
+          <div class="stat-lbl" data-sv="Offert inom" data-en="Quote within">Offert inom</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">100%</div>
+          <div class="stat-lbl" data-sv="Auktoriserade" data-en="Authorized">Auktoriserade</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="kontakt">
+  <div class="wrap">
+    <div class="contact-grid">
+      <div>
+        <div class="eyebrow reveal" data-sv="Kontakta oss" data-en="Contact us">Kontakta oss</div>
+        <h2 class="reveal" style="text-align:left" data-sv="Gratis offert inom 24h" data-en="Free quote within 24h">Gratis offert inom 24h</h2>
+        <p class="sec-desc reveal" style="text-align:left;margin:8px 0 0" data-sv="Ring eller maila oss — vi återkommer snabbt med en kostnadsfri offert." data-en="Call or email us — we'll reply quickly with a free quote.">Ring eller maila oss — vi återkommer snabbt med en kostnadsfri offert.</p>
+        <div class="cc-methods">
+          <a href="tel:+46762124124" class="cc-card reveal">
+            <div class="cc-icon">📞</div>
+            <div>
+              <div class="cc-lbl" data-sv="Telefon" data-en="Phone">Telefon</div>
+              <div class="cc-value">+46 762 124 124</div>
+            </div>
+          </a>
+          <a href="mailto:info@kamiljo.se" class="cc-card reveal">
+            <div class="cc-icon">✉️</div>
+            <div>
+              <div class="cc-lbl" data-sv="E-post" data-en="Email">E-post</div>
+              <div class="cc-value">info@kamiljo.se</div>
+            </div>
+          </a>
+          <div class="cc-card reveal" style="cursor:default">
+            <div class="cc-icon">📍</div>
+            <div>
+              <div class="cc-lbl" data-sv="Plats" data-en="Location">Plats</div>
+              <div class="cc-value">Ludvika, Dalarna</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="contact-right-box reveal">
+        <h3 data-sv="Skanna & kontakta" data-en="Scan & contact">Skanna & kontakta</h3>
+        <p data-sv="Rikta mobilkameran mot QR-koden för att ringa oss direkt." data-en="Point your phone camera at the QR code to call us directly.">Rikta mobilkameran mot QR-koden för att ringa oss direkt.</p>
+        <div class="qr-block">
+          <img src="images/qr-code.png" alt="QR-kod Kamiljö AB" onerror="this.style.display='none'">
+          <div>
+            <strong data-sv="Skanna för kontakt" data-en="Scan to contact">Skanna för kontakt</strong>
+            <span data-sv="Ring oss direkt med din mobil" data-en="Call us directly from your phone">Ring oss direkt med din mobil</span>
+          </div>
+        </div>
+        <a href="tel:+46762124124" class="btn-green" style="width:100%;justify-content:center">
+          <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11.5a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .82h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+          <span data-sv="Ring oss nu" data-en="Call us now">Ring oss nu</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- FOOTER -->
 <footer>
-  <strong>Kamiljö AB</strong> — Auktoriserade VVS-montörer, Ludvika, Dalarna<br>
-  <a href="tel:+46762124124">+46 762 124 124</a> &nbsp;·&nbsp;
-  <a href="/cdn-cgi/l/email-protection#95fcfbf3fad5fef4f8fcf9fffabbe6f0"><span class="__cf_email__" data-cfemail="a7cec9c1c8e7ccc6cacecbcdc889d4c2">[email&#160;protected]</span></a> &nbsp;·&nbsp;
-  <a href="https://www.kamiljo.se">kamiljo.se</a><br>
-  Org.nr: 559572-5366 · Godkänd för F-skatt · ROT-avdrag
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="footer-logo-row">
+        <img src="images/logo.jpeg" alt="Kamiljö AB" class="footer-logo" onerror="this.style.display='none'">
+        <span class="footer-logo-name">Kamiljö AB</span>
+      </div>
+      <p data-sv="Auktoriserade VVS-montörer med yrkesbevis. Din pålitliga rörmokare i Ludvika och hela Dalarna." data-en="Authorized plumbers with professional certification. Your reliable plumber in Ludvika and all of Dalarna.">Auktoriserade VVS-montörer med yrkesbevis. Din pålitliga rörmokare i Ludvika och hela Dalarna.</p>
+      <div class="footer-org">Org.nr: 559572-5366 &nbsp;·&nbsp; <span data-sv="Godkänd för F-skatt" data-en="Approved for F-tax">Godkänd för F-skatt</span></div>
+    </div>
+    <div class="footer-col">
+      <h4 data-sv="Tjänster" data-en="Services">Tjänster</h4>
+      <ul>
+        <li><a href="#tjanster" data-sv="Installation & Inkoppling" data-en="Installation & Connection">Installation & Inkoppling</a></li>
+        <li><a href="#tjanster" data-sv="Värme & Pannor" data-en="Heating & Boilers">Värme & Pannor</a></li>
+        <li><a href="#tjanster" data-sv="Komponentbyte" data-en="Component Replacement">Komponentbyte</a></li>
+        <li><a href="#tjanster" data-sv="Nyinstallation" data-en="New Installation">Nyinstallation</a></li>
+        <li><a href="#tjanster" data-sv="Innovativa lösningar" data-en="Innovative Solutions">Innovativa lösningar</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4 data-sv="Kontakt" data-en="Contact">Kontakt</h4>
+      <ul>
+        <li><a href="tel:+46762124124">+46 762 124 124</a></li>
+        <li><a href="mailto:info@kamiljo.se">info@kamiljo.se</a></li>
+        <li><a href="#om-oss">Ludvika, Dalarna</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span data-sv="© 2026 Kamiljö AB. Alla rättigheter förbehållna." data-en="© 2026 Kamiljö AB. All rights reserved.">© 2026 Kamiljö AB. Alla rättigheter förbehållna.</span>
+    <a href="tel:+46762124124" class="footer-jour-link">
+      <div class="rdot-footer"></div>
+      <span data-sv="Jour 24/7" data-en="Emergency 24/7">Jour 24/7</span>
+    </a>
+  </div>
 </footer>
 
-<!-- TOAST -->
-<div id="toast"></div>
-
-<!-- ============================================================
-     JAVASCRIPT - CHUNK UPLOAD ENGINE
-     ============================================================ -->
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-// !! VIKTIGT: Ersatt denna URL med din Google Apps Script Web App URL !!
-// Efter att du distribuerat backend-scriptet, klistra in URL:en har:
-var WEBAPP_URL = https://script.google.com/macros/s/AKfycbzLXpAPVJ7sW66zy6b9ZSFm0XoPLw921xIkd_ZEVcLt0-O-p3Qnk5T-LU71ktPKgs3rYA/exec;
-
-var CHUNK_SIZE = 5 * 1024 * 1024; // 5 MB
-
-// State
-var selectedFiles = [];
-var uploadQueue   = [];
-var isUploading   = false;
-
-// ── DOM-ELEMENT ──
-var dropzone    = document.getElementById("dropzone");
-var fileInput   = document.getElementById("file-input");
-var fileList    = document.getElementById("file-list");
-var submitBtn   = document.getElementById("submit-btn");
-var btnText     = document.getElementById("btn-text");
-var btnSpinner  = document.getElementById("btn-spinner");
-var globalProg  = document.getElementById("global-progress");
-var globalFill  = document.getElementById("global-fill");
-var progressTxt = document.getElementById("progress-text");
-var progressPct = document.getElementById("progress-pct");
-var gdprBox     = document.getElementById("gdpr-consent");
-var mainCard    = document.querySelector(".card");
-var successScr  = document.getElementById("success-screen");
-var errorScr    = document.getElementById("error-screen");
-
-// ── DRAG & DROP ──
-dropzone.addEventListener("dragover", function(e) {
-  e.preventDefault();
-  dropzone.classList.add("dragover");
-});
-dropzone.addEventListener("dragleave", function() {
-  dropzone.classList.remove("dragover");
-});
-dropzone.addEventListener("drop", function(e) {
-  e.preventDefault();
-  dropzone.classList.remove("dragover");
-  addFiles(Array.from(e.dataTransfer.files));
-});
-
-fileInput.addEventListener("change", function() {
-  addFiles(Array.from(this.files));
-  this.value = "";
-});
-
-gdprBox.addEventListener("change", updateSubmitState);
-
-// ── LÄGG TILL FILER ──
-function addFiles(newFiles) {
-  newFiles.forEach(function(file) {
-    if (selectedFiles.find(function(f) { return f.name === file.name && f.size === file.size; })) {
-      showToast("Filen finns redan: " + file.name, true);
-      return;
-    }
-    var id = "file_" + Date.now() + "_" + Math.random().toString(36).substr(2, 6);
-    selectedFiles.push({ id: id, file: file, status: "pending", progress: 0, sessionId: null, folderId: null });
-    renderFileItem(id, file);
-  });
-  updateSubmitState();
-}
-
-function getFileIcon(file) {
-  var t = file.type || "";
-  if (t.startsWith("image/"))  return "🖼️";
-  if (t.startsWith("video/"))  return "🎬";
-  if (t.includes("pdf"))       return "📄";
-  return "📁";
-}
-
-function formatSize(bytes) {
-  if (bytes < 1024)        return bytes + " B";
-  if (bytes < 1048576)     return (bytes / 1024).toFixed(1) + " KB";
-  if (bytes < 1073741824)  return (bytes / 1048576).toFixed(1) + " MB";
-  return (bytes / 1073741824).toFixed(2) + " GB";
-}
-
-function renderFileItem(id, file) {
-  var div = document.createElement("div");
-  div.className = "file-item";
-  div.id = "item_" + id;
-  div.innerHTML =
-    '<div class="file-icon">' + getFileIcon(file) + '</div>'
-    + '<div class="file-info">'
-    +   '<div class="file-name">' + escHtml(file.name) + '</div>'
-    +   '<div class="file-meta">' + formatSize(file.size) + ' &nbsp;·&nbsp; '
-    +   Math.ceil(file.size / CHUNK_SIZE) + ' delar (5 MB/del)</div>'
-    +   '<div class="file-status" id="status_' + id + '">Väntar...</div>'
-    +   '<div class="progress-track"><div class="progress-fill" id="prog_' + id + '"></div></div>'
-    + '</div>'
-    + '<button class="file-remove" onclick="removeFile(\'' + id + '\')" title="Ta bort">✕</button>';
-  fileList.appendChild(div);
-}
-
-function removeFile(id) {
-  var idx = selectedFiles.findIndex(function(f) { return f.id === id; });
-  if (idx !== -1) {
-    var sf = selectedFiles[idx];
-    if (sf.status === "uploading") {
-      cancelUpload(sf);
-    }
-    selectedFiles.splice(idx, 1);
-  }
-  var el = document.getElementById("item_" + id);
-  if (el) el.remove();
-  updateSubmitState();
-}
-
-function updateSubmitState() {
-  var hasPending = selectedFiles.some(function(f) { return f.status === "pending"; });
-  submitBtn.disabled = !(hasPending && gdprBox.checked && !isUploading);
-}
-
-// ── CANCEL ──
-function cancelUpload(sf) {
-  if (!sf.sessionId) return;
-  fetch(WEBAPP_URL, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ action: "cancelUpload", sessionId: sf.sessionId, folderId: sf.folderId })
-  }).catch(function() {});
-}
-
-// ── HUVUD-UPLOAD-FUNKTION ──
-submitBtn.addEventListener("click", function() {
-  if (isUploading) return;
-  startUploadAll();
-});
-
-function startUploadAll() {
-  uploadQueue = selectedFiles.filter(function(f) { return f.status === "pending"; });
-  if (!uploadQueue.length) return;
-
-  isUploading = true;
-  submitBtn.disabled = true;
-  btnText.textContent = "Laddar upp...";
-  btnSpinner.style.display = "block";
-  globalProg.style.display = "block";
-
-  uploadNext(0);
-}
-
-function uploadNext(index) {
-  if (index >= uploadQueue.length) {
-    allDone();
-    return;
-  }
-
-  var sf    = uploadQueue[index];
-  var total = uploadQueue.length;
-  progressTxt.textContent = "Laddar upp fil " + (index + 1) + " av " + total + ": " + sf.file.name;
-
-  uploadFile(sf, function(ok, result) {
-    if (ok) {
-      setFileStatus(sf.id, "done", "✅ Uppladdad!");
-      setFileProgress(sf.id, 100);
-    } else {
-      setFileStatus(sf.id, "error", "❌ Fel: " + (result || "Okänt fel"));
-    }
-    updateGlobalProgress(index + 1, total);
-    uploadNext(index + 1);
-  });
-}
-
-// ── LADDA UPP EN FIL (chunk by chunk) ──
-function uploadFile(sf, callback) {
-  var file       = sf.file;
-  var totalBytes = file.size;
-  var totalChunks = Math.ceil(totalBytes / CHUNK_SIZE);
-  var mimeType   = file.type || "application/octet-stream";
-
-  setFileStatus(sf.id, "uploading", "Initierar...");
-  setItemClass(sf.id, "uploading");
-
-  // STEG 1: Init
-  var initPayload = {
-    action:       "initUpload",
-    fileName:     file.name,
-    fileSize:     totalBytes,
-    totalChunks:  totalChunks,
-    mimeType:     mimeType,
-    senderName:   (document.getElementById("sender-name").value  || "").trim(),
-    senderEmail:  (document.getElementById("sender-email").value || "").trim(),
-    senderPhone:  (document.getElementById("sender-phone").value || "").trim(),
-    description:  (document.getElementById("description").value  || "").trim(),
-    formRef:      (document.getElementById("form-ref").value     || "").trim()
-  };
-
-  postJSON(initPayload, function(err, initRes) {
-    if (err || !initRes.success) {
-      setItemClass(sf.id, "error");
-      return callback(false, err || initRes.error);
-    }
-
-    sf.sessionId = initRes.sessionId;
-    sf.folderId  = initRes.folderId;
-    sf.status    = "uploading";
-
-    // STEG 2: Skicka chunks
-    sendChunks(sf, file, totalChunks, 0, function(chunkErr) {
-      if (chunkErr) {
-        setItemClass(sf.id, "error");
-        return callback(false, chunkErr);
+<script>
+  // Scroll reveal
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 60);
+        io.unobserve(e.target);
       }
-
-      // STEG 3: Finalize
-      setFileStatus(sf.id, "uploading", "Sätter ihop filen...");
-      postJSON({ action: "finalizeUpload", sessionId: sf.sessionId, folderId: sf.folderId },
-        function(finErr, finRes) {
-          if (finErr || !finRes.success) {
-            setItemClass(sf.id, "error");
-            return callback(false, finErr || finRes.error);
-          }
-          sf.status = "done";
-          setItemClass(sf.id, "done");
-          callback(true, finRes);
-        }
-      );
     });
-  });
-}
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
-function sendChunks(sf, file, totalChunks, chunkIndex, callback) {
-  if (chunkIndex >= totalChunks) {
-    return callback(null);
-  }
-
-  var start  = chunkIndex * CHUNK_SIZE;
-  var end    = Math.min(start + CHUNK_SIZE, file.size);
-  var blob   = file.slice(start, end);
-
-  var reader = new FileReader();
-  reader.onload = function(e) {
-    // base64 av chunk (ta bort "data:...;base64," prefix)
-    var base64 = e.target.result.split(",")[1];
-
-    var payload = {
-      action:     "uploadChunk",
-      sessionId:  sf.sessionId,
-      folderId:   sf.folderId,
-      chunkIndex: chunkIndex,
-      chunkData:  base64
-    };
-
-    setFileStatus(sf.id, "uploading",
-      "Del " + (chunkIndex + 1) + " / " + totalChunks + "  (" + formatSize(end) + " / " + formatSize(file.size) + ")");
-
-    var pct = Math.round((chunkIndex / totalChunks) * 100);
-    setFileProgress(sf.id, pct);
-
-    postJSON(payload, function(err, res) {
-      if (err || !res.success) {
-        return callback(err || res.error || "Chunk " + chunkIndex + " misslyckades");
+  // Language switcher
+  function setLang(lang, btn) {
+    document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('[data-' + lang + ']').forEach(el => {
+      const val = el.getAttribute('data-' + lang);
+      if (['H1','H2','H3','STRONG','B'].includes(el.tagName) || el.querySelector('em')) {
+        el.innerHTML = val;
+      } else {
+        el.textContent = val;
       }
-      // Nästa chunk
-      sendChunks(sf, file, totalChunks, chunkIndex + 1, callback);
     });
-  };
-  reader.onerror = function() {
-    callback("Kunde inte läsa fil: " + file.name);
-  };
-  reader.readAsDataURL(blob);
-}
-
-// ── HTTP-HJÄLP ──
-function postJSON(payload, callback) {
-  if (WEBAPP_URL === "PASTE_YOUR_WEBAPP_URL_HERE") {
-    return callback("Webb-app URL är inte konfigurerad. Se installationsguiden.", null);
   }
-  fetch(WEBAPP_URL, {
-    method:  "POST",
-    headers: { "Content-Type": "application/json" },
-    body:    JSON.stringify(payload)
-  })
-  .then(function(r) { return r.json(); })
-  .then(function(data) { callback(null, data); })
-  .catch(function(e) { callback(e.message || e.toString(), null); });
-}
-
-// ── UI HJÄLP ──
-function setFileStatus(id, cls, msg) {
-  var el = document.getElementById("status_" + id);
-  if (!el) return;
-  el.className = "file-status " + cls;
-  el.textContent = msg;
-}
-
-function setFileProgress(id, pct) {
-  var el = document.getElementById("prog_" + id);
-  if (el) el.style.width = pct + "%";
-}
-
-function setItemClass(id, cls) {
-  var el = document.getElementById("item_" + id);
-  if (el) el.className = "file-item " + cls;
-}
-
-function updateGlobalProgress(done, total) {
-  var pct = Math.round((done / total) * 100);
-  globalFill.style.width = pct + "%";
-  progressPct.textContent = pct + "%";
-}
-
-function allDone() {
-  isUploading = false;
-  btnSpinner.style.display = "none";
-
-  var errors  = uploadQueue.filter(function(f) { return f.status !== "done"; });
-  var success = uploadQueue.filter(function(f) { return f.status === "done"; });
-
-  if (success.length > 0 && errors.length === 0) {
-    mainCard.style.display   = "none";
-    successScr.style.display = "block";
-    document.getElementById("success-msg").textContent =
-      success.length + (success.length === 1 ? " fil har" : " filer har") +
-      " laddats upp till Kamiljö AB. Vi granskar dem och återkommer " +
-      "inom 24 timmar med en offert.";
-  } else if (errors.length > 0) {
-    mainCard.style.display = "none";
-    errorScr.style.display = "block";
-    document.getElementById("error-msg").textContent =
-      errors.length + " av " + uploadQueue.length + " filer misslyckades. " +
-      "Försök igen eller ring oss direkt på +46 762 124 124.";
-  }
-  progressTxt.textContent = "Klart!";
-}
-
-function resetApp() {
-  selectedFiles = [];
-  uploadQueue   = [];
-  isUploading   = false;
-  fileList.innerHTML = "";
-  btnText.textContent = "📤 Ladda upp filer till Kamiljö AB";
-  btnSpinner.style.display = "none";
-  globalProg.style.display = "none";
-  globalFill.style.width = "0%";
-  gdprBox.checked = false;
-  mainCard.style.display   = "block";
-  successScr.style.display = "none";
-  errorScr.style.display   = "none";
-  updateSubmitState();
-}
-
-function
+</script>
+</body>
+</html>
