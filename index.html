@@ -7,58 +7,78 @@
     <link href="https://fonts.googleapis.com" rel="stylesheet">
     <style>
         :root { --brand-green: #2E7D32; --navy: #001a33; --emergency: #D32F2F; --gray: #F8F9FA; }
-        body { font-family: 'Inter', sans-serif; margin: 0; padding: 0; background: #fff; color: #1a1a1a; -webkit-user-select: none; }
+        body { font-family: 'Inter', sans-serif; margin: 0; padding: 0; background: #fff; color: #1a1a1a; -webkit-user-select: none; overflow-x: hidden; }
         
+        /* HEADER & MENU */
         header { display: flex; justify-content: space-between; align-items: center; padding: 15px 5%; border-bottom: 1px solid #eee; position: sticky; top: 0; background: #fff; z-index: 1000; }
-        .logo-box img { height: 45px; cursor: pointer; }
-        nav a { margin: 0 15px; text-decoration: none; color: #1a1a1a; font-size: 14px; font-weight: 600; transition: 0.3s; padding-bottom: 5px; }
+        .logo-box img { height: 50px; cursor: pointer; }
+        nav { display: flex; gap: 25px; }
+        nav a { text-decoration: none; color: #1a1a1a; font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; }
         nav a:hover { color: var(--brand-green); }
-        .btn-jour { background: var(--emergency); color: #fff; padding: 12px 25px; border-radius: 30px; text-decoration: none; font-weight: 800; font-size: 14px; }
+        .btn-jour { background: var(--emergency); color: #fff; padding: 12px 25px; border-radius: 30px; text-decoration: none; font-weight: 800; font-size: 13px; transition: 0.3s; }
+        .btn-jour:hover { transform: scale(1.05); box-shadow: 0 5px 15px rgba(211,47,47,0.3); }
 
         /* HERO & QR */
         .hero { padding: 60px 5%; display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; gap: 50px; }
-        .hero h1 { font-size: 48px; line-height: 1.1; margin-bottom: 20px; font-weight: 800; }
+        .hero h1 { font-size: 48px; line-height: 1.1; font-weight: 800; margin: 0; }
         .qr-card { background: #fff; padding: 25px; border-radius: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.05); text-align: center; border: 1px solid #eee; }
         .qr-card img { width: 130px; cursor: pointer; }
 
-        /* 1. INSTAGRAM FEED (NAJWYŻEJ) */
-        .insta-section { padding: 60px 5%; background: #fff; text-align: center; }
-        .insta-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; max-width: 1200px; margin: 30px auto; }
-        .insta-item { aspect-ratio: 1; background: var(--gray); border-radius: 8px; overflow: hidden; position: relative; }
-        .insta-item img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; cursor: pointer; }
+        /* 1. INSTAGRAM SECTION */
+        .insta-section { padding: 40px 5%; text-align: center; }
+        .insta-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; max-width: 1200px; margin: 20px auto; }
+        .insta-item { aspect-ratio: 1; background: var(--gray); border-radius: 8px; overflow: hidden; }
+        .insta-item img { width: 100%; height: 100%; object-fit: cover; cursor: pointer; transition: 0.5s; }
         .insta-item:hover img { transform: scale(1.1); filter: brightness(0.8); }
 
-        /* 2. USŁUGI (33 KATEGORIE Z GRAFIKAMI) */
-        .services-section { padding: 80px 5%; background: var(--gray); }
-        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; max-width: 1300px; margin: 0 auto; }
-        .service-card { background: #fff; border-radius: 12px; padding: 40px; transition: 0.4s; cursor: pointer; border: 1px solid transparent; position: relative; }
-        .service-card:hover { border-color: var(--brand-green); box-shadow: 0 15px 40px rgba(0,0,0,0.05); }
+        /* 2. CYRKULACJA USŁUG (33 NODES) */
+        .service-orbit-container { height: 650px; position: relative; background: var(--gray); display: flex; align-items: center; justify-content: center; overflow: hidden; border-top: 1px solid #eee; border-bottom: 1px solid #eee; }
+        .orbit-label { position: absolute; z-index: 10; text-align: center; pointer-events: none; }
+        .orbit-label h2 { font-size: 26px; font-weight: 800; color: var(--brand-green); margin: 0; text-transform: uppercase; }
         
-        /* UKRYTA NUMERACJA DLA KLIENTA, WIDOCZNA DLA GOOGLE */
-        .service-number { position: absolute; font-size: 0; color: transparent; top: 0; left: 0; } 
+        .orbit-wrapper { width: 520px; height: 520px; position: relative; animation: rotateOrbit 70s linear infinite; }
+        .orbit-wrapper:hover { animation-play-state: paused; }
+        
+        .service-node { 
+            position: absolute; width: 44px; height: 44px; background: #fff; border: 2px solid var(--brand-green); 
+            border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer;
+            transition: 0.3s; transform-origin: center;
+        }
+        .service-node:hover { background: var(--brand-green); transform: scale(1.4) rotate(calc(var(--angle) * -1rad)); color: #fff; }
+        .service-node span { position: absolute; font-size: 0; visibility: hidden; } /* SEO Numeracja */
+        
+        .service-node::after { 
+            content: attr(data-name); position: absolute; white-space: nowrap; 
+            left: 55px; font-size: 12px; font-weight: 800; color: #333; opacity: 0; transition: 0.3s; pointer-events: none;
+        }
+        .service-node:hover::after { opacity: 1; left: 60px; color: var(--brand-green); }
 
-        .icon-box { font-size: 32px; margin-bottom: 20px; color: var(--brand-green); opacity: 0.8; }
-        .service-card h3 { margin: 0; font-size: 15px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
+        /* 3. PARTNERZY (ZACIEMNIONE LOGO + HOVER COLOR + NOWA KARTA + SEO) */
+        .partners-section { padding: 80px 5%; text-align: center; background: #fff; }
+        .partners-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 40px; max-width: 1200px; margin: 40px auto; align-items: center; }
+        .partner-box { text-decoration: none; display: block; transition: 0.4s; filter: grayscale(100%); opacity: 0.4; }
+        .partner-box:hover { filter: grayscale(0%); opacity: 1; transform: scale(1.1); }
+        .partner-box img { max-width: 100%; height: auto; display: block; margin: 0 auto; }
+        .partner-name { display: block; margin-top: 10px; font-size: 11px; font-weight: 800; color: #999; text-transform: uppercase; } /* SEO Text */
 
-        /* 3. PARTNERZY (NA SAMYM DOLE, KOMPAKTOWI) */
-        .partners-section { padding: 60px 5%; text-align: center; border-top: 1px solid #eee; }
-        .partners-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; max-width: 1100px; margin: 30px auto; }
-        .partner-link { opacity: 0.4; filter: grayscale(1); transition: 0.4s; font-weight: 800; font-size: 16px; color: #333; text-decoration: none; }
-        .partner-link:hover { opacity: 1; filter: grayscale(0); color: var(--brand-green); }
-
-        /* STOPKA */
+        /* FOOTER & MIASTA */
         footer { background: var(--navy); color: #fff; padding: 80px 5% 40px; }
         .footer-main { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 50px; max-width: 1200px; margin: 0 auto; }
+        .footer-col h4 { margin-bottom: 25px; font-size: 18px; border-left: 3px solid var(--brand-green); padding-left: 15px; }
+        .footer-col a { color: #99abbd; text-decoration: none; display: block; margin-bottom: 12px; font-size: 14px; }
+        
         .seo-footer { margin-top: 60px; font-size: 9px; color: #00264d; text-align: justify; line-height: 2; border-top: 1px solid #002b4d; padding-top: 20px; }
-        .seo-footer span { cursor: pointer; }
+        .seo-footer span { cursor: pointer; transition: 0.2s; }
+        .seo-footer span:hover { color: #557ba1; }
 
         /* MODAL */
-        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,26,51,0.98); backdrop-filter: blur(10px); }
+        .modal { display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,26,51,0.98); backdrop-filter: blur(10px); }
         .modal-content { background: #fff; margin: 2% auto; padding: 50px; width: 90%; max-width: 550px; border-radius: 20px; position: relative; }
-        .close { position: absolute; right: 25px; top: 20px; font-size: 30px; cursor: pointer; color: #ccc; }
+        .close { position: absolute; right: 25px; top: 20px; font-size: 35px; cursor: pointer; color: #ccc; }
         input, textarea { width: 100%; padding: 15px; margin: 10px 0; border: 1px solid #eee; border-radius: 8px; font-family: inherit; }
 
-        @media (max-width: 900px) { .hero { flex-direction: column; text-align: center; } .insta-grid { grid-template-columns: repeat(2, 1fr); } }
+        @keyframes rotateOrbit { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        @media (max-width: 900px) { .hero { flex-direction: column; text-align: center; } .service-orbit-container { height: auto; padding: 50px 0; } .orbit-wrapper { display: none; } }
     </style>
 </head>
 <body oncontextmenu="return false;">
@@ -66,18 +86,23 @@
     <header>
         <div class="logo-box"><img src="img/logo.png" alt="Kamiljö AB" onclick="location.reload()"></div>
         <nav>
-            <a href="javascript:void(0)" onclick="openRequest('Om oss')">OM OSS</a>
-            <a href="javascript:void(0)" onclick="openRequest('Kontakt')">KONTAKT</a>
+            <a href="#">Hem</a>
+            <a href="#tjänster">Tjänster</a>
+            <a href="#partner">Partner</a>
+            <a href="javascript:void(0)" onclick="openRequest('Om oss')">Om oss</a>
+            <a href="javascript:void(0)" onclick="openRequest('Kontakt')">Kontakt</a>
         </nav>
-        <a href="tel:+46762124124" class="btn-jour">JOUR 24/7</a>
+        <div class="nav-right">
+            <a href="tel:+46762124124" class="btn-jour">JOUR 24/7</a>
+        </div>
     </header>
 
     <section class="hero">
         <div class="hero-text">
-            <span style="font-weight: 800; color: var(--brand-green);">DIN LOKALA VVS-EXPERT</span>
+            <span style="font-weight: 800; color: var(--brand-green);">KVALITET SÄKRAR DIN VARDAG</span>
             <h1>Auktoriserad rörmokare i Ludvika & Dalarna</h1>
-            <p>Vi kombinerar yrkesstolthet med teknisk precision. 30% ROT-avdrag och F-skatt.</p>
-            <button onclick="openRequest('Kostnadsfri Offert')" style="background:var(--brand-green); color:#fff; border:none; padding:18px 40px; border-radius:6px; font-weight:800; cursor:pointer; margin-top:20px;">FÅ OFFERT NU →</button>
+            <p>Vi kombinerar teknisk expertis med yrkesstolthet. Godkänd för F-skatt och fullt ROT-avdrag direkt på fakturan.</p>
+            <button onclick="openRequest('Kostnadsfri Offert')" style="background:var(--brand-green); color:#fff; border:none; padding:18px 40px; border-radius:6px; font-weight:800; cursor:pointer; margin-top:20px;">BEGÄR OFFERT NU →</button>
         </div>
         <div class="qr-card">
             <img src="https://api.qrserver.com" alt="Recensioner" onclick="window.open('https://google.com','_blank')">
@@ -85,76 +110,41 @@
         </div>
     </section>
 
-    <!-- 1. INSTAGRAM (REALNE PRACE) -->
+    <!-- 1. INSTAGRAM (PORTFOLIO) -->
     <section class="insta-section">
-        <h2 style="font-size: 24px; font-weight: 800;">Vårt arbete i Dalarna</h2>
-        <p>Se bilder från våra senaste uppdrag direkt från fältet.</p>
         <div class="insta-grid">
-            <div class="insta-item"><img src="https://via.placeholder.com" onclick="window.open('https://instagram.com')"></div>
-            <div class="insta-item"><img src="https://via.placeholder.com" onclick="window.open('https://instagram.com')"></div>
-            <div class="insta-item"><img src="https://via.placeholder.com" onclick="window.open('https://instagram.com')"></div>
-            <div class="insta-item"><img src="https://via.placeholder.com" onclick="window.open('https://instagram.com')"></div>
+            <div class="insta-item"><img src="img/portfolio1.jpg" alt="VVS Dalarna" onclick="window.open('https://instagram.com')"></div>
+            <div class="insta-item"><img src="img/portfolio2.jpg" alt="Rörservice Ludvika" onclick="window.open('https://instagram.com')"></div>
+            <div class="insta-item"><img src="img/portfolio3.jpg" alt="Installation" onclick="window.open('https://instagram.com')"></div>
+            <div class="insta-item"><img src="img/portfolio4.jpg" alt="Pannrumsservice" onclick="window.open('https://instagram.com')"></div>
         </div>
     </section>
 
-    <!-- 2. USŁUGI (33 KATEGORIE Z GRAFIKAMI) -->
-    <section class="services-section">
-        <h2 style="text-align: center; font-size: 32px; margin-bottom: 50px;">Vad kan vi hjälpa dig med?</h2>
-        <div class="services-grid">
-            <!-- Każdy kafel ma niewidoczny dla oka numer dla SEO -->
-            <div class="service-card" onclick="openRequest('Rörmokare / VVS')"><span class="service-number">01</span><div class="icon-box">🔧</div><h3>Rörmokare / VVS</h3></div>
-            <div class="service-card" onclick="openRequest('Installera diskmaskin')"><span class="service-number">02</span><div class="icon-box">🍽️</div><h3>Installera diskmaskin</h3></div>
-            <div class="service-card" onclick="openRequest('Installera tvättmaskin')"><span class="service-number">03</span><div class="icon-box">🧼</div><h3>Installera tvättmaskin</h3></div>
-            <div class="service-card" onclick="openRequest('Montera tvättställ')"><span class="service-number">04</span><div class="icon-box">💧</div><h3>Montera tvättställ</h3></div>
-            <div class="service-card" onclick="openRequest('Installera diskho')"><span class="service-number">05</span><div class="icon-box">🍲</div><h3>Installera diskho</h3></div>
-            <div class="service-card" onclick="openRequest('Kylskåp med ismaskin')"><span class="service-number">06</span><div class="icon-box">🧊</div><h3>Kylskåp med ismaskin</h3></div>
-            <div class="service-card" onclick="openRequest('Byta radiator')"><span class="service-number">07</span><div class="icon-box">🔥</div><h3>Byta element / Radiator</h3></div>
-            <div class="service-card" onclick="openRequest('Installera toalett')"><span class="service-number">08</span><div class="icon-box">🚽</div><h3>Installera toalett</h3></div>
-            <div class="service-card" onclick="openRequest('Montera duschkabin')"><span class="service-number">09</span><div class="icon-box">🚿</div><h3>Montera duschkabin</h3></div>
-            <div class="service-card" onclick="openRequest('Demontering av rör')"><span class="service-number">10</span><div class="icon-box">⚙️</div><h3>Demontering av gamla rör</h3></div>
-            <div class="service-card" onclick="openRequest('Installera pannrum')"><span class="service-number">11</span><div class="icon-box">🏭</div><h3>Installera pannrum</h3></div>
-            <div class="service-card" onclick="openRequest('Rördragning pannrum')"><span class="service-number">12</span><div class="icon-box">🔗</div><h3>Rördragning i pannrum</h3></div>
-            <div class="service-card" onclick="openRequest('Nyinstallation VVS')"><span class="service-number">13</span><div class="icon-box">🏠</div><h3>Nyinstallation av VVS</h3></div>
-            <div class="service-card" onclick="openRequest('Vattenutkastare')"><span class="service-number">14</span><div class="icon-box">🌿</div><h3>Vattenutkastare</h3></div>
-            <div class="service-card" onclick="openRequest('Värmepump')"><span class="service-number">15</span><div class="icon-box">🌀</div><h3>Värmepump / Bergvärme</h3></div>
-            <div class="service-card" onclick="openRequest('Vattenrening')"><span class="service-number">16</span><div class="icon-box">🛡️</div><h3>Vattenrening / Filter</h3></div>
-            <div class="service-card" onclick="openRequest('Laga läckage')"><span class="service-number">17</span><div class="icon-box">💧</div><h3>Laga läckage</h3></div>
-            <div class="service-card" onclick="openRequest('Golvvärme')"><span class="service-number">18</span><div class="icon-box">♨️</div><h3>Golvvärme</h3></div>
-            <div class="service-card" onclick="openRequest('Vattenmätarbyte')"><span class="service-number">19</span><div class="icon-box">📊</div><h3>Vattenmätarbyte</h3></div>
-            <div class="service-card" onclick="openRequest('Byte av blandare')"><span class="service-number">20</span><div class="icon-box">🚰</div><h3>Byte av blandare</h3></div>
-            <div class="service-card" onclick="openRequest('Luftning system')"><span class="service-number">21</span><div class="icon-box">💨</div><h3>Luftning värmesystem</h3></div>
-            <div class="service-card" onclick="openRequest('Varmvattenberedare')"><span class="service-number">22</span><div class="icon-box">🛢️</div><h3>Varmvattenberedare</h3></div>
-            <div class="service-card" onclick="openRequest('Avstängningsventil')"><span class="service-number">23</span><div class="icon-box">🛑</div><h3>Avstängningsventil</h3></div>
-            <div class="service-card" onclick="openRequest('Rörinspektion')"><span class="service-number">24</span><div class="icon-box">🔍</div><h3>Rörinspektion</h3></div>
-            <div class="service-card" onclick="openRequest('Rörmokare snabbt')"><span class="service-number">25</span><div class="icon-box">⚡</div><h3>Rörmokare nu / Snabbt</h3></div>
-            <div class="service-card" onclick="openRequest('Cirkulationspump')"><span class="service-number">26</span><div class="icon-box">🔄</div><h3>Cirkulationspump</h3></div>
-            <div class="service-card" onclick="openRequest('Expansionskärl')"><span class="service-number">27</span><div class="icon-box">🎈</div><h3>Expansionskärl</h3></div>
-            <div class="service-card" onclick="openRequest('Säkerhetsventil')"><span class="service-number">28</span><div class="icon-box">⚠️</div><h3>Säkerhetsventil</h3></div>
-            <div class="service-card" onclick="openRequest('Termostatbyte')"><span class="service-number">29</span><div class="icon-box">🌡️</div><h3>Termostatbyte</h3></div>
-            <div class="service-card" onclick="openRequest('Shuntventil')"><span class="service-number">30</span><div class="icon-box">🔀</div><h3>Shuntventil</h3></div>
-            <div class="service-card" onclick="openRequest('ROT-avdrag')"><span class="service-number">31</span><div class="icon-box">💰</div><h3>ROT-avdrag hjälp</h3></div>
-            <div class="service-card" onclick="openRequest('F-skatt info')"><span class="service-number">32</span><div class="icon-box">📜</div><h3>F-skatt dokumentation</h3></div>
-            <div class="service-card" onclick="openRequest('Auktoriserad besiktning')"><span class="service-number">33</span><div class="icon-box">✅</div><h3>Auktoriserad besiktning</h3></div>
+    <!-- 2. TJÄNSTER (ORBITAL NAVIGATION) -->
+    <section class="service-orbit-container" id="tjänster">
+        <div class="orbit-label">
+            <h2>VÅRA TJÄNSTER</h2>
+            <p style="font-size: 11px; font-weight: 800; color: #666;">INTERAKTIV TJÄNSTEKATALOG</p>
+        </div>
+        <div class="orbit-wrapper" id="orbit">
+            <!-- Noder genereras av JS nedan -->
         </div>
     </section>
 
-    <!-- 3. PARTNERZY (NA DOLE, KOMPAKTOWO) -->
-    <section class="partners-section">
-        <h2 style="font-size: 14px; letter-spacing: 2px; color: #999; margin-bottom: 40px;">VI ARBETAR MED MARKNADSLEDANDE VARUMÄRKEN</h2>
+    <!-- 3. PARTNER (LOGOTYPER MED HOVER OCH SEO) -->
+    <section class="partners-section" id="partner">
+        <h2 style="font-size: 14px; letter-spacing: 2px; color: #999; margin-bottom: 40px; font-weight: 800;">VI ARBETAR MED MARKNADSLEDANDE VARUMÄRKEN</h2>
         <div class="partners-grid">
-            <a href="https://www.dahl.se" target="_blank" class="partner-link">DAHL</a>
-            <a href="https://www.ahlsell.se" target="_blank" class="partner-link">AHLSELL</a>
-            <a href="https://www.nibe.se" target="_blank" class="partner-link">NIBE</a>
-            <a href="https://www.uponor.se" target="_blank" class="partner-link">UPONOR</a>
-            <a href="https://www.geberit.se" target="_blank" class="partner-link">GEBERIT</a>
-            <a href="https://www.fmmattsson.com" target="_blank" class="partner-link">FM MATTSSON</a>
-            <a href="https://www.moraarmatur.com" target="_blank" class="partner-link">MORA</a>
-            <a href="https://www.grohe.se" target="_blank" class="partner-link">GROHE</a>
-            <a href="https://www.danfoss.se" target="_blank" class="partner-link">DANFOSS</a>
-            <a href="https://www.grundfos.se" target="_blank" class="partner-link">GRUNDFOS</a>
-            <a href="https://www.bosch-home.se" target="_blank" class="partner-link">BOSCH</a>
-            <a href="#" class="partner-link">LK SYSTEMS</a>
-            <!-- Tu programista wklei resztę nazw marek jako proste linki -->
+            <!-- Każdy partner ma swoje logo (img/partner-name.png), link do strony i nazwę dla SEO -->
+            <a href="https://www.dahl.se" target="_blank" class="partner-box"><img src="img/dahl.png" alt="Dahl VVS"><span class="partner-name">Dahl</span></a>
+            <a href="https://www.ahlsell.se" target="_blank" class="partner-box"><img src="img/ahlsell.png" alt="Ahlsell"><span class="partner-name">Ahlsell</span></a>
+            <a href="https://www.nibe.se" target="_blank" class="partner-box"><img src="img/nibe.png" alt="Nibe Värmepumpar"><span class="partner-name">Nibe</span></a>
+            <a href="https://www.uponor.se" target="_blank" class="partner-box"><img src="img/uponor.png" alt="Uponor VVS-system"><span class="partner-name">Uponor</span></a>
+            <a href="https://www.geberit.se" target="_blank" class="partner-box"><img src="img/geberit.png" alt="Geberit Sanitetsteknik"><span class="partner-name">Geberit</span></a>
+            <a href="https://www.fmmattsson.com" target="_blank" class="partner-box"><img src="img/fm-mattsson.png" alt="FM Mattsson Blandare"><span class="partner-name">FM Mattsson</span></a>
+            <a href="https://www.moraarmatur.com" target="_blank" class="partner-box"><img src="img/mora.png" alt="Mora Armatur"><span class="partner-name">Mora</span></a>
+            <a href="https://www.grohe.se" target="_blank" class="partner-box"><img src="img/grohe.png" alt="Grohe VVS"><span class="partner-name">Grohe</span></a>
+            <!-- Programista doda resztę partnerów według tego samego schematu -->
         </div>
     </section>
 
@@ -163,52 +153,76 @@
             <div class="footer-col">
                 <h4>KAMILJÖ AB</h4>
                 <p>Org.nr: 559572-5366</p>
-                <p><b>Adress:</b> Ludvika, Dalarna, Sverige</p>
-                <p>Auktoriserad VVS-service för hem och industri.</p>
+                <p><b>Säte:</b> Ludvika, Dalarna, Sverige</p>
+                <p>Certifierad rörservice med full ansvarsförsäkring.</p>
             </div>
             <div class="footer-col">
                 <h4>KONTAKT</h4>
-                <a href="tel:+46762124124">Ring: 0762 124 124</a>
+                <a href="tel:+46762124124">Telefon: 0762 124 124</a>
                 <a href="mailto:info@kamiljo.se">E-post: info@kamiljo.se</a>
-                <a href="https://instagram.com" target="_blank">Följ oss på Instagram</a>
+                <a href="https://instagram.com" target="_blank">Portfolio Instagram</a>
             </div>
         </div>
-
         <div class="seo-footer">
-            <b>VÅRA VERKSAMHETSOMRÅDEN:</b> 
-            <span onclick="openMap('Alvik')">Alvik</span>, <span onclick="openMap('Bjursås')">Bjursås</span>, <span onclick="openMap('Bonäs')">Bonäs</span>, <span onclick="openMap('Ludvika')">Ludvika</span>, <span onclick="openMap('Mora')">Mora</span>, <span onclick="openMap('Falun')">Falun</span>, <span onclick="openMap('Borlänge')">Borlänge</span>, <span onclick="openMap('Säter')">Säter</span>, <span onclick="openMap('Rättvik')">Rättvik</span>, <span onclick="openMap('Leksand')">Leksand</span>, <span onclick="openMap('Avesta')">Avesta</span>... (Tu pełna lista 54 miast)
+            <b>VERKSAMHETSOMRÅDEN I DALARNA:</b> 
+            <span onclick="openMap('Alvik')">Alvik</span>, <span onclick="openMap('Bjursås')">Bjursås</span>, <span onclick="openMap('Ludvika')">Ludvika</span>, <span onclick="openMap('Mora')">Mora</span>, <span onclick="openMap('Falun')">Falun</span>, <span onclick="openMap('Borlänge')">Borlänge</span>, <span onclick="openMap('Säter')">Säter</span>... (Hela listan på 54 orter)
         </div>
     </footer>
 
-    <!-- MODAL OFFERT (NOWE OKNO) -->
+    <!-- MODAL FÖR NYTT FÖNSTER (OFFERT) -->
     <div id="requestModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeRequest()">&times;</span>
-            <div style="font-size: 24px; font-weight: 800; margin-bottom: 20px;" id="modalTitle">Begär offert</div>
+            <div style="font-size: 26px; font-weight: 800; margin-bottom: 20px;" id="modalTitle">Begär offert</div>
             <form action="YOUR_APPS_SCRIPT_URL" method="POST" enctype="multipart/form-data">
                 <input type="hidden" name="service" id="targetService">
                 <input type="hidden" name="location" id="targetLocation">
-                <input type="text" name="name" placeholder="Namn" required>
-                <input type="email" name="email" placeholder="E-post" required>
+                <input type="text" name="name" placeholder="För- och efternamn" required>
+                <input type="email" name="email" placeholder="E-postadress" required>
                 <input type="tel" name="phone" placeholder="Telefonnummer" required>
-                <textarea name="message" placeholder="Beskriv ditt projekt..." rows="5" required></textarea>
-                <input type="file" name="files" multiple style="border:none; padding:10px 0;">
-                <button type="submit" style="background:var(--brand-green); color:#fff; border:none; padding:20px; width:100%; font-weight:800; cursor:pointer; font-size:18px; border-radius:8px;">SKICKA FÖRFRÅGAN</button>
+                <textarea name="message" placeholder="Beskriv ditt ärende så noga som möjligt..." rows="5" required></textarea>
+                <div style="margin-top: 15px;">
+                    <label style="font-size: 12px; font-weight: 800;">BIFOGA FILER (MAX 500MB):</label>
+                    <input type="file" name="files" multiple style="border:none; padding:10px 0;">
+                </div>
+                <button type="submit" style="background:var(--brand-green); color:#fff; border:none; padding:20px; width:100%; font-weight:800; cursor:pointer; font-size:18px; border-radius:8px; margin-top:20px;">SKICKA FÖRFRÅGAN</button>
             </form>
         </div>
     </div>
 
     <script>
+        const services = [
+            "Rörmokare / VVS", "Installera diskmaskin", "Installera tvättmaskin", "Montera tvättställ", 
+            "Installera diskho", "Kylskåp med ismaskin", "Byta radiator", "Installera toalett", 
+            "Montera duschkabin", "Demontering rör", "Installera pannrum", "Rördragning pannrum", 
+            "Nyinstallation VVS", "Vattenutkastare", "Värmepump", "Vattenrening", "Laga läckage", 
+            "Golvvärme", "Vattenmätarbyte", "Byte av blandare", "Luftning system", "Varmvattenberedare", 
+            "Avstängningsventil", "Rörinspektion", "Rörmokare snabbt", "Cirkulationspump", 
+            "Expansionskärl", "Säkerhetsventil", "Termostatbyte", "Shuntventil", "ROT-avdrag", "F-skatt", "Besiktning"
+        ];
+
+        const orbit = document.getElementById('orbit');
+        services.forEach((s, i) => {
+            const node = document.createElement('div');
+            node.className = 'service-node';
+            node.setAttribute('data-name', s);
+            node.innerHTML = `<span>${i+1}</span>🔧`;
+            const angle = (i / services.length) * 2 * Math.PI;
+            const x = 260 + 230 * Math.cos(angle) - 22;
+            const y = 260 + 230 * Math.sin(angle) - 22;
+            node.style.left = `${x}px`;
+            node.style.top = `${y}px`;
+            node.onclick = () => openRequest(s);
+            orbit.appendChild(node);
+        });
+
         function openRequest(service) {
             document.getElementById('targetService').value = service;
             document.getElementById('modalTitle').innerText = "Offert: " + service;
             document.getElementById('requestModal').style.display = "block";
-            window.open('', 'formWin', 'width=600,height=850');
+            window.open('', 'formWindow', 'width=600,height=850');
         }
-        function openMap(loc) {
-            document.getElementById('targetLocation').value = loc;
-            openRequest("VVS i " + loc);
-        }
+        function openMap(loc) { document.getElementById('targetLocation').value = loc; openRequest("VVS i " + loc); }
         function closeRequest() { document.getElementById('requestModal').style.display = "none"; }
     </script>
 </body>
