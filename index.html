@@ -1,53 +1,1138 @@
 <!DOCTYPE html>
-<html lang="pl">
+<html lang="sv">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hydraulik | Profesjonalne Usługi</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ladda upp filer - Kamiljö AB VVS</title>
+  <meta name="description" content="Ladda upp bilder och videor på VVS-problem till Kamiljö AB i Ludvika." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:wght@700;900&display=swap" rel="stylesheet">
+
+  <style>
+    /* ── VARIABLER (Kamiljo AB fargpalett) ── */
+    :root {
+      --green:        #2d7a2d;
+      --green-light:  #3d9e3d;
+      --green-dark:   #1a5c1a;
+      --teal:         #0f3d4a;
+      --teal-light:   #1a5568;
+      --accent:       #e8f5e9;
+      --red:          #d32f2f;
+      --white:        #ffffff;
+      --gray-50:      #f9fafb;
+      --gray-100:     #f3f4f6;
+      --gray-200:     #e5e7eb;
+      --gray-400:     #9ca3af;
+      --gray-600:     #4b5563;
+      --gray-900:     #111827;
+      --shadow-sm:    0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+      --shadow-md:    0 4px 16px rgba(0,0,0,.10);
+      --shadow-lg:    0 12px 40px rgba(0,0,0,.14);
+      --radius:       16px;
+      --chunk-size:   5242880; /* 5 MB w bajtach */
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'DM Sans', system-ui, sans-serif;
+      background: var(--gray-50);
+      color: var(--gray-900);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── HEADER ── */
+    header {
+      background: var(--teal);
+      padding: 18px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: var(--shadow-md);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .logo-badge {
+      background: var(--green);
+      border-radius: 10px;
+      padding: 8px 14px;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+
+    .logo-badge span:first-child {
+      color: white;
+      font-family: 'Fraunces', serif;
+      font-weight: 900;
+      font-size: 18px;
+      letter-spacing: 1px;
+    }
+
+    .logo-badge span:last-child {
+      color: rgba(255,255,255,.6);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 2px;
+    }
+
+    .header-phone {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--red);
+      color: white;
+      font-weight: 700;
+      font-size: 14px;
+      padding: 10px 20px;
+      border-radius: 40px;
+      text-decoration: none;
+      transition: background .2s, transform .2s;
+      white-space: nowrap;
+    }
+
+    .header-phone:hover { background: #b71c1c; transform: scale(1.04); }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(135deg, var(--teal) 0%, var(--teal-light) 50%, var(--green-dark) 100%);
+      padding: 48px 24px 56px;
+      text-align: center;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='20' cy='20' r='2' fill='rgba(255,255,255,0.04)'/%3E%3C/svg%3E");
+    }
+
+    .hero h1 {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(26px, 5vw, 42px);
+      font-weight: 900;
+      line-height: 1.15;
+      margin-bottom: 12px;
+      position: relative;
+    }
+
+    .hero p {
+      font-size: 16px;
+      color: rgba(255,255,255,.75);
+      max-width: 520px;
+      margin: 0 auto;
+      line-height: 1.6;
+      position: relative;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.2);
+      border-radius: 40px;
+      padding: 6px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      backdrop-filter: blur(8px);
+      position: relative;
+    }
+
+    /* ── MAIN CONTAINER ── */
+    main {
+      flex: 1;
+      max-width: 720px;
+      width: 100%;
+      margin: -28px auto 48px;
+      padding: 0 16px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ── CARD ── */
+    .card {
+      background: white;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+    }
+
+    .card-section {
+      padding: 28px 32px;
+      border-bottom: 1px solid var(--gray-100);
+    }
+
+    .card-section:last-child { border-bottom: none; }
+
+    .section-title {
+      font-family: 'Fraunces', serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--teal);
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* ── FORMULÄRFÄLT ── */
+    .form-grid {
+      display: grid;
+      gap: 14px;
+    }
+
+    .form-grid-2 { grid-template-columns: 1fr 1fr; }
+
+    @media (max-width: 540px) {
+      .form-grid-2 { grid-template-columns: 1fr; }
+      .card-section { padding: 20px 20px; }
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--gray-600);
+      margin-bottom: 6px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    textarea,
+    select {
+      width: 100%;
+      border: 1.5px solid var(--gray-200);
+      border-radius: 10px;
+      padding: 11px 14px;
+      font-size: 14px;
+      font-family: inherit;
+      color: var(--gray-900);
+      background: white;
+      transition: border-color .2s, box-shadow .2s;
+      outline: none;
+    }
+
+    input:focus, textarea:focus, select:focus {
+      border-color: var(--green);
+      box-shadow: 0 0 0 3px rgba(45,122,45,.12);
+    }
+
+    textarea { resize: vertical; min-height: 90px; }
+
+    /* ── DROPZONE ── */
+    .dropzone {
+      border: 2.5px dashed var(--gray-200);
+      border-radius: var(--radius);
+      padding: 40px 24px;
+      text-align: center;
+      cursor: pointer;
+      transition: all .25s;
+      background: var(--gray-50);
+      position: relative;
+    }
+
+    .dropzone:hover,
+    .dropzone.dragover {
+      border-color: var(--green);
+      background: var(--accent);
+      transform: scale(1.01);
+    }
+
+    .dropzone.dragover { box-shadow: 0 0 0 4px rgba(45,122,45,.15); }
+
+    .dropzone-icon {
+      font-size: 48px;
+      margin-bottom: 12px;
+      display: block;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,.08));
+    }
+
+    .dropzone h3 {
+      font-family: 'Fraunces', serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--teal);
+      margin-bottom: 6px;
+    }
+
+    .dropzone p {
+      font-size: 13px;
+      color: var(--gray-400);
+      line-height: 1.5;
+    }
+
+    .dropzone p strong { color: var(--green); }
+
+    .dropzone input[type="file"] {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* ── FIL-LISTA ── */
+    #file-list {
+      margin-top: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .file-item {
+      background: var(--gray-50);
+      border: 1.5px solid var(--gray-200);
+      border-radius: 12px;
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      transition: border-color .2s;
+    }
+
+    .file-item.uploading { border-color: var(--green); background: var(--accent); }
+    .file-item.done      { border-color: #4caf50; background: #f1fff1; }
+    .file-item.error     { border-color: var(--red); background: #fff5f5; }
+
+    .file-icon {
+      font-size: 28px;
+      flex-shrink: 0;
+    }
+
+    .file-info { flex: 1; min-width: 0; }
+
+    .file-name {
+      font-weight: 600;
+      font-size: 14px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      color: var(--gray-900);
+    }
+
+    .file-meta {
+      font-size: 12px;
+      color: var(--gray-400);
+      margin-top: 2px;
+    }
+
+    .file-status {
+      font-size: 12px;
+      font-weight: 600;
+      margin-top: 4px;
+    }
+
+    .file-status.uploading { color: var(--green); }
+    .file-status.done      { color: #2e7d32; }
+    .file-status.error     { color: var(--red); }
+
+    /* Progress bar */
+    .progress-track {
+      height: 6px;
+      background: var(--gray-200);
+      border-radius: 99px;
+      margin-top: 8px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--green), var(--green-light));
+      border-radius: 99px;
+      transition: width .3s ease;
+      width: 0%;
+    }
+
+    .file-remove {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 18px;
+      color: var(--gray-400);
+      flex-shrink: 0;
+      padding: 4px;
+      border-radius: 6px;
+      transition: background .2s, color .2s;
+      line-height: 1;
+    }
+
+    .file-remove:hover { background: #fee2e2; color: var(--red); }
+
+    /* ── GLOBALL PROGRESS ── */
+    #global-progress {
+      display: none;
+      margin-top: 20px;
+    }
+
+    .global-progress-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--teal);
+    }
+
+    .global-progress-track {
+      height: 10px;
+      background: var(--gray-200);
+      border-radius: 99px;
+      overflow: hidden;
+    }
+
+    .global-progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--green-dark), var(--green), var(--green-light));
+      background-size: 200% 100%;
+      border-radius: 99px;
+      transition: width .4s ease;
+      animation: shimmer 2s infinite linear;
+      width: 0%;
+    }
+
+    @keyframes shimmer {
+      0%   { background-position: 200% center; }
+      100% { background-position: -200% center; }
+    }
+
+    /* ── INFO-RUTOR ── */
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    @media (max-width: 480px) { .info-grid { grid-template-columns: 1fr; } }
+
+    .info-box {
+      background: var(--gray-50);
+      border: 1.5px solid var(--gray-200);
+      border-radius: 12px;
+      padding: 14px 16px;
+      text-align: center;
+    }
+
+    .info-box .icon { font-size: 22px; margin-bottom: 6px; }
+    .info-box .val  { font-family: 'Fraunces', serif; font-size: 20px; font-weight: 900; color: var(--teal); }
+    .info-box .lbl  { font-size: 11px; color: var(--gray-400); margin-top: 2px; }
+
+    /* ── KNAPP ── */
+    #submit-btn {
+      width: 100%;
+      padding: 16px;
+      background: var(--green);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background .2s, transform .15s, box-shadow .2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      box-shadow: 0 4px 14px rgba(45,122,45,.35);
+      margin-top: 4px;
+    }
+
+    #submit-btn:hover:not(:disabled) {
+      background: var(--green-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(45,122,45,.4);
+    }
+
+    #submit-btn:disabled {
+      background: var(--gray-400);
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    #submit-btn .spinner {
+      width: 20px; height: 20px;
+      border: 3px solid rgba(255,255,255,.3);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin .8s linear infinite;
+      display: none;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── SUCCESS / ERROR SCREENS ── */
+    #success-screen, #error-screen { display: none; }
+
+    .result-screen {
+      text-align: center;
+      padding: 48px 32px;
+    }
+
+    .result-icon { font-size: 72px; margin-bottom: 20px; }
+
+    .result-screen h2 {
+      font-family: 'Fraunces', serif;
+      font-size: 28px;
+      font-weight: 900;
+      margin-bottom: 10px;
+    }
+
+    .result-screen p {
+      font-size: 15px;
+      color: var(--gray-600);
+      line-height: 1.6;
+      max-width: 400px;
+      margin: 0 auto 24px;
+    }
+
+    .result-screen.success h2 { color: var(--green-dark); }
+    .result-screen.error   h2 { color: var(--red); }
+
+    .btn-secondary {
+      display: inline-block;
+      padding: 12px 28px;
+      background: var(--teal);
+      color: white;
+      border: none;
+      border-radius: 40px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background .2s;
+    }
+
+    .btn-secondary:hover { background: var(--teal-light); }
+
+    /* ── GDPR ── */
+    .gdpr-box {
+      background: var(--gray-50);
+      border: 1.5px solid var(--gray-200);
+      border-radius: 12px;
+      padding: 16px 18px;
+      font-size: 12px;
+      color: var(--gray-600);
+      line-height: 1.6;
+    }
+
+    .gdpr-box strong { color: var(--teal); }
+
+    .gdpr-check {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .gdpr-check input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+      margin-top: 1px;
+      accent-color: var(--green);
+      cursor: pointer;
+    }
+
+    .gdpr-check label {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--gray-900);
+      cursor: pointer;
+      margin: 0;
+    }
+
+    /* ── TOAST ── */
+    #toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      background: var(--teal);
+      color: white;
+      padding: 12px 24px;
+      border-radius: 40px;
+      font-size: 14px;
+      font-weight: 600;
+      box-shadow: var(--shadow-lg);
+      transition: transform .35s cubic-bezier(.34,1.56,.64,1);
+      z-index: 1000;
+      white-space: nowrap;
+    }
+
+    #toast.show { transform: translateX(-50%) translateY(0); }
+    #toast.error-toast { background: var(--red); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--teal);
+      color: rgba(255,255,255,.6);
+      text-align: center;
+      padding: 20px 24px;
+      font-size: 12px;
+      line-height: 1.8;
+    }
+
+    footer strong { color: white; }
+    footer a { color: rgba(255,255,255,.7); text-decoration: none; }
+    footer a:hover { color: white; }
+  </style>
 </head>
 <body>
 
-<nav>
-    <div class="container">
-        <div class="logo">HYDRAULIK<span>PRO</span></div>
-        <div class="links">
-            <a href="https://google.com" target="_blank" rel="noopener">Usługi</a>
-            <a href="https://google.com" target="_blank" rel="noopener">O nas</a>
-            <a href="#kontakt">Kontakt</a>
-        </div>
-    </div>
-</nav>
-
+<!-- HEADER -->
 <header>
-    <h1>Niezawodny Hydraulik</h1>
-    <p>Czysto. Szybko. Solidnie.</p>
+  <a href="https://kamiljo.se" class="logo">
+    <div class="logo-badge">
+      <span>KAMILJÖ</span>
+      <span>AB · VVS</span>
+    </div>
+  </a>
+  <a href="tel:+46762124124" class="header-phone">
+    📞 Ring oss — akut jour 24/7
+  </a>
 </header>
 
-<section class="logos">
-    <div class="container">
-        <!-- Twoje ikony/loga - Grayscale na Hover Green -->
-        <img src="https://via.placeholder.com" class="brand-logo" alt="Partner">
-        <img src="https://via.placeholder.com" class="brand-logo" alt="Partner">
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">📎 Säker uppladdning via Google Drive</div>
+  <h1>Ladda upp bilder & videor<br>på ditt VVS-problem</h1>
+  <p>Skicka oss foton eller film på enskadan — vi kan ge en bättre offert och komma förberedda med rätt verktyg.</p>
+</div>
+
+<!-- MAIN -->
+<main>
+  <div class="card">
+
+    <!-- STEG 1: Kontaktuppgifter -->
+    <div class="card-section" id="section-contact">
+      <div class="section-title">
+        <span>👤</span> Dina uppgifter
+        <small style="font-family:'DM Sans',sans-serif;font-size:12px;color:var(--gray-400);font-weight:400;margin-left:4px;">(valfritt — men hjälper oss att koppla filen till din bokning)</small>
+      </div>
+      <div class="form-grid form-grid-2">
+        <div>
+          <label for="sender-name">Ditt namn</label>
+          <input type="text" id="sender-name" placeholder="Anna Svensson" autocomplete="name" />
+        </div>
+        <div>
+          <label for="sender-phone">Telefon</label>
+          <input type="tel" id="sender-phone" placeholder="+46 70 123 45 67" autocomplete="tel" />
+        </div>
+        <div>
+          <label for="sender-email">E-post</label>
+          <input type="email" id="sender-email" placeholder="din@email.se" autocomplete="email" />
+        </div>
+        <div>
+          <label for="form-ref">Referens / Boknings-ID</label>
+          <input type="text" id="form-ref" placeholder="T.ex. formulärnummer eller datum" />
+        </div>
+      </div>
+      <div class="form-grid" style="margin-top:14px;">
+        <div>
+          <label for="description">Beskrivning av problemet (valfritt)</label>
+          <textarea id="description" placeholder="T.ex. 'Vattenläcka under diskbänken, synlig sedan igår kväll. Läcker ca 1 dl/timme.'"></textarea>
+        </div>
+      </div>
     </div>
-</section>
 
-<section id="kontakt" class="container">
-    <form id="contactForm">
-        <h2>Wyślij zgłoszenie na Google Drive</h2>
-        <input type="text" name="name" placeholder="Imię i Nazwisko" required>
-        <input type="email" name="email" placeholder="Twój E-mail" required>
-        <textarea name="message" placeholder="Opisz usterkę..."></textarea>
-        <button type="submit" id="submitBtn">Wyślij do serwisu</button>
-    </form>
-</section>
+    <!-- STEG 2: Filuppladdning -->
+    <div class="card-section">
+      <div class="section-title"><span>📁</span> Välj filer att ladda upp</div>
 
+      <!-- Info-boxes -->
+      <div class="info-grid">
+        <div class="info-box">
+          <div class="icon">📦</div>
+          <div class="val">10 GB</div>
+          <div class="lbl">Max per fil</div>
+        </div>
+        <div class="info-box">
+          <div class="icon">⚡</div>
+          <div class="val">5 MB</div>
+          <div class="lbl">Chunk-storlek</div>
+        </div>
+        <div class="info-box">
+          <div class="icon">🔒</div>
+          <div class="val">Drive</div>
+          <div class="lbl">Sparas säkert</div>
+        </div>
+      </div>
+
+      <!-- Dropzone -->
+      <div class="dropzone" id="dropzone">
+        <input type="file" id="file-input" multiple
+          accept="image/*,video/*,.pdf,.mp4,.mov,.avi,.mkv,.jpg,.jpeg,.png,.webp,.heic" />
+        <span class="dropzone-icon">📸</span>
+        <h3>Dra & släpp filer här</h3>
+        <p>eller <strong>klicka för att välja</strong><br>
+        Bilder, videor, PDF — upp till <strong>10 GB per fil</strong><br>
+        Flera filer kan laddas upp samtidigt</p>
+      </div>
+
+      <!-- Fil-lista -->
+      <div id="file-list"></div>
+
+      <!-- Global progress -->
+      <div id="global-progress">
+        <div class="global-progress-label">
+          <span id="progress-text">Laddar upp...</span>
+          <span id="progress-pct">0%</span>
+        </div>
+        <div class="global-progress-track">
+          <div class="global-progress-fill" id="global-fill"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- GDPR -->
+    <div class="card-section">
+      <div class="section-title"><span>🔒</span> Integritetspolicy</div>
+      <div class="gdpr-box">
+        <strong>Kamiljö AB</strong>, org.nr 559572-5366, är personuppgiftsansvarig.
+        De filer och kontaktuppgifter du laddar upp lagras i Kamiljö ABs Google Drive och används
+        <em>enbart</em> för att bedöma och utföra det begärda VVS-arbetet.<br><br>
+        Filerna raderas senast 90 dagar efter avslutat uppdrag om inget avtal tecknats, eller efter
+        7 år om de utgör bokföringsunderlag (bokföringslagen). Du har rätt att när som helst begära
+        radering, tillgång eller rättelse av dina uppgifter via
+        <a href="mailto:info@kamiljo.se">info@kamiljo.se</a>.
+        Klagomål kan lämnas till Integritetsskyddsmyndigheten (IMY) på
+        <a href="https://imy.se" target="_blank">imy.se</a>.
+      </div>
+      <div class="gdpr-check">
+        <input type="checkbox" id="gdpr-consent" />
+        <label for="gdpr-consent">
+          Jag godkänner att Kamiljö AB lagrar och behandlar mina uppladdade filer och
+          kontaktuppgifter i enlighet med integritetspolicyn ovan (GDPR).
+        </label>
+      </div>
+    </div>
+
+    <!-- SKICKA-KNAPP -->
+    <div class="card-section" style="border-bottom:none;">
+      <button id="submit-btn" disabled>
+        <div class="spinner" id="btn-spinner"></div>
+        <span id="btn-text">📤 Ladda upp filer till Kamiljö AB</span>
+      </button>
+      <p style="text-align:center;font-size:12px;color:var(--gray-400);margin-top:10px;">
+        Filerna laddas upp krypterat direkt till Kamiljö ABs Google Drive-mapp.
+      </p>
+    </div>
+
+  </div><!-- /.card -->
+
+  <!-- SUCCESS -->
+  <div id="success-screen" class="card" style="margin-top:0;">
+    <div class="result-screen success">
+      <div class="result-icon">✅</div>
+      <h2>Filen är uppladdad!</h2>
+      <p id="success-msg">Din fil har laddats upp till Kamiljö AB. Vi granskar den och återkommer inom 24 timmar med offert.</p>
+      <a href="https://kamiljo.se/kontakt" class="btn-secondary">Gå till bokningsformuläret</a>
+      <button class="btn-secondary" onclick="resetApp()" style="margin-left:12px;background:var(--green);">
+        Ladda upp fler filer
+      </button>
+    </div>
+  </div>
+
+  <!-- ERROR -->
+  <div id="error-screen" class="card" style="margin-top:0;">
+    <div class="result-screen error">
+      <div class="result-icon">⚠️</div>
+      <h2>Något gick fel</h2>
+      <p id="error-msg">Uppladdningen misslyckades. Försök igen eller kontakta oss direkt.</p>
+      <a href="tel:+46762124124" class="btn-secondary" style="background:var(--red);">📞 Ring oss direkt</a>
+      <button class="btn-secondary" onclick="resetApp()" style="margin-left:12px;">Försök igen</button>
+    </div>
+  </div>
+
+</main>
+
+<!-- FOOTER -->
 <footer>
-    <div class="container">
-        <p>&copy; 2024 Usługi Hydrauliczne. Wszystkie linki otwierają się w nowym oknie.</p>
-    </div>
+  <strong>Kamiljö AB</strong> — Auktoriserade VVS-montörer, Ludvika, Dalarna<br>
+  <a href="tel:+46762124124">+46 762 124 124</a> &nbsp;·&nbsp;
+  <a href="mailto:info@kamiljo.se">info@kamiljo.se</a> &nbsp;·&nbsp;
+  <a href="https://kamiljo.se">kamiljo.se</a><br>
+  Org.nr: 559572-5366 · Godkänd för F-skatt · ROT-avdrag
 </footer>
 
-<script src="script.js"></script>
+<!-- TOAST -->
+<div id="toast"></div>
+
+<!-- ============================================================
+     JAVASCRIPT - CHUNK UPLOAD ENGINE
+     ============================================================ -->
+<script>
+// !! VIKTIGT: Ersatt denna URL med din Google Apps Script Web App URL !!
+// Efter att du distribuerat backend-scriptet, klistra in URL:en har:
+var WEBAPP_URL = https://script.google.com/macros/s/AKfycbzLXpAPVJ7sW66zy6b9ZSFm0XoPLw921xIkd_ZEVcLt0-O-p3Qnk5T-LU71ktPKgs3rYA/exec;
+
+var CHUNK_SIZE = 5 * 1024 * 1024; // 5 MB
+
+// State
+var selectedFiles = [];
+var uploadQueue   = [];
+var isUploading   = false;
+
+// ── DOM-ELEMENT ──
+var dropzone    = document.getElementById("dropzone");
+var fileInput   = document.getElementById("file-input");
+var fileList    = document.getElementById("file-list");
+var submitBtn   = document.getElementById("submit-btn");
+var btnText     = document.getElementById("btn-text");
+var btnSpinner  = document.getElementById("btn-spinner");
+var globalProg  = document.getElementById("global-progress");
+var globalFill  = document.getElementById("global-fill");
+var progressTxt = document.getElementById("progress-text");
+var progressPct = document.getElementById("progress-pct");
+var gdprBox     = document.getElementById("gdpr-consent");
+var mainCard    = document.querySelector(".card");
+var successScr  = document.getElementById("success-screen");
+var errorScr    = document.getElementById("error-screen");
+
+// ── DRAG & DROP ──
+dropzone.addEventListener("dragover", function(e) {
+  e.preventDefault();
+  dropzone.classList.add("dragover");
+});
+dropzone.addEventListener("dragleave", function() {
+  dropzone.classList.remove("dragover");
+});
+dropzone.addEventListener("drop", function(e) {
+  e.preventDefault();
+  dropzone.classList.remove("dragover");
+  addFiles(Array.from(e.dataTransfer.files));
+});
+
+fileInput.addEventListener("change", function() {
+  addFiles(Array.from(this.files));
+  this.value = "";
+});
+
+gdprBox.addEventListener("change", updateSubmitState);
+
+// ── LÄGG TILL FILER ──
+function addFiles(newFiles) {
+  newFiles.forEach(function(file) {
+    if (selectedFiles.find(function(f) { return f.name === file.name && f.size === file.size; })) {
+      showToast("Filen finns redan: " + file.name, true);
+      return;
+    }
+    var id = "file_" + Date.now() + "_" + Math.random().toString(36).substr(2, 6);
+    selectedFiles.push({ id: id, file: file, status: "pending", progress: 0, sessionId: null, folderId: null });
+    renderFileItem(id, file);
+  });
+  updateSubmitState();
+}
+
+function getFileIcon(file) {
+  var t = file.type || "";
+  if (t.startsWith("image/"))  return "🖼️";
+  if (t.startsWith("video/"))  return "🎬";
+  if (t.includes("pdf"))       return "📄";
+  return "📁";
+}
+
+function formatSize(bytes) {
+  if (bytes < 1024)        return bytes + " B";
+  if (bytes < 1048576)     return (bytes / 1024).toFixed(1) + " KB";
+  if (bytes < 1073741824)  return (bytes / 1048576).toFixed(1) + " MB";
+  return (bytes / 1073741824).toFixed(2) + " GB";
+}
+
+function renderFileItem(id, file) {
+  var div = document.createElement("div");
+  div.className = "file-item";
+  div.id = "item_" + id;
+  div.innerHTML =
+    '<div class="file-icon">' + getFileIcon(file) + '</div>'
+    + '<div class="file-info">'
+    +   '<div class="file-name">' + escHtml(file.name) + '</div>'
+    +   '<div class="file-meta">' + formatSize(file.size) + ' &nbsp;·&nbsp; '
+    +   Math.ceil(file.size / CHUNK_SIZE) + ' delar (5 MB/del)</div>'
+    +   '<div class="file-status" id="status_' + id + '">Väntar...</div>'
+    +   '<div class="progress-track"><div class="progress-fill" id="prog_' + id + '"></div></div>'
+    + '</div>'
+    + '<button class="file-remove" onclick="removeFile(\'' + id + '\')" title="Ta bort">✕</button>';
+  fileList.appendChild(div);
+}
+
+function removeFile(id) {
+  var idx = selectedFiles.findIndex(function(f) { return f.id === id; });
+  if (idx !== -1) {
+    var sf = selectedFiles[idx];
+    if (sf.status === "uploading") {
+      cancelUpload(sf);
+    }
+    selectedFiles.splice(idx, 1);
+  }
+  var el = document.getElementById("item_" + id);
+  if (el) el.remove();
+  updateSubmitState();
+}
+
+function updateSubmitState() {
+  var hasPending = selectedFiles.some(function(f) { return f.status === "pending"; });
+  submitBtn.disabled = !(hasPending && gdprBox.checked && !isUploading);
+}
+
+// ── CANCEL ──
+function cancelUpload(sf) {
+  if (!sf.sessionId) return;
+  fetch(WEBAPP_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ action: "cancelUpload", sessionId: sf.sessionId, folderId: sf.folderId })
+  }).catch(function() {});
+}
+
+// ── HUVUD-UPLOAD-FUNKTION ──
+submitBtn.addEventListener("click", function() {
+  if (isUploading) return;
+  startUploadAll();
+});
+
+function startUploadAll() {
+  uploadQueue = selectedFiles.filter(function(f) { return f.status === "pending"; });
+  if (!uploadQueue.length) return;
+
+  isUploading = true;
+  submitBtn.disabled = true;
+  btnText.textContent = "Laddar upp...";
+  btnSpinner.style.display = "block";
+  globalProg.style.display = "block";
+
+  uploadNext(0);
+}
+
+function uploadNext(index) {
+  if (index >= uploadQueue.length) {
+    allDone();
+    return;
+  }
+
+  var sf    = uploadQueue[index];
+  var total = uploadQueue.length;
+  progressTxt.textContent = "Laddar upp fil " + (index + 1) + " av " + total + ": " + sf.file.name;
+
+  uploadFile(sf, function(ok, result) {
+    if (ok) {
+      setFileStatus(sf.id, "done", "✅ Uppladdad!");
+      setFileProgress(sf.id, 100);
+    } else {
+      setFileStatus(sf.id, "error", "❌ Fel: " + (result || "Okänt fel"));
+    }
+    updateGlobalProgress(index + 1, total);
+    uploadNext(index + 1);
+  });
+}
+
+// ── LADDA UPP EN FIL (chunk by chunk) ──
+function uploadFile(sf, callback) {
+  var file       = sf.file;
+  var totalBytes = file.size;
+  var totalChunks = Math.ceil(totalBytes / CHUNK_SIZE);
+  var mimeType   = file.type || "application/octet-stream";
+
+  setFileStatus(sf.id, "uploading", "Initierar...");
+  setItemClass(sf.id, "uploading");
+
+  // STEG 1: Init
+  var initPayload = {
+    action:       "initUpload",
+    fileName:     file.name,
+    fileSize:     totalBytes,
+    totalChunks:  totalChunks,
+    mimeType:     mimeType,
+    senderName:   (document.getElementById("sender-name").value  || "").trim(),
+    senderEmail:  (document.getElementById("sender-email").value || "").trim(),
+    senderPhone:  (document.getElementById("sender-phone").value || "").trim(),
+    description:  (document.getElementById("description").value  || "").trim(),
+    formRef:      (document.getElementById("form-ref").value     || "").trim()
+  };
+
+  postJSON(initPayload, function(err, initRes) {
+    if (err || !initRes.success) {
+      setItemClass(sf.id, "error");
+      return callback(false, err || initRes.error);
+    }
+
+    sf.sessionId = initRes.sessionId;
+    sf.folderId  = initRes.folderId;
+    sf.status    = "uploading";
+
+    // STEG 2: Skicka chunks
+    sendChunks(sf, file, totalChunks, 0, function(chunkErr) {
+      if (chunkErr) {
+        setItemClass(sf.id, "error");
+        return callback(false, chunkErr);
+      }
+
+      // STEG 3: Finalize
+      setFileStatus(sf.id, "uploading", "Sätter ihop filen...");
+      postJSON({ action: "finalizeUpload", sessionId: sf.sessionId, folderId: sf.folderId },
+        function(finErr, finRes) {
+          if (finErr || !finRes.success) {
+            setItemClass(sf.id, "error");
+            return callback(false, finErr || finRes.error);
+          }
+          sf.status = "done";
+          setItemClass(sf.id, "done");
+          callback(true, finRes);
+        }
+      );
+    });
+  });
+}
+
+function sendChunks(sf, file, totalChunks, chunkIndex, callback) {
+  if (chunkIndex >= totalChunks) {
+    return callback(null);
+  }
+
+  var start  = chunkIndex * CHUNK_SIZE;
+  var end    = Math.min(start + CHUNK_SIZE, file.size);
+  var blob   = file.slice(start, end);
+
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    // base64 av chunk (ta bort "data:...;base64," prefix)
+    var base64 = e.target.result.split(",")[1];
+
+    var payload = {
+      action:     "uploadChunk",
+      sessionId:  sf.sessionId,
+      folderId:   sf.folderId,
+      chunkIndex: chunkIndex,
+      chunkData:  base64
+    };
+
+    setFileStatus(sf.id, "uploading",
+      "Del " + (chunkIndex + 1) + " / " + totalChunks + "  (" + formatSize(end) + " / " + formatSize(file.size) + ")");
+
+    var pct = Math.round((chunkIndex / totalChunks) * 100);
+    setFileProgress(sf.id, pct);
+
+    postJSON(payload, function(err, res) {
+      if (err || !res.success) {
+        return callback(err || res.error || "Chunk " + chunkIndex + " misslyckades");
+      }
+      // Nästa chunk
+      sendChunks(sf, file, totalChunks, chunkIndex + 1, callback);
+    });
+  };
+  reader.onerror = function() {
+    callback("Kunde inte läsa fil: " + file.name);
+  };
+  reader.readAsDataURL(blob);
+}
+
+// ── HTTP-HJÄLP ──
+function postJSON(payload, callback) {
+  if (WEBAPP_URL === "PASTE_YOUR_WEBAPP_URL_HERE") {
+    return callback("Webb-app URL är inte konfigurerad. Se installationsguiden.", null);
+  }
+  fetch(WEBAPP_URL, {
+    method:  "POST",
+    headers: { "Content-Type": "application/json" },
+    body:    JSON.stringify(payload)
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(data) { callback(null, data); })
+  .catch(function(e) { callback(e.message || e.toString(), null); });
+}
+
+// ── UI HJÄLP ──
+function setFileStatus(id, cls, msg) {
+  var el = document.getElementById("status_" + id);
+  if (!el) return;
+  el.className = "file-status " + cls;
+  el.textContent = msg;
+}
+
+function setFileProgress(id, pct) {
+  var el = document.getElementById("prog_" + id);
+  if (el) el.style.width = pct + "%";
+}
+
+function setItemClass(id, cls) {
+  var el = document.getElementById("item_" + id);
+  if (el) el.className = "file-item " + cls;
+}
+
+function updateGlobalProgress(done, total) {
+  var pct = Math.round((done / total) * 100);
+  globalFill.style.width = pct + "%";
+  progressPct.textContent = pct + "%";
+}
+
+function allDone() {
+  isUploading = false;
+  btnSpinner.style.display = "none";
+
+  var errors  = uploadQueue.filter(function(f) { return f.status !== "done"; });
+  var success = uploadQueue.filter(function(f) { return f.status === "done"; });
+
+  if (success.length > 0 && errors.length === 0) {
+    mainCard.style.display   = "none";
+    successScr.style.display = "block";
+    document.getElementById("success-msg").textContent =
+      success.length + (success.length === 1 ? " fil har" : " filer har") +
+      " laddats upp till Kamiljö AB. Vi granskar dem och återkommer " +
+      "inom 24 timmar med en offert.";
+  } else if (errors.length > 0) {
+    mainCard.style.display = "none";
+    errorScr.style.display = "block";
+    document.getElementById("error-msg").textContent =
+      errors.length + " av " + uploadQueue.length + " filer misslyckades. " +
+      "Försök igen eller ring oss direkt på +46 762 124 124.";
+  }
+  progressTxt.textContent = "Klart!";
+}
+
+function resetApp() {
+  selectedFiles = [];
+  uploadQueue   = [];
+  isUploading   = false;
+  fileList.innerHTML = "";
+  btnText.textContent = "📤 Ladda upp filer till Kamiljö AB";
+  btnSpinner.style.display = "none";
+  globalProg.style.display = "none";
+  globalFill.style.width = "0%";
+  gdprBox.checked = false;
+  mainCard.style.display   = "block";
+  successScr.style.display = "none";
+  errorScr.style.display   = "none";
+  updateSubmitState();
+}
+
+function showToast(msg, isError) {
+  var t = document.getElementById("toast");
+  t.textContent = msg;
+  t.className = "show" + (isError ? " error-toast" : "");
+  setTimeout(function() { t.className = ""; }, 3000);
+}
+
+function escHtml(str) {
+  return str.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+}
+</script>
 </body>
 </html>
